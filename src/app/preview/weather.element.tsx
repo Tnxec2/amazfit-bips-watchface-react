@@ -1,77 +1,61 @@
 import { IImage } from "../model/image.model";
-import { WatchWeather, WatchWeatherExt } from "../model/watchFace.gts2mini.model";
+import { WatchWeather } from "../model/watchFace.bips.model";
 import { WatchState } from "../model/watchState";
 import drawDigitImage, { drawDigitsOneLine } from "./digitImage.element";
 import drawImage from "./image.element";
 import drawImageSet from "./imageSet.element";
-import drawShortcutElement from "./shortcut.element";
+
 
 export function drawWeather(ctx: CanvasRenderingContext2D,
     images: IImage[],
     weather: WatchWeather,
-    weatherext: WatchWeatherExt,
     watchState: WatchState,
     drawBorder: boolean,
-    drawShortcutBorder) {
+    ) {
     if (!weather) return;
-    if (weather.current.imageNumber.enabled) {
-        drawDigitImage(ctx, images, weather.current.imageNumber, 
-            watchState.temperature, null, drawBorder, false,
-            weather.current.minus, null, null, weather.current.suffix)
+    
+    if (weather.icon?.enabled && weather.icon?.customIcon?.enabled) {
+        drawImageSet(ctx, images, weather.icon.customIcon.json, watchState.weatherIcon, 26);
     }
-    if (weather.lowest.imageNumber.enabled) {
-        drawDigitImage(ctx, images, weather.lowest.imageNumber, 
-            watchState.temperatureMin, null, drawBorder, false,
-            weather.lowest.suffix, null, null, weather.lowest.suffix)
+    if (weather.current.enabled) {
+        drawDigitImage(ctx, images, weather.current.number, watchState.temperature, null, drawBorder, 
+            1, weather.current.minus, null, null, weather.current.degrees, null)
     }
-    if (weather.highest.imageNumber.enabled) {
-        drawDigitImage(ctx, images, weather.highest.imageNumber, 
-            watchState.temperatureMax, null, drawBorder, false,
-            weather.highest.minus, null, null, weather.highest.suffix)
-    }
-    if (weather.icon.enabled) {
-        drawImageSet(ctx, images, weather.icon.json, watchState.weatherIcon, 26);
-    }
-    if (weather.oneLineMinMax.enabled) {
+    if (weather.todayOneLine.enabled) {
         let min = watchState.temperatureMin
         let max = watchState.temperatureMax
         let ar = [
-            weather.oneLineMinMax.paddingZero ? ( min < 0 ? '-' + Math.abs(min).toString().padStart(2, '0') : min.toString().padStart(2, '0') ) : min.toString(),
-            weather.oneLineMinMax.paddingZero ? ( max < 0 ? '-' + Math.abs(max).toString().padStart(2, '0') : max.toString().padStart(2, '0') ) : max.toString()
+            min.toString(),
+            max.toString()
         ]
-        drawDigitsOneLine(ctx, images, weather.oneLineMinMax, ar, weather.oneLineDelimiter, drawBorder, weather.oneLineDegrees, null, weather.oneLineMinus)
+        drawDigitsOneLine(ctx, images, weather.todayOneLine.number, ar, weather.todayOneLine.delimiter, 
+            drawBorder, weather.todayOneLine.degrees, null, weather.todayOneLine.minus, weather.todayOneLine.appendDegreesToBoth)
+    } else {
+        if ( weather.day.enabled) {
+            drawDigitImage(ctx, images, weather.day.number, watchState.temperatureMax, null, drawBorder, 
+                1, weather.day.minus, null, null, weather.day.degrees)
+        }
+        if ( weather.night.enabled) {
+            drawDigitImage(ctx, images, weather.night.number, watchState.temperatureMin, null, drawBorder, 
+                1, weather.night.minus, null, null, weather.night.degrees)
+        }
     }
     // 
-    if (weatherext.humidityIcon.enabled) {
-        drawImage(ctx, images, weatherext.humidityIcon.json)
+    if (weather.humidity?.icon?.enabled) {
+        drawImage(ctx, images, weather.humidity.icon.json)
     }
-    if (weatherext.humidityNumber.enabled) {
-        drawDigitImage(ctx, images, weatherext.humidityNumber, watchState.humidity, null, drawBorder, 
-            false, null, null, null, weatherext.humiditySuffix)
-    }
-    if (weatherext.humidityProgress.imageProgress.enabled) {
-        drawImageSet(ctx, images, weatherext.humidityProgress.imageProgress.json, watchState.humidity, watchState.humidityGoal)
+    if (weather.humidity?.number?.enabled) {
+        drawDigitImage(ctx, images, weather.humidity.number, watchState.humidity, null, drawBorder, 
+            1, null, null, null, weather.humidity.suffix)
     }
 
-    if (weatherext.airQualityIcon.enabled) {
-        drawImage(ctx, images, weatherext.airQualityIcon.json)
+    if (weather.aqi?.icon?.enabled) {
+        drawImage(ctx, images, weather.aqi.icon.json)
     }
-    if (weatherext.airQualityNumber.enabled) {
-        drawDigitImage(ctx, images, weatherext.airQualityNumber, watchState.airQuality, null, drawBorder, 
-            false, null, null, null, null)
+    if (weather.aqi.number.enabled) {
+        drawDigitImage(ctx, images, weather.aqi.number, watchState.airQuality, null, drawBorder, 
+            1, null, null, null, null)
     }
-    if (weatherext.uvIcon.enabled) {
-        drawImage(ctx, images, weatherext.uvIcon.json)
-    }
-    if (weatherext.uvNumber.enabled) {
-        drawDigitImage(ctx, images, weatherext.uvNumber, watchState.uvIndex, null, drawBorder, 
-            false, null, null, null, weatherext.uvSuffixImageIndex)
-    }
-    if (weatherext.uvProgress.imageProgress.enabled) {
-        drawImageSet(ctx, images, weatherext.uvProgress.imageProgress.json, watchState.uvIndex, watchState.uvIndexGoal)
-    }
-    if (weatherext.uvShortcut.enabled) {
-        drawShortcutElement(ctx, weatherext.uvShortcut.json, drawShortcutBorder)
-    }
+    
 
 }

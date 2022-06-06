@@ -1,56 +1,62 @@
 import { findImageById } from "../shared/helper";
-import { Constant } from "../shared/constant";
 import { IImage } from "../model/image.model";
-import { WatchClockHand } from "../model/watchFace.gts2mini.model";
-import { Coordinates } from "../model/json.gts2minit.model";
+import { WatchClockHand } from "../model/watchFace.bips.model";
+import Color from "../shared/color";
 
+interface ICoords {
+    x: number,
+    y: number,
+}
 export default function drawclockhand(
     ctx: CanvasRenderingContext2D, 
     images: IImage[], 
     clockHand: WatchClockHand, 
     value: number, 
-    total: number,
-    commonCenterCoordinates: Coordinates ) {
-        if (total === null) return
-        if (clockHand.json.ImageIndex >= 0) {
-            let x = 0
-            let y = 0
-            if (!commonCenterCoordinates) {
-                x = clockHand.json.CenterCoordinates ? clockHand.json.CenterCoordinates.X : 0
-                y = clockHand.json.CenterCoordinates ? clockHand.json.CenterCoordinates.Y : 0
-                
-                if ( ! clockHand.json.CenterCoordinates?.X && !clockHand.json.CenterCoordinates?.X ) {
-                    x = clockHand.json.CenterCoordinates?.X ? clockHand.json.CenterCoordinates?.X : Constant.width / 2
-                    y = clockHand.json.CenterCoordinates?.Y ? clockHand.json.CenterCoordinates?.X : Constant.height / 2
-                }
-            } else {
-                x = commonCenterCoordinates.X ? commonCenterCoordinates.X : 0
-                y = commonCenterCoordinates.Y ? commonCenterCoordinates.Y : 0
-            }
+    total: number ) {
 
-            let img = findImageById(clockHand.json.ImageIndex, images)
-            if (img) {
-                let offsetX = img.width / 2
-                let offsetY = clockHand.json.PointerCenterOfRotationY ? clockHand.json.PointerCenterOfRotationY : 0
-                
-                let _startAngle = 0
-                let _endAngle = 360
-                if (value > total) value = total
-                let angle = _startAngle + (value * (_endAngle - _startAngle ) / total)
+    if (total === null) return
 
-                let radians = (Math.PI/180) * angle
-                
-                ctx.save(); // save current state
-                ctx.translate(x, y); // change origin to center of rotation
-                ctx.rotate(radians); // rotate
-                ctx.drawImage(img, -offsetX, -offsetY, img.width, img.height);
-                ctx.restore(); // restore original states (no rotation etc)
-            }
+    const points: ICoords[] = []
+    const center: ICoords = {x: clockHand.json.Center?.X ? clockHand.json?.Center?.X : 0, y: clockHand.json?.Center?.Y ? clockHand.json.Center?.Y : 0}
+
+    clockHand.json?.Shape?.forEach(c => {
+        points.push({x: c.X, y: c.Y})
+    })
+
+    let color = Color.colorRead(clockHand.json.Color)
+    if ( Color.GFG_Fun(color)) {
+        console.log(color, points);
+        
+        ctx.strokeStyle = color;
+        if ( !clockHand.json.OnlyBorder ) ctx.fillStyle = color;
+
+        ctx.save(); // saves the coordinate system
+        ctx.translate(center.x, center.y); // now the position (0,0) is found at (250,50)
+
+        const angle = (value * 360 / total) - 90
+        console.log(angle);
+        
+        ctx.rotate((Math.PI/180) * angle); // rotate around the start point of your line
+        // Draw shape
+        ctx.beginPath();
+        ctx.moveTo(points[0].x, points[0].y);
+
+        for (var i = 1; i < points.length; i++) {
+            ctx.lineTo(points[i].x, points[i].y);
         }
-        if (clockHand.json.CoverImage?.ImageIndex >= 0) {
-            let x = clockHand.json.CoverImage?.X ? clockHand.json.CoverImage.X : 0
-            let y = clockHand.json.CoverImage?.Y ? clockHand.json.CoverImage.Y : 0
-            let img = findImageById(clockHand.json.CoverImage.ImageIndex, images)
+
+        ctx.lineTo(points[0].x, points[0].y);
+
+        ctx.stroke();
+        if ( !clockHand.json.OnlyBorder ) ctx.fill();
+        ctx.restore()
+        
+        if (clockHand.json?.CenterImage?.ImageIndex >= 0) {
+            let x = clockHand.json.CenterImage?.X ? clockHand.json.CenterImage.X : 0
+            let y = clockHand.json.CenterImage?.Y ? clockHand.json.CenterImage.Y : 0
+            let img = findImageById(clockHand.json.CenterImage.ImageIndex, images)
             if ( img ) ctx.drawImage(img, x, y);
         }
+    }
+    
 }

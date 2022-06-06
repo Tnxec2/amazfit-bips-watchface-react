@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import "./App.css";
 import FileLoaderComponent from "./app/components/main/fileLoader.component";
@@ -9,15 +9,20 @@ import { IImage } from "./app/model/image.model";
 
 import { WatchState } from "./app/model/watchState";
 import { WatchfaceContext } from "./app/context";
-import { WatchFace } from "./app/model/watchFace.gts2mini.model";
+import { WatchFace } from "./app/model/watchFace.bips.model";
+import { Constant } from "./app/shared/constant";
 
 const App: FC = () => {
   const [images, setImages] = useState<IImage[]>([]);
-  const [watchface, setWatchface] = useState<WatchFace>(new WatchFace());
+  const [watchface, setWatchface] = useState<WatchFace>(loadWatchfaceBackup());
   const [watchState, setWatchState] = useState<WatchState>(new WatchState());
 
   const [jsonName, setJsonName] = useState<string>(null);
   const [previewScreenNormal, setPreviewScreenNormal] = useState<boolean>(true);
+
+  useEffect(() => {
+    localStorage.setItem(Constant.CONFIG_WATCHFACE_BACKUP, JSON.stringify(watchface));
+  }, [watchface]);
 
   return (
     <WatchfaceContext.Provider
@@ -52,3 +57,10 @@ const App: FC = () => {
 };
 
 export default App;
+
+function loadWatchfaceBackup(): WatchFace {
+  const s = localStorage.getItem(Constant.CONFIG_WATCHFACE_BACKUP)
+  if (s !== null) return JSON.parse(s)
+  return new WatchFace()
+}
+

@@ -1,8 +1,8 @@
-# Amazfit GTS2 WatchFace editor (react)
+# Amazfit BipS WatchFace editor (react)
 
 this is my just for fun project.
 
-this is a Web-Based watchfaces json crate tool for Amazfit Gts2 watch.
+this is a Web-Based watchfaces json crate tool for Amazfit BipS watch.
 
 ## Available Scripts
 

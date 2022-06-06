@@ -2,49 +2,47 @@ import { FC, useMemo } from "react";
 import { Card } from "react-bootstrap";
 import BlocksArrayComponent from "../../blocks/blocksArray.component";
 import { BlockType, IRow } from "../../model/blocks.model";
-import { WatchHumidity, WatchImage, WatchNumber } from "../../model/watchFace.bips.model";
-import ImageComponent from "./image.component";
+import { WatchBatteryFormatedNumber, WatchNumber } from "../../model/watchFace.bips.model";
 import WatchNumberComponent from "./number.component";
 
 interface IProps {
   title: string;
-  humidity: WatchHumidity;
-  onUpdate(aqi: WatchHumidity): void;
-  onCopyFromNormal?(): void,
-
+  digit: WatchBatteryFormatedNumber;
+  onUpdate(digit: WatchBatteryFormatedNumber): void;
 }
 
-const WatchWeatherHumidityComponent: FC<IProps> = ({
+const WatchBatteryFormatedNumberComponent: FC<IProps> = ({
   title,
-  humidity,
+  digit,
   onUpdate,
 }) => {
 
   const ar = useMemo<IRow[]>(() => [
     {
       blocks: [
-        { title: 'Suffix', type: BlockType.SelectFile, nvalue: humidity.suffix, onChange: onChangeSuffix },
+        { title: 'suffix', type: BlockType.SelectFile, nvalue: digit.suffix, onChange: onChangeSuffix },
+        { title: 'icon', type: BlockType.SelectFile, nvalue: digit.iconimageindex, onChange: onChangeIcon },
       ]
     },
-  ], [humidity]) // eslint-disable-line react-hooks/exhaustive-deps
+  ], [digit]) // eslint-disable-line react-hooks/exhaustive-deps
 
+  function onChangeSuffix(index: number) {
+    const d = {...digit};
+    d.suffix = index;
+    onUpdate(d);
+  }
 
+  function onChangeIcon(index: number) {
+    const d = {...digit};
+    d.iconimageindex = index;
+    onUpdate(d);
+  }
   function onUpdateNumber(number: WatchNumber) {
-    const d = {...humidity};
+    const d = {...digit};
     d.number = number;
     onUpdate(d);
   }
 
-  function onUpdateIcon(icon: WatchImage) {
-    const d = {...humidity};
-    d.icon = icon;
-    onUpdate(d);
-  }
-  function onChangeSuffix(n: number) {
-    const d = {...humidity};
-    d.suffix = n;
-    onUpdate(d);
-  }
 
   return (
     <Card>
@@ -55,29 +53,24 @@ const WatchWeatherHumidityComponent: FC<IProps> = ({
             <input
               className="form-check-input mt-0"
               type="checkbox"
-              checked={humidity.collapsed}
+              checked={digit.enabled}
               onChange={() => {
-                const d = { ...humidity };
-                d.collapsed = !d.collapsed;
+                const d = { ...digit };
+                d.enabled = !d.enabled;
                 onUpdate(d);
               }}
             />
           </div>
         </div>
       </Card.Header>
-      {humidity.collapsed ? (
+      {digit.enabled ? (
         <Card.Body>
           <WatchNumberComponent
             title='Number'
-            digit={humidity.number}
+            digit={digit.number}
             onUpdate={onUpdateNumber} 
             showDelimiter={false}
             paddingDisabled={true}
-          />
-          <ImageComponent
-            title="Icon"
-            image={{...humidity.icon}}
-            onUpdate={onUpdateIcon}
           />
           <BlocksArrayComponent ar={ar} />
         </Card.Body>
@@ -88,4 +81,4 @@ const WatchWeatherHumidityComponent: FC<IProps> = ({
   );
 };
 
-export default WatchWeatherHumidityComponent;
+export default WatchBatteryFormatedNumberComponent;

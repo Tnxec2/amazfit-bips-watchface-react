@@ -2,40 +2,33 @@ import { FC, useMemo } from "react";
 import { Card } from "react-bootstrap";
 import BlocksArrayComponent from "../../blocks/blocksArray.component";
 import { BlockType, IRow } from "../../model/blocks.model";
-import { WatchImage } from "../../model/watchFace.bips.model";
+import { WatchCoordinates } from "../../model/watchFace.bips.model";
 
 interface IProps {
   title: string;
-  image: WatchImage;
-  onUpdate(imageSet: WatchImage): void;
+  coords: WatchCoordinates;
+  onUpdate(coords: WatchCoordinates): void;
 }
 
-const ImageComponent: FC<IProps> = ({ title, image, onUpdate }) => {
+const CoordinatesComponent: FC<IProps> = ({ title, coords, onUpdate }) => {
 
   const ar = useMemo<IRow[]>(() => [
     {
       blocks: [
-        { title: 'Image', type: BlockType.SelectFile, nvalue: image.json.ImageIndex, onChange: onChangeImageIndex },
-        { title: 'X', type: BlockType.Number, nvalue: image.json.X, onChange: onChangeX },
-        { title: 'Y', type: BlockType.Number, nvalue: image.json.Y, onChange: onChangeY },
+        { title: 'X', type: BlockType.Number, nvalue: coords.json.X, onChange: onChangeX },
+        { title: 'Y', type: BlockType.Number, nvalue: coords.json.Y, onChange: onChangeY },
       ]
     }
-  ], [image]) // eslint-disable-line react-hooks/exhaustive-deps
-
-  function onChangeImageIndex(index: number) {
-    const ip = { ...image };
-    ip.json.ImageIndex = index;
-    onUpdate(ip);
-  }
+  ], [coords]) // eslint-disable-line react-hooks/exhaustive-deps
 
   function onChangeX(val: number) {
-    const ip = { ...image };
+    const ip = { ...coords };
     ip.json.X = val;
     onUpdate(ip);
   }
 
   function onChangeY(val: number) {
-    const ip = { ...image };
+    const ip = { ...coords };
     ip.json.Y = val;
     onUpdate(ip);
   }
@@ -49,9 +42,9 @@ const ImageComponent: FC<IProps> = ({ title, image, onUpdate }) => {
             <input
               className="form-check-input mt-0"
               type="checkbox"
-              checked={image.enabled}
+              checked={coords.enabled}
               onChange={() => {
-                const ic = { ...image };
+                const ic = { ...coords };
                 ic.enabled = !ic.enabled;
                 onUpdate(ic);
               }}
@@ -59,7 +52,7 @@ const ImageComponent: FC<IProps> = ({ title, image, onUpdate }) => {
           </div>
         </div>
       </Card.Header>
-      {image.enabled ? (
+      {coords.enabled ? (
         <Card.Body>
           <BlocksArrayComponent ar={ar} />
         </Card.Body>
@@ -70,4 +63,4 @@ const ImageComponent: FC<IProps> = ({ title, image, onUpdate }) => {
   );
 };
 
-export default ImageComponent;
+export default CoordinatesComponent;

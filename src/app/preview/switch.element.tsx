@@ -1,6 +1,6 @@
 import { findImageById } from "../shared/helper";
 import { IImage } from "../model/image.model";
-import { Switch } from "../model/json.gts2minit.model";
+import { Switch } from "../model/json.bips.model";
 
 export default function drawSwitch(
     ctx: CanvasRenderingContext2D,

@@ -6,12 +6,14 @@ interface IProps {
   title: string,
   value: number;
   onChange(id: number): void;
+  disabled?: boolean
 }
 
 const SelectFileListComponent: FC<IProps> = ({
   title,
   value,
   onChange,
+  disabled
 }) => {
   const { images } = useContext<IWatchContext>(WatchfaceContext);
 
@@ -75,7 +77,7 @@ const SelectFileListComponent: FC<IProps> = ({
         onClick={() => {
           setCollapsed(!collapsed);
         }}
-        disabled={!images || images.length === 0}
+        disabled={disabled || !images || images.length === 0}
       >
         + 
       </button>
@@ -83,7 +85,7 @@ const SelectFileListComponent: FC<IProps> = ({
         className="btn btn-outline-secondary"
         type="button"
         onClick={onRemove}
-        disabled={!(value >= 0)}
+        disabled={disabled || !(value >= 0)}
       >
         x
       </button>

@@ -3,7 +3,7 @@ import { Card } from "react-bootstrap";
 import BlocksArrayComponent from "../../blocks/blocksArray.component";
 import { IWatchContext, WatchfaceContext } from "../../context";
 import { BlockType, IRow } from "../../model/blocks.model";
-import { WatchImage } from "../../model/watchFace.gts2mini.model";
+import { WatchImage } from "../../model/watchFace.bips.model";
 import ImageComponent from "./image.component";
 
 const BackgroundComponent: FC = () => {
@@ -29,10 +29,10 @@ const BackgroundComponent: FC = () => {
       background: { ...watchface.background, image: i },
     });
   }
-  function onChangeFloatingLayer(i: WatchImage) {
+  function onChangeFrontImage(i: WatchImage) {
     setWatchface({
       ...watchface,
-      background: { ...watchface.background, floatingLayer: i },
+      background: { ...watchface.background, frontImage: i },
     });
   }
 
@@ -69,9 +69,9 @@ const BackgroundComponent: FC = () => {
             onUpdate={onChangeImage}
             />
           <ImageComponent 
-            title='Floating layer'
-            image={{...watchface.background.floatingLayer}}
-            onUpdate={onChangeFloatingLayer}
+            title='Front image'
+            image={{...watchface.background.frontImage}}
+            onUpdate={onChangeFrontImage}
             />
         </Card.Body>
       ) : (

@@ -2,9 +2,9 @@ import { FC, useContext } from "react";
 import { Button } from "react-bootstrap";
 import { IWatchContext, WatchfaceContext } from "../../context";
 import { IImage } from "../../model/image.model";
-import { WatchJson } from "../../model/json.gts2minit.model";
+import { WatchJson } from "../../model/json.bips.model";
 
-import { WatchFace } from "../../model/watchFace.gts2mini.model";
+import { WatchFace } from "../../model/watchFace.bips.model";
 
 import { Constant } from "../../shared/constant";
 
@@ -21,6 +21,7 @@ const FileLoaderComponent: FC = () => {
 
   function uploadJsonFile(e) {
     let file = e.target.files.item(0);
+    
     if (file) {
       let fr = new FileReader();
       fr.onload = onLoadJson;
@@ -98,6 +99,7 @@ const FileLoaderComponent: FC = () => {
           id="fileUpload"
           accept="image/*"
           onChange={imagesUploadHandler}
+          
         />
         {images.length > 0 ? (
           <>
@@ -107,15 +109,18 @@ const FileLoaderComponent: FC = () => {
               accept="application/json"
               id="jsonLoad"
               onChange={uploadJsonFile}
+              
             />
-            <Button onClick={clearInput}>clear</Button>
+            
           </>
         ) : (
           ""
         )}
+        <Button onClick={clearInput}>clear</Button>
       </span>
     </div>
   );
 };
 
 export default FileLoaderComponent;
+

@@ -1,5 +1,5 @@
 import { IImage } from "../model/image.model";
-import { WatchStatus } from "../model/watchFace.gts2mini.model";
+import { WatchStatus } from "../model/watchFace.bips.model";
 
 import { WatchState } from "../model/watchState";
 import drawSwitch from "./switch.element";

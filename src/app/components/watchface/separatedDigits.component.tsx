@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Card } from "react-bootstrap";
-import { WatchImageSet } from "../../model/watchFace.gts2mini.model";
+import { WatchImageSet } from "../../model/watchFace.bips.model";
 import ImageSetComponent from "./imageSet.component";
 
 interface IProps {

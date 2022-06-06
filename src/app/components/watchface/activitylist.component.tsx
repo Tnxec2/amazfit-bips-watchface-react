@@ -1,45 +1,51 @@
 import { FC, useContext } from "react";
 import { Card } from "react-bootstrap";
 import { IWatchContext, WatchfaceContext } from "../../context";
-import { ActivityType } from "../../model/types.gts2mini.model";
-import { WatchActivity } from "../../model/watchFace.gts2mini.model";
-import ActivityComponent from "./activity.component";
+import { WatchFormatedNumber, WatchStepsProgress } from "../../model/watchFace.bips.model";
+import WatchFormatedNumberComponent from "./formatedNumber.component";
+import StepProgressComponent from "./stepProgress.component";
 
 const ActivityListComponent: FC = () => {
   const { watchface, setWatchface } =
   useContext<IWatchContext>(WatchfaceContext);
 
-  function updateSteps(a: WatchActivity) {
+  function updateSteps(a: WatchFormatedNumber) {
     const w = {...watchface};
     w.activity.steps = a;
     setWatchface(w);
   }
-  function updateCaloris(a: WatchActivity) {
+  function updateStepProgress(a: WatchStepsProgress) {
+    const w = {...watchface};
+    w.stepsProgress = a;
+    setWatchface(w);
+  }
+  function updateCaloris(a: WatchFormatedNumber) {
     const w = {...watchface};
     w.activity.calories = a;
     setWatchface(w);
   }
-  function updateHearthrate(a: WatchActivity) {
+  function updateHearthrate(a: WatchFormatedNumber) {
     const w = {...watchface};
-    w.activity.heartRate = a;
+    w.activity.pulse = a;
     setWatchface(w);
   }
-  function updateDistance(a: WatchActivity) {
+  function updateDistance(a: WatchFormatedNumber) {
     const w = {...watchface};
     w.activity.distance = a;
     setWatchface(w);
   }
-  function updatePai(a: WatchActivity) {
+  function updatePai(a: WatchFormatedNumber) {
     const w = {...watchface};
     w.activity.pai = a;
     setWatchface(w);
   }
-  function updateStandUp(a: WatchActivity) {
+  function updateStepsGoal(a: WatchFormatedNumber) {
     const w = {...watchface};
-    w.activity.standUp = a;
+    w.activity.stepsGoals = a;
     setWatchface(w);
   }
   return (
+    <>
     <Card>
       <Card.Header 
         title='Click to open / close'
@@ -53,72 +59,70 @@ const ActivityListComponent: FC = () => {
     
       </Card.Header>
       { !watchface.activity.collapsed  ? (
-        <Card.Body>
-            <ActivityComponent
+      <Card.Body>
+            <WatchFormatedNumberComponent
               title='Steps'
-              activity={{...watchface.activity.steps}}
-              onUpdateActivity={updateSteps}
-              type={ActivityType.Steps}
-              showImageProgress={true}
-              showIconProgress={true}
-              showPointerProgress={true}
-              showCircleScaleProgress={true}
+              digit={watchface.activity.steps}
+              onUpdate={updateSteps}
             />
-            <ActivityComponent
+            <WatchFormatedNumberComponent
+              title='Steps goal'
+              digit={watchface.activity.stepsGoals}
+              onUpdate={updateStepsGoal}
+            />
+            <WatchFormatedNumberComponent
               title='Calories'
-              activity={{...watchface.activity.calories}}
-              onUpdateActivity={updateCaloris}
-              type={ActivityType.Calories}
-              showImageProgress={true}
-              showIconProgress={true}
-              showPointerProgress={true}
-              showCircleScaleProgress={true}
+              digit={watchface.activity.calories}
+              onUpdate={updateCaloris}
             />
-            <ActivityComponent
-              title='Hearth rate'
-              activity={{...watchface.activity.heartRate}}
-              onUpdateActivity={updateHearthrate}
-              type={ActivityType.HeartRate}
-              showImageProgress={true}
-              showIconProgress={true}
-              showPointerProgress={true}
-              showCircleScaleProgress={true}
+            <WatchFormatedNumberComponent
+              title='Hearthrate'
+              digit={watchface.activity.pulse}
+              onUpdate={updateHearthrate}
             />
-            <ActivityComponent
+            <WatchFormatedNumberComponent
               title='Distance'
-              activity={{...watchface.activity.distance}}
-              onUpdateActivity={updateDistance}
-              type={ActivityType.Distance}
-              showImageProgress={false}
-              showIconProgress={false}
-              showPointerProgress={false}
-              showCircleScaleProgress={false}
+              digit={watchface.activity.distance}
+              onUpdate={updateDistance}
+              showSuffix={true}
+              showDecimal={true}
             />
-            <ActivityComponent
+            <WatchFormatedNumberComponent
               title='PAI'
-              activity={{...watchface.activity.pai}}
-              onUpdateActivity={updatePai}
-              type={ActivityType.Pai}
-              showImageProgress={true}
-              showIconProgress={false}
-              showPointerProgress={false}
-              showCircleScaleProgress={false}
+              digit={watchface.activity.pai}
+              onUpdate={updatePai}
             />
-            <ActivityComponent
-              title='Stand up'
-              activity={{...watchface.activity.standUp}}
-              onUpdateActivity={updateStandUp}
-              type={ActivityType.StandUp}
-              showImageProgress={true}
-              showIconProgress={true}
-              showPointerProgress={true}
-              showCircleScaleProgress={true}
-            />
-        </Card.Body>
-      ) : (
-        ""
-      )}
+            <Card>
+              <Card.Header
+              title='Click to open / close'
+              onClick={() => {
+                const w = {...watchface};
+                w.stepsProgress.collapsed = !w.stepsProgress.collapsed
+                setWatchface(w)
+              }}
+              >
+                Step Progress
+              </Card.Header>
+              { !watchface.stepsProgress.collapsed  ? (
+                <Card.Body>
+                  <StepProgressComponent
+                    progress={watchface.stepsProgress}
+                    title='Step progress'
+                    onUpdate={updateStepProgress}
+                    showImageProgress={true}
+                    showIconProgress={true}
+                    showPointerProgress={true}
+                    showCircleScaleProgress={true}
+                  />
+              </Card.Body>
+              ) : "" }
+            </Card>
+      </Card.Body>
+      ) : ""
+      }
     </Card>
+
+  </>
   );
 };
 

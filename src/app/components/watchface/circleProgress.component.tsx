@@ -1,9 +1,9 @@
 import { FC, useMemo } from "react";
 import { Card } from "react-bootstrap";
 import BlocksArrayComponent from "../../blocks/blocksArray.component";
-import { BlockType, IRow, OptionsLineEndingCircle } from "../../model/blocks.model";
-import { CircleScale } from "../../model/json.gts2minit.model";
-import { WatchCircleScale } from "../../model/watchFace.gts2mini.model";
+import { BlockType, IRow } from "../../model/blocks.model";
+import { CircleScale } from "../../model/json.bips.model";
+import { WatchCircleScale } from "../../model/watchFace.bips.model";
 import Color from "../../shared/color";
 
 interface IProps {
@@ -17,8 +17,7 @@ const CircleProgressComponent: FC<IProps> = ({ title, scale, onUpdate }) => {
   const ar = useMemo<IRow[]>(() => [
     {
       blocks: [
-        { title: 'Color', type: BlockType.Color, svalue: Color.colorRead(scale.json?.Color), onChange: changeColor },
-        { title: 'Image', type: BlockType.SelectFile, nvalue: scale.json?.ImageIndex, onChange: changeImage },
+        { title: 'Color', type: BlockType.Color, svalue: Color.colorRead(scale.json?.Color), onChange: changeColor }, 
       ]
     },
     {
@@ -38,11 +37,6 @@ const CircleProgressComponent: FC<IProps> = ({ title, scale, onUpdate }) => {
       blocks: [
         { title: 'Radius', type: BlockType.Number, nvalue: scale.json?.RadiusX ? scale.json.RadiusX : 0, onChange: changeRadius },
         { title: 'Width',  type: BlockType.Number, nvalue: scale.json?.Width ? scale.json.Width : 1, onChange: changeWidth },
-      ]
-    },
-    {
-      blocks: [
-        { title: 'Line ending', type: BlockType.Select, svalue: scale.json.Flatness ? scale.json.Flatness.toString() : '0', onChange: changeLineEnding, selectOptions: OptionsLineEndingCircle },
       ]
     },
   ], [scale]) // eslint-disable-line react-hooks/exhaustive-deps
@@ -65,11 +59,6 @@ const CircleProgressComponent: FC<IProps> = ({ title, scale, onUpdate }) => {
   }
 
 
-  function changeImage(i: number) {
-    let ch = {...scale};
-    ch.json.ImageIndex = i;
-    onUpdate(ch);
-  }
 
   function changeX(val: number) {
     const ch = {...scale};
@@ -108,11 +97,6 @@ const CircleProgressComponent: FC<IProps> = ({ title, scale, onUpdate }) => {
     onUpdate(ch);
   }
 
-  function changeLineEnding(val: string) {
-    const pBar = { ...scale };
-    pBar.json.Flatness = parseInt(val)
-    onUpdate(pBar);
-  }
 
   return (
     <Card>

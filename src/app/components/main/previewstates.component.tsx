@@ -1,32 +1,13 @@
-import React, { FC, useContext, useEffect, useMemo } from "react";
-import { Card } from "react-bootstrap";
+import React, { FC, useContext, useMemo } from "react";
 import { IWatchContext, WatchfaceContext } from "../../context";
-import { digitTypes } from "../../model/watchFace.gts2mini.model";
+import { digitTypes } from "../../model/watchFace.bips.model";
 import { WeatherStates } from "../../model/weather.states";
 
 const PreviewStatesComponent: FC = () => {
   const { watchface, watchState, setWatchState } =
     useContext<IWatchContext>(WatchfaceContext);
 
-  useEffect(() => {
-    const ws = { ...watchState };
-    if ( watchface.animation?.imageSetAnimation && watchface.animation.imageSetAnimation.length > 0 ) {
-      if ( watchState.animation.length > watchface.animation.imageSetAnimation.length) {
-        ws.animation.splice(watchface.animation.imageSetAnimation.length-1)
-        setWatchState(ws)
-      } else if ( watchState.animation.length < watchface.animation.imageSetAnimation.length) {
-        for(let i = watchState.animation.length; i < watchface.animation.imageSetAnimation.length; i++) {
-          ws.animation.push(0)
-        }
-        setWatchState(ws)
-      }
-    } else {
-      ws.animation = []
-      setWatchState(ws)
-    }
-  }, [watchface]) // eslint-disable-line react-hooks/exhaustive-deps
-
-    
+   
   const date = useMemo(
     () =>
       `${watchState.year.toString().padStart(4, "0")}-${watchState.month
@@ -43,11 +24,11 @@ const PreviewStatesComponent: FC = () => {
     [watchState]
   );
 
-  const alarmTime = useMemo(
-    () =>
-      `${watchState.alarmHours.toString().padStart(2, "0")}:${watchState.alarmMinutes.toString().padStart(2, "0")}`,
-    [watchState]
-  );
+  // const alarmTime = useMemo(
+  //   () =>
+  //     `${watchState.alarmHours.toString().padStart(2, "0")}:${watchState.alarmMinutes.toString().padStart(2, "0")}`,
+  //   [watchState]
+  // );
 
   function updateDate(e: React.ChangeEvent<HTMLInputElement>) {
     let date = new Date(e.target.value);
@@ -68,13 +49,13 @@ const PreviewStatesComponent: FC = () => {
     if (!isNaN(parseInt(s))) ws.seconds = parseInt(s);
     setWatchState(ws);
   }
-  function updateAlarm(e: React.ChangeEvent<HTMLInputElement>) {
-    let [h, m] = e.target.value.split(":");
-    const ws = { ...watchState };
-    if (!isNaN(parseInt(h))) ws.alarmHours = parseInt(h);
-    if (!isNaN(parseInt(m))) ws.alarmMinutes = parseInt(m);
-    setWatchState(ws);
-  }
+  // function updateAlarm(e: React.ChangeEvent<HTMLInputElement>) {
+  //   let [h, m] = e.target.value.split(":");
+  //   const ws = { ...watchState };
+  //   if (!isNaN(parseInt(h))) ws.alarmHours = parseInt(h);
+  //   if (!isNaN(parseInt(m))) ws.alarmMinutes = parseInt(m);
+  //   setWatchState(ws);
+  // }
 
   return (
     <div>
@@ -96,7 +77,7 @@ const PreviewStatesComponent: FC = () => {
             onChange={updateTime}
           />
         </div>
-        <div className="input-group input-group-sm mb-1">
+{/*         <div className="input-group input-group-sm mb-1">
           <span className="input-group-text" id="addon-wrapping">
             Alarm
           </span>
@@ -119,7 +100,7 @@ const PreviewStatesComponent: FC = () => {
             value={alarmTime}
             onChange={updateAlarm}
             />
-        </div>
+        </div> */}
 
         <div className="input-group input-group-sm mb-1">
           <span className="input-group-text">Sunrise</span>
@@ -286,7 +267,7 @@ const PreviewStatesComponent: FC = () => {
               setWatchState(ws);
             }}
           />
-          <span className="input-group-text">StandUp</span>
+{/*           <span className="input-group-text">StandUp</span>
           <input
             type="number"
             className="form-control form-control-sm"
@@ -299,9 +280,9 @@ const PreviewStatesComponent: FC = () => {
               ws.standup = !isNaN(v) ? Math.min(v, watchState.standupGoal) : 0;
               setWatchState(ws);
             }}
-          />
+          /> */}
         </div>
-        <div className="input-group input-group-sm mb-1">
+{/*         <div className="input-group input-group-sm mb-1">
           <span className="input-group-text">Stress</span>
           <input
             type="number"
@@ -330,7 +311,7 @@ const PreviewStatesComponent: FC = () => {
               setWatchState(ws);
             }}
           />
-        </div>
+        </div> */}
 
         <div className="input-group input-group-sm mb-1">
           <span className="input-group-text">Weather Icon</span>
@@ -395,7 +376,7 @@ const PreviewStatesComponent: FC = () => {
         </div>
 
         <div className="input-group input-group-sm mb-1">
-          <span className="input-group-text">UV Index</span>
+{/*           <span className="input-group-text">UV Index</span>
           <input
             type="number"
             className="form-control form-control-sm"
@@ -408,7 +389,7 @@ const PreviewStatesComponent: FC = () => {
               ws.uvIndex = !isNaN(v) ? Math.min(v, 11) : 0;
               setWatchState(ws);
             }}
-          />
+          /> */}
           <span className="input-group-text">Air Quality</span>
           <input
             type="number"
@@ -439,7 +420,7 @@ const PreviewStatesComponent: FC = () => {
               setWatchState(ws);
             }}
           />
-          <span className="input-group-text">Windforce</span>
+{/*           <span className="input-group-text">Windforce</span>
           <input
             type="number"
             className="form-control form-control-sm"
@@ -466,7 +447,7 @@ const PreviewStatesComponent: FC = () => {
               ws.airPressure = !isNaN(v) ? Math.min(v, watchState.airPressureGoal) : 0;
               setWatchState(ws);
             }}
-          />
+          /> */}
         </div>
 
         <div className="input-group input-group-sm">
@@ -531,31 +512,7 @@ const PreviewStatesComponent: FC = () => {
             />
           </div>
         </div>
-        <Card className='mt-3'>
-          <Card.Header>
-            <h3>Preview of animations</h3>
-          </Card.Header>
-          <Card.Body>
-            { watchState.animation?.length > 0 ? watchState.animation.map((w, index) =>
-            <div key={index} className="input-group input-group-sm mb-1">
-              <span className="input-group-text">Animation {index+1}. Frame for preview </span>
-              <input
-                type="number"
-                className="form-control form-control-sm"
-                value={w+1}
-                min={1}
-                max={watchface.animation?.imageSetAnimation[index]?.ImageProgress?.ImagesCount}
-                onChange={(e) => {
-                  const ws = { ...watchState };
-                  const v = parseInt(e.target.value);
-                  ws.animation[index] = !isNaN(v) ? Math.max(0, v-1) : 0;
-                  setWatchState(ws);
-                }}
-              />
-            </div>
-          ) : 'no animation in watchface' }
-          </Card.Body>
-        </Card>
+        
       </>
     </div>
   );

@@ -1,84 +1,39 @@
-import { FC, useContext, useMemo } from "react";
+import { FC, useContext } from "react";
 import { Card } from "react-bootstrap";
-import BlocksArrayComponent from "../../blocks/blocksArray.component";
 import { IWatchContext, WatchfaceContext } from "../../context";
-import { BlockType, IRow } from "../../model/blocks.model";
-import { WatchIconSet, WatchImage, WatchImageSet, WatchNumber, WatchScale, WatchShortcutElement } from "../../model/watchFace.gts2mini.model";
+import { WatchBatteryFormatedNumber, WatchCircleScale, WatchIconSet, WatchImageSet } from "../../model/watchFace.bips.model";
+import WatchBatteryFormatedNumberComponent from "./batteryFormatedNumber.component";
+import CircleProgressComponent from "./circleProgress.component";
 import IconSetComponent from "./iconSet.component";
-import ImageComponent from "./image.component";
 import ImageSetComponent from "./imageSet.component";
-import WatchNumberComponent from "./number.component";
-import PointerProgressComponent from "./pointerProgress.component";
-import WatchShortCutComponent from "./watchshortcut.component";
 
 
 const BatteryComponent: FC = () => {
   const { watchface, setWatchface } =
   useContext<IWatchContext>(WatchfaceContext);
 
-  const ar = useMemo<IRow[]>(() => [
-    {
-      blocks: [
-        { title: 'Prefix', type: BlockType.SelectFile, nvalue: watchface.battery.text.prefix, onChange: onChangePrefix },
-        { title: 'NoData', type: BlockType.SelectFile, nvalue: watchface.battery.text.noData, onChange: onChangeNoData },
-        { title: 'Suffix', type: BlockType.SelectFile, nvalue: watchface.battery.text.suffix, onChange: onChangeSuffix },
-      ]
-    },
-  ], [watchface.battery.text]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  function onChangePrefix(val: number) {
+  function udpateDigit(fn: WatchBatteryFormatedNumber) {
     const w = {...watchface};
-    w.battery.text.prefix = val
-    setWatchface(w)
-  }
-  function onChangeNoData(val: number) {
-    const w = {...watchface};
-    w.battery.text.noData = val
-    setWatchface(w)
-  }
-  function onChangeSuffix(val: number) {
-    const w = {...watchface};
-    w.battery.text.suffix = val
+    w.battery.text = fn
     setWatchface(w)
   }
 
-  function updateIcon(icon: WatchImage) {
+  function updateImageSet(iconset: WatchImageSet) {
     const w = {...watchface};
-    w.battery.icon = icon
+    w.battery.icon = iconset
     setWatchface(w)
   }
-
-  function updateShortcut(sh: WatchShortcutElement) {
+  function updateIconSet(is: WatchIconSet) {
     const w = {...watchface};
-    w.battery.text.shortcut = sh
-    w.battery.text.enabled = w.battery.text.imageNumber.enabled || w.battery.text.shortcut.enabled
+    w.battery.scale = is
     setWatchface(w)
   }
-
-
-  function udpateDigit(d: WatchNumber) {
+  function updateCircle(c: WatchCircleScale) {
     const w = {...watchface};
-    w.battery.text.imageNumber = d
-    w.battery.text.enabled = w.battery.text.imageNumber.enabled || w.battery.text.shortcut.enabled
+    w.battery.circle = c
     setWatchface(w)
   }
-
-  function updateImageSet(d: WatchImageSet) {
-    const w = {...watchface};
-    w.battery.imageProgress = d
-    setWatchface(w)
-  }
-  function updateIconSet(d: WatchIconSet) {
-    const w = {...watchface};
-    w.battery.iconSetProgress = d
-    setWatchface(w)
-  }
-  function updateScale(d: WatchScale) {
-    const w = {...watchface};
-    w.battery.scale = d
-    setWatchface(w)
-  }
-
 
   return (
     <Card className="activity w-100">
@@ -93,41 +48,27 @@ const BatteryComponent: FC = () => {
       </Card.Header>
       {!watchface.battery.collapsed ? (
         <Card.Body>
-          <WatchNumberComponent
+          <WatchBatteryFormatedNumberComponent
             title='Number'
-            digit={{...watchface.battery.text.imageNumber}}
+            digit={{...watchface.battery.text}}
             onUpdate={udpateDigit}
-            followDisabled={true}
-            showDataType={false}
-            showDelimiter={false}
-            showPrefix={false}
           />
-          <BlocksArrayComponent ar={ar} />
-          <ImageComponent
-            title='Icon'
-            image={{...watchface.battery.icon}}
-            onUpdate={updateIcon}
-          />
-          <WatchShortCutComponent
-            title='Shortcut'
-            shortcut={{...watchface.battery.text.shortcut}}
-            onUpdate={updateShortcut}
-          />
+          
           <ImageSetComponent 
             title='Image set'
-            imageSet={{...watchface.battery.imageProgress}}
+            imageSet={{...watchface.battery.icon}}
             onUpdate={updateImageSet}
           />
           <IconSetComponent
             title='Icon set'
-            iconSet={{...watchface.battery.iconSetProgress}}
+            iconSet={{...watchface.battery.scale}}
             onUpdate={updateIconSet}
             />
-          <PointerProgressComponent
-            title='Pointer scale'
-            scale={{...watchface.battery.scale}}
-            onUpdate={updateScale}
-            />
+          <CircleProgressComponent
+            title='Circle'
+            scale={{...watchface.battery.circle}}
+            onUpdate={updateCircle}
+          />
         </Card.Body>
       ) : (
         ""

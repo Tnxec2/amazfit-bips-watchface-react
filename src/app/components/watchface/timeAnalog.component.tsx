@@ -12,30 +12,30 @@ const TimeAnalogComponent: FC = () => {
       <Card.Header
         onClick={() => {
           let w = {...watchface};
-          w.time.timeAnalog.collapsed = !watchface.time.timeAnalog.collapsed;
+          w.analogTime.collapsed = !watchface.analogTime.collapsed;
           setWatchface(w);
         }}
       >
         Time Analog
       </Card.Header>
-      <Card.Body className={`${watchface.time.timeAnalog.collapsed ? "collapse" : ""}`}>
+      <Card.Body className={`${watchface.analogTime.collapsed ? "collapse" : ""}`}>
         <ClockHandComponent
           title="Hours"
-          clockHand={{...watchface.time.timeAnalog.hours}}
+          clockHand={{...watchface.analogTime.hours}}
           showAngle={false}
           onUpdate={(ch) => {
             const w = { ...watchface };
-            w.time.timeAnalog.hours = ch;
+            w.analogTime.hours = ch;
             setWatchface(w);
           }}
         />
 
         <ClockHandComponent
           title="Minutes"
-          clockHand={{...watchface.time.timeAnalog.minutes}}
+          clockHand={{...watchface.analogTime.minutes}}
           onUpdate={(ch) => {
             const d = { ...watchface };
-            d.time.timeAnalog.minutes = ch;
+            d.analogTime.minutes = ch;
             setWatchface(d);
           }}
           showAngle={false}
@@ -43,10 +43,10 @@ const TimeAnalogComponent: FC = () => {
 
         <ClockHandComponent
           title="Seconds"
-          clockHand={{...watchface.time.timeAnalog.seconds}}
+          clockHand={{...watchface.analogTime.seconds}}
           onUpdate={(ch) => {
             const w = { ...watchface };
-            w.time.timeAnalog.seconds = ch;
+            w.analogTime.seconds = ch;
             setWatchface(w);
           }}
           showAngle={false}

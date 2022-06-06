@@ -1,8 +1,6 @@
-import { FC, useContext, useState } from "react";
-import { WatchfaceContext } from "../../context";
+import { FC, useState } from "react";
 import ScreenNormalcomponent from "../watchface/screennormal.component";
 import PreviewStatesComponent from "./previewstates.component";
-import AodComponent from "../watchface/aod.component";
 import { Constant } from "../../shared/constant";
 
 const tabs = [
@@ -12,12 +10,7 @@ const tabs = [
     </div>
   },
   {
-    id: 1, name: "AOD", el: <div className="mt-3 blocks">
-      <AodComponent />
-    </div>
-  },
-  {
-    id: 2, name: "Preview State", el: <div className="mt-3">
+    id: 1, name: "Preview State", el: <div className="mt-3">
       <PreviewStatesComponent />
     </div>
   },
@@ -25,14 +18,10 @@ const tabs = [
 
 const LeftSideComponent: FC = () => {
 
-  const { setPreviewScreenNormal } = useContext(WatchfaceContext)
-
   const [selectedTab, setSelectedTab] = useState<number>(0);
 
   function onclick(tabid: number) {
     setSelectedTab(tabid)
-    if (tabid === 0) setPreviewScreenNormal(true)
-    if (tabid === 1) setPreviewScreenNormal(false)
   }
   
   return (

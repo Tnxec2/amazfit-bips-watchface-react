@@ -2,7 +2,7 @@ import { FC, useMemo } from "react";
 import { Card } from "react-bootstrap";
 import BlocksArrayComponent from "../../blocks/blocksArray.component";
 import { BlockType, IRow } from "../../model/blocks.model";
-import { WatchSwitch } from "../../model/watchFace.gts2mini.model";
+import { WatchSwitch } from "../../model/watchFace.bips.model";
 
 interface IProps {
   title: string;
@@ -17,6 +17,10 @@ const SwitchComponent: FC<IProps> = ({ title, sw, onUpdate }) => {
       blocks: [
         { title: 'Image ON', type: BlockType.SelectFile, nvalue: sw.json.ImageIndexOn, onChange: onChangeImageOn },
         { title: 'Image OFF', type: BlockType.SelectFile, nvalue: sw.json.ImageIndexOff, onChange: onChangeImageOff },
+      ]
+    },
+    {
+      blocks: [
         { title: 'X', type: BlockType.Number, nvalue: sw.json.Coordinates.X, onChange: onChangeX },
         { title: 'Y', type: BlockType.Number, nvalue: sw.json.Coordinates.Y, onChange: onChangeY },
       ]

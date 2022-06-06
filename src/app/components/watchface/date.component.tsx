@@ -3,63 +3,59 @@ import { Card } from "react-bootstrap";
 import BlocksArrayComponent from "../../blocks/blocksArray.component";
 import { IWatchContext, WatchfaceContext } from "../../context";
 import { BlockType } from "../../model/blocks.model";
-import { WatchAmPmIcon, WatchImageSet, WatchNumber } from "../../model/watchFace.gts2mini.model";
+import { WatchImageSet, WatchNumber } from "../../model/watchFace.bips.model";
 import WatchNumberComponent from "./number.component";
 import ImageSetComponent from "./imageSet.component";
-import AmPmComponent from "./ampm.component";
 
 
 const DateComponent: FC = () => {
   const { watchface, setWatchface } =
-  useContext<IWatchContext>(WatchfaceContext);
+    useContext<IWatchContext>(WatchfaceContext);
 
-  function updateAmPm(d: WatchAmPmIcon) {
-    const w = {...watchface}
-    w.date.ampm = d;
-    setWatchface(w);
-  }
+
 
   function updateDay(d: WatchNumber) {
-    const w = {...watchface}
+    const w = { ...watchface }
     w.date.day = d;
     setWatchface(w);
   }
 
   function updateMonth(d: WatchNumber) {
-    const w = {...watchface}
+    const w = { ...watchface }
     w.date.month = d;
     setWatchface(w);
   }
   function updateMonthAsWord(d: WatchImageSet) {
-    const w = {...watchface}
-    w.date.monthAsWord = d;
+    const w = { ...watchface }
+    w.date.montName = d;
     setWatchface(w);
   }
-  function updateYear(d: WatchNumber) {
-    const w = {...watchface}
-    w.date.year = d;
-    setWatchface(w);
-  }
+
   function updateWeekday(d: WatchImageSet) {
-    const w = {...watchface}
+    const w = { ...watchface }
     w.date.weekday = d;
     setWatchface(w);
   }
-  
-  function onChangeOneLineYear(val: boolean) {
-    const w = {...watchface}
-    w.date.oneLineYear = val;
-    setWatchface(w);
-  }
+
   function onChangeOneLineMonth(val: boolean) {
-    const w = {...watchface}
-    w.date.oneLineMonth = val;
+    const w = { ...watchface }
+    w.date.oneLine = val;
     setWatchface(w);
   }
-  
+
   function onChangeDelimiter(val: number) {
-    const w = {...watchface}
+    const w = { ...watchface }
     w.date.oneLineDelimiter = val;
+    setWatchface(w);
+  }
+  function onChangeTwoDigitsMonth(val: boolean) {
+    const w = { ...watchface }
+    w.date.twoDigitsMonth = val;
+    setWatchface(w);
+  }
+  function onChangeTwoDigitsDay(val: boolean) {
+    const w = { ...watchface }
+    w.date.twoDigitsDay = val;
     setWatchface(w);
   }
 
@@ -67,11 +63,11 @@ const DateComponent: FC = () => {
     <>
       <Card>
         <Card.Header
-                  onClick={() => {
-                    let w = {...watchface};
-                    w.date.collapsed = !watchface.date.collapsed;
-                    setWatchface(w);
-                  }}
+          onClick={() => {
+            let w = { ...watchface };
+            w.date.collapsed = !watchface.date.collapsed;
+            setWatchface(w);
+          }}
         >
           Date
         </Card.Header>
@@ -80,60 +76,47 @@ const DateComponent: FC = () => {
           <BlocksArrayComponent ar={[
             {
               blocks: [
-                { title: 'One Line Year', type: BlockType.Checkbox, checked: watchface.date.oneLineYear, onChange: onChangeOneLineYear},
-                { title: 'One Line Month', type: BlockType.Checkbox, checked: watchface.date.oneLineMonth, onChange: onChangeOneLineMonth},
+                { title: 'One Line Mont/Day', type: BlockType.Checkbox, checked: watchface.date.oneLine, onChange: onChangeOneLineMonth },
                 { title: 'Delimiter', type: BlockType.SelectFile, nvalue: watchface.date.oneLineDelimiter, onChange: onChangeDelimiter },
+              ]
+            },
+            {
+              blocks: [
+                { title: 'Two Digits for Month', type: BlockType.Checkbox, checked: watchface.date.twoDigitsMonth, onChange: onChangeTwoDigitsMonth },
+                { title: 'Two Digits for Day', type: BlockType.Checkbox, checked: watchface.date.twoDigitsDay, onChange: onChangeTwoDigitsDay },
               ]
             }
           ]} />
 
-          { ! watchface.date.oneLineMonth ? 
-          <WatchNumberComponent
-            title="Year"
-            digit={{...watchface.date.year}}
-            onUpdate={updateYear}
-            followDisabled={true}
-            showDelimiter={!watchface.date.oneLineYear}
-            showDataType={!watchface.date.oneLineYear}
-          /> : '' }
-         
-         { ! watchface.date.oneLineYear ? 
-         <>
+
           <WatchNumberComponent
             title="Month"
-            digit={{...watchface.date.month}}
+            digit={{ ...watchface.date.month }}
             onUpdate={updateMonth}
-            showDelimiter={!watchface.date.oneLineMonth}
-            showDataType={!watchface.date.oneLineMonth}
+            showDelimiter={!watchface.date.oneLine}
           />
-          { ! watchface.date.oneLineMonth ? 
-          <WatchNumberComponent
-            title="Day"
-            digit={{...watchface.date.day}}
-            onUpdate={updateDay}
-            showDelimiter={true}
-            showDataType={true}
-          /> : '' }
-          </>
-           : ''
-         }
+          {!watchface.date.oneLine ?
+            <WatchNumberComponent
+              title="Day"
+              digit={{ ...watchface.date.day }}
+              onUpdate={updateDay}
+              showDelimiter={true}
+              showDataType={true}
+            /> : ''}
+
           <ImageSetComponent
             title="Month as word"
-            imageSet={{...watchface.date.monthAsWord}}
+            imageSet={{ ...watchface.date.montName }}
             onUpdate={updateMonthAsWord}
           />
-          
+
           <ImageSetComponent
             title="Weekday"
-            imageSet={{...watchface.date.weekday}}
+            imageSet={{ ...watchface.date.weekday }}
             onUpdate={updateWeekday}
           />
 
-          <AmPmComponent 
-            title='AmPm' 
-            ampm={{...watchface.date.ampm}}
-            onUpdate={updateAmPm}
-            />
+
         </Card.Body>
       </Card>
     </>

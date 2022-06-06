@@ -1,7 +1,7 @@
 import { FC, useContext} from "react";
 import { Card } from "react-bootstrap";
 import { IWatchContext, WatchfaceContext } from "../../context";
-import { WatchStatus } from "../../model/watchFace.gts2mini.model";
+import { WatchStatus } from "../../model/watchFace.bips.model";
 import SwitchComponent from "./switch.component";
 
 const StatusComponent: FC = () => {

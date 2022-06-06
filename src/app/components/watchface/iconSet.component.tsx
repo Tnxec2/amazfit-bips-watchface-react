@@ -2,7 +2,7 @@ import { FC, useMemo } from "react";
 import { Card } from "react-bootstrap";
 import BlocksArrayComponent from "../../blocks/blocksArray.component";
 import { BlockType, IRow } from "../../model/blocks.model";
-import { WatchIconSet } from "../../model/watchFace.gts2mini.model";
+import { WatchIconSet } from "../../model/watchFace.bips.model";
 
 interface IProps {
   title: string;
@@ -34,6 +34,8 @@ const IconSetComponent: FC<IProps> = ({ title, iconSet, onUpdate }) => {
     ip.json.Coordinates.push( {
       X: lastCoords ? lastCoords.X : 0,
       Y: lastCoords ? lastCoords.Y : 0,
+      Unknown3: lastCoords ? lastCoords.Unknown3 : 0,
+      Unknown4: lastCoords ? lastCoords.Unknown4 : 0,
     })
     onUpdate(ip);
   }
@@ -73,7 +75,7 @@ const IconSetComponent: FC<IProps> = ({ title, iconSet, onUpdate }) => {
               checked={iconSet.enabled}
               onChange={() => {
                 const ic = { ...iconSet };
-                if (!ic.json.Coordinates) ic.json.Coordinates = [ { X: 0, Y: 0}]
+                if (!ic.json.Coordinates) ic.json.Coordinates = [ { X: 0, Y: 0, Unknown3: 0, Unknown4: 0}]
                 ic.enabled = !ic.enabled;
                 onUpdate(ic);
               }}

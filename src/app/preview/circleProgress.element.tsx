@@ -1,6 +1,6 @@
 import { findImageById } from "../shared/helper";
 import { IImage } from "../model/image.model";
-import { CircleScale } from "../model/json.gts2minit.model";
+import { CircleScale } from "../model/json.bips.model";
 import Color from "../shared/color";
 
 export default function drawCircleProgress(
@@ -21,25 +21,7 @@ export default function drawCircleProgress(
     let sector_angle = startAngle + (value * (endAngle - startAngle ) / total)
     let radius = progressBar.RadiusX
     
-    if (progressBar.ImageIndex) {
-        const img = findImageById(progressBar.ImageIndex, images)
-        if (img) {
-            /// use save when using clip Path
-            ctx.save();
-            ctx.beginPath();
-            drawArcPath(ctx, progressBar.Flatness, 
-                ax, ay, startAngle, sector_angle, radius, width)
-            
-            /// define this Path as clipping mask
-            ctx.clip();
-
-            /// draw the image
-            ctx.drawImage(img, ax - img.width/2, ay - img.height/2);
-            //ctx.stroke() // test
-            /// reset clip to default
-            ctx.restore();
-        }
-    } else if (progressBar.Color) {
+    if (progressBar.Color) {
         let color = Color.colorRead(progressBar.Color)
         if ( Color.GFG_Fun(color)) {
             // begin by calling ctx.beginPath
@@ -57,7 +39,7 @@ export default function drawCircleProgress(
             ctx.lineWidth = width;
             // fill, and stroke
             ctx.stroke();
-            drawColorEndings(ctx, color, progressBar.Flatness, 
+            drawColorEndings(ctx, color, 0, 
                 ax, ay, startAngle, sector_angle, radius, width)
             ctx.lineWidth = 1;
         }

@@ -1,29 +1,35 @@
 import { FC, useContext } from "react";
 import { Card } from "react-bootstrap";
 import { IWatchContext, WatchfaceContext } from "../../context";
-import { WatchNumber } from "../../model/watchFace.gts2mini.model";
-import WatchNumberComponent from "./number.component";
+import { WatchAmPmIcon, WatchTwoDigitsSeparated } from "../../model/watchFace.bips.model";
+import AmPmComponent from "./ampm.component";
+import SeparatedDigitsComponent from "./separatedDigits.component";
 
 const TimeDigitalComponent: FC = () => {
   const { watchface, setWatchface } =
     useContext<IWatchContext>(WatchfaceContext);
 
+    function updateAmPm(d: WatchAmPmIcon) {
+      const w = {...watchface}
+      w.time.ampm = d;
+      setWatchface(w);
+    }
 
-  function updateHoursDigit(h: WatchNumber) {
+  function updateHours(h: WatchTwoDigitsSeparated) {
     const w = {...watchface};
-    w.time.timeDigitalCommon.hours = h;
+    w.time.hours = h;
     setWatchface(w);
   }
   
-  function updateDigitMinutes(h: WatchNumber) {
+  function updateMinutes(h: WatchTwoDigitsSeparated) {
     const w = {...watchface};
-    w.time.timeDigitalCommon.minutes = h;
+    w.time.minutes = h;
     setWatchface(w);
   }
 
-  function updateDigitSeconds(h: WatchNumber) {
+  function updateSeconds(h: WatchTwoDigitsSeparated) {
     const w = {...watchface};
-    w.time.timeDigitalCommon.seconds = h;
+    w.time.seconds = h;
     setWatchface(w);
   }
 
@@ -33,37 +39,36 @@ const TimeDigitalComponent: FC = () => {
       <Card.Header
         onClick={() => {
           let w = {...watchface};
-          w.time.timeDigitalCommon.collapsed = !watchface.time.timeDigitalCommon.collapsed;
+          w.time.collapsed = !watchface.time.collapsed;
           setWatchface(w);
         }}
       >
         Time Digital
       </Card.Header>
-      <Card.Body className={`${watchface.time.timeDigitalCommon.collapsed ? "collapse" : ""}`}>
-        <WatchNumberComponent
+      <Card.Body className={`${watchface.time.collapsed ? "collapse" : ""}`}>
+        <SeparatedDigitsComponent
           title="Hours"
-          digit={{...watchface.time.timeDigitalCommon.hours}}
-          onUpdate={updateHoursDigit}
-          followDisabled={true}
-          showDelimiter={true}
-          showDataType={true}
+          digit={{...watchface.time.hours}}
+          amountOfDigits={2}
+          onUpdate={updateHours}
         />
-        
-        <WatchNumberComponent
+        <SeparatedDigitsComponent
           title="Minutes"
-          digit={{...watchface.time.timeDigitalCommon.minutes}}
-          onUpdate={updateDigitMinutes}
-          showDelimiter={true}
-          showDataType={true}
+          digit={{...watchface.time.minutes}}
+          amountOfDigits={2}
+          onUpdate={updateMinutes}
         />
-
-        <WatchNumberComponent
-          title="Second"
-          digit={{...watchface.time.timeDigitalCommon.seconds}}
-          onUpdate={updateDigitSeconds}
-          showDelimiter={true}
-          showDataType={true}
+        <SeparatedDigitsComponent
+          title="Seconds"
+          digit={{...watchface.time.seconds}}
+          amountOfDigits={2}
+          onUpdate={updateSeconds}
         />
+        <AmPmComponent
+            title='AmPm' 
+            ampm={{...watchface.time.ampm}}
+            onUpdate={updateAmPm}
+            />
                
       </Card.Body>
     </Card>

@@ -1,5 +1,5 @@
 import { IImage } from "../model/image.model";
-import { Image } from "../model/json.gts2minit.model";
+import { Image } from "../model/json.bips.model";
 import { findImageById } from "../shared/helper";
 
 export default function drawImage(

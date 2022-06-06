@@ -2,8 +2,7 @@ import { FC, useMemo } from "react";
 import { Card } from "react-bootstrap";
 import BlocksArrayComponent from "../../blocks/blocksArray.component";
 import { BlockType, IRow } from "../../model/blocks.model";
-import { Coordinates } from "../../model/json.gts2minit.model";
-import { WatchAmPmIcon } from "../../model/watchFace.gts2mini.model";
+import { WatchAmPmIcon } from "../../model/watchFace.bips.model";
 
 interface IProps {
   title: string;
@@ -16,83 +15,43 @@ const AmPmComponent: FC<IProps> = ({ title, ampm, onUpdate }) => {
   const ar = useMemo<IRow[]>(() => [
     {
       blocks: [
-        { title: 'AM', type: BlockType.SelectFile, nvalue: ampm.json.AmImageIndexEN, onChange: onChangeAmImageIndex },
-        { title: 'PM', type: BlockType.SelectFile, nvalue: ampm.json.PmImageIndexEN, onChange: onChangePmImageIndex },
+        { title: 'AM', type: BlockType.SelectFile, nvalue: ampm.json.ImageIndexAMEN, onChange: onChangeAmImageIndex },
+        { title: 'PM', type: BlockType.SelectFile, nvalue: ampm.json.ImageIndexPMEN, onChange: onChangePmImageIndex },
       ]
     },
     {
       blocks: [
-        { title: 'Common', type: BlockType.Empty },
-        { title: 'X', type: BlockType.Number, nvalue: ampm.json.CommonX ? ampm.json.CommonX : 0, onChange: onChangeX },
-        { title: 'Y', type: BlockType.Number, nvalue: ampm.json.CommonY ? ampm.json.CommonY : 0, onChange: onChangeY },
+        { title: 'Coordinates', type: BlockType.Empty },
+        { title: 'X', type: BlockType.Number, nvalue: ampm.json.X ? ampm.json.X : 0, onChange: onChangeX },
+        { title: 'Y', type: BlockType.Number, nvalue: ampm.json.Y ? ampm.json.Y : 0, onChange: onChangeY },
       ]
     },
-    {
-      blocks: [
-        { title: 'AM', type: BlockType.Empty },
-        { title: 'X', type: BlockType.Number, nvalue: ampm.json.CoordinatesAM?.X ? ampm.json.CoordinatesAM.X : 0, onChange: onChangeAmX },
-        { title: 'Y', type: BlockType.Number, nvalue: ampm.json.CoordinatesAM?.Y ? ampm.json.CoordinatesAM.Y : 0, onChange: onChangeAmY },
-      ]
-    },
-    {
-      blocks: [
-        { title: 'PM', type: BlockType.Empty },
-        { title: 'X', type: BlockType.Number, nvalue: ampm.json.CoordinatesPM?.X ? ampm.json.CoordinatesPM.X : 0, onChange: onChangePmX },
-        { title: 'Y', type: BlockType.Number, nvalue: ampm.json.CoordinatesPM?.Y ? ampm.json.CoordinatesPM.Y : 0, onChange: onChangePmY },
-      ]
-    }
   ], [ampm]) // eslint-disable-line react-hooks/exhaustive-deps
 
   function onChangeAmImageIndex(index: number) {
     const ip = { ...ampm };
-    ip.json.AmImageIndexEN = index;
+    ip.json.ImageIndexAMEN = index;
     onUpdate(ip);
   }
 
   function onChangePmImageIndex(index: number) {
     const ip = { ...ampm };
-    ip.json.PmImageIndexEN = index;
+    ip.json.ImageIndexPMEN = index;
     onUpdate(ip);
   }
 
   function onChangeX(val: number) {
     const ip = { ...ampm };
-    ip.json.CommonX = val;
+    ip.json.X = val;
     onUpdate(ip);
   }
 
   function onChangeY(val: number) {
     const ip = { ...ampm };
-    ip.json.CommonY = val;
+    ip.json.Y = val;
     onUpdate(ip);
   }
 
-  function onChangeAmX(val: number) {
-    const ip = { ...ampm };
-    if (!ip.json.CoordinatesAM) ip.json.CoordinatesAM = new Coordinates();
-    ip.json.CoordinatesAM.X = val;
-    onUpdate(ip);
-  }
-
-  function onChangeAmY(val: number) {
-    const ip = { ...ampm };
-    if (!ip.json.CoordinatesAM) ip.json.CoordinatesAM = new Coordinates();
-    ip.json.CoordinatesAM.Y = val;
-    onUpdate(ip);
-  }
-  function onChangePmX(val: number) {
-    const ip = { ...ampm };
-    if (!ip.json.CoordinatesPM) ip.json.CoordinatesPM = new Coordinates();
-    ip.json.CoordinatesPM.X = val;
-    onUpdate(ip);
-  }
-
-  function onChangePmY(val: number) {
-    const ip = { ...ampm };
-    if (!ip.json.CoordinatesPM) ip.json.CoordinatesPM = new Coordinates();
-    ip.json.CoordinatesPM.Y = val;
-    onUpdate(ip);
-  }
 
   return (
     <Card>

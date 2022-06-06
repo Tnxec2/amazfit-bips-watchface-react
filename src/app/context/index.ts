@@ -1,6 +1,6 @@
 import {createContext} from 'react'
 import { IImage } from '../model/image.model';
-import { WatchFace } from '../model/watchFace.gts2mini.model';
+import { WatchFace } from '../model/watchFace.bips.model';
 import { WatchState } from '../model/watchState';
 
 export const WatchfaceContext = createContext(null);

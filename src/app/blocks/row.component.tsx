@@ -25,6 +25,7 @@ const RowComponent: FC<IProps> = ({ row }) => {
                         title={block.title}
                         onChange={block.onChange}
                         value={block.nvalue}
+                        disabled={block.disabled}
                     />
                 break;
             case BlockType.Number:

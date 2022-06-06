@@ -1,21 +1,21 @@
 import React, { FC } from 'react';
-import { WatchCircleScale, WatchIconSet, WatchImageSet, WatchProgress, WatchScale } from '../../model/watchFace.gts2mini.model';
+import { WatchCircleScale, WatchIconSet, WatchImage, WatchImageSet, WatchStepsProgress } from '../../model/watchFace.bips.model';
 import CircleProgressComponent from './circleProgress.component';
 import IconSetComponent from './iconSet.component';
+import ImageComponent from './image.component';
 import ImageSetComponent from './imageSet.component';
-import PointerProgressComponent from './pointerProgress.component';
 
 interface IProps {
     title: string;
-    progress: WatchProgress;
-    onUpdate(digit: WatchProgress): void;
+    progress: WatchStepsProgress;
+    onUpdate(digit: WatchStepsProgress): void;
     showImageProgress: boolean,
     showIconProgress: boolean,
     showPointerProgress: boolean,
     showCircleScaleProgress: boolean,
   }
 
-const ProgressComponent: FC<IProps> = ({
+const StepProgressComponent: FC<IProps> = ({
     progress,
     title,
     onUpdate,
@@ -27,53 +27,53 @@ const ProgressComponent: FC<IProps> = ({
 
     function updateImageProgress(ip: WatchImageSet) {
       const p = {...progress};
-      p.imageProgress = ip;
+      p.gauge = ip;
       onUpdate(p);
     }
     function updateIconSet(ip: WatchIconSet) {
       const p = {...progress};
-      p.iconSetProgress = ip;
+      p.linear = ip;
       onUpdate(p);
     }
-    function updateScale(ip: WatchScale) {
+    function updateGoalImage(ip: WatchImage) {
       const p = {...progress};
-      p.scale = ip;
+      p.goalImage = ip;
       onUpdate(p);
     }
-    function updateCircle(ip: WatchCircleScale) {
+    function updateCircle(ip: WatchCircleScale ) {
       const p = {...progress};
-      p.circleScale = ip;
+      p.circle = ip;
       onUpdate(p);
     }
 
     return (
         <div>
+          { showIconProgress ?
+            <ImageComponent
+              title='Goal image'
+              onUpdate={updateGoalImage}
+              image={progress.goalImage}
+            /> : '' }
           { showImageProgress ?
             <ImageSetComponent
               title='Image progress'
               onUpdate={updateImageProgress}
-              imageSet={progress.imageProgress}
+              imageSet={progress.gauge}
             /> : '' }
           { showIconProgress ?
             <IconSetComponent
               title='Icon set progress'
               onUpdate={updateIconSet}
-              iconSet={progress.iconSetProgress}
-            /> : '' }
-          { showIconProgress ?
-            <PointerProgressComponent
-              title='Pointer progress'
-              onUpdate={updateScale}
-              scale={progress.scale}
+              iconSet={progress.linear}
             /> : '' }
           { showCircleScaleProgress ?
             <CircleProgressComponent
               title='Circle progress'
               onUpdate={updateCircle}
-              scale={progress.circleScale}
+              scale={progress.circle}
             /> : '' }
         </div>
     );
 };
 
-export default ProgressComponent
+export default StepProgressComponent

@@ -1,7 +1,7 @@
 import Color from "../shared/color";
 import { findImageById } from "../shared/helper";
 import { IImage } from "../model/image.model";
-import { WatchBackground } from "../model/watchFace.gts2mini.model";
+import { WatchBackground } from "../model/watchFace.bips.model";
   
 export default function draw(
     canvas: HTMLCanvasElement, 
@@ -19,10 +19,10 @@ export default function draw(
             ctx.drawImage(img, background.image.json.X, background.image.json.Y);
         }
     }
-    if (background?.floatingLayer?.json?.ImageIndex) {
-        const img = findImageById(background.floatingLayer?.json.ImageIndex, images)
+    if (background?.frontImage?.json?.ImageIndex) {
+        const img = findImageById(background.frontImage?.json.ImageIndex, images)
         if (img) {
-            ctx.drawImage(img, background.floatingLayer?.json.X, background.floatingLayer?.json.Y);
+            ctx.drawImage(img, background.frontImage?.json.X, background.frontImage?.json.Y);
         }
     }
 

@@ -23,7 +23,7 @@ export interface IOption {
 }
 
 
-export const OptionsAlignmentGTs2Mini: IOption[] =  [ 
+export const OptionsAlignmentBipS: IOption[] =  [ 
     { value: 'TopLeft', title:'TopLeft'},
     { value: 'TopCenter', title:'TopCenter'},
     { value: 'TopRight', title:'TopRight'},

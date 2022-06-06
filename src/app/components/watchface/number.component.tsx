@@ -1,15 +1,14 @@
 import { FC, useMemo } from "react";
 import { Card } from "react-bootstrap";
 import BlocksArrayComponent from "../../blocks/blocksArray.component";
-import { BlockType, IRow, OptionsAlignmentGTs2Mini } from "../../model/blocks.model";
-import { WatchNumber } from "../../model/watchFace.gts2mini.model";
+import { BlockType, IRow, OptionsAlignmentBipS } from "../../model/blocks.model";
+import { WatchNumber } from "../../model/watchFace.bips.model";
 
 interface IProps {
   title: string;
   digit: WatchNumber;
   onUpdate(digit: WatchNumber): void;
   onCopyFromNormal?(): void,
-  followDisabled?: boolean;
   showDelimiter?: boolean,
   showDataType?: boolean,
   showPrefix?: boolean,
@@ -20,7 +19,6 @@ const WatchNumberComponent: FC<IProps> = ({
   title,
   digit,
   onUpdate,
-  followDisabled,
   onCopyFromNormal,
   showDelimiter,
   showDataType,
@@ -49,56 +47,11 @@ const WatchNumberComponent: FC<IProps> = ({
     },
     {
       blocks: [
-        { title: 'padding zero', type: BlockType.Checkbox, checked: digit.paddingZero, onChange: onChagePaddingZero, disabled: paddingDisabled},
         { title: 'spacing', type: BlockType.Number, nvalue: digit.json?.Spacing ? digit.json.Spacing : 0, onChange: onChangeSpacing },
-        { title: 'vertical offset', type: BlockType.Number, nvalue: digit.json?.VerticalOffset ? digit.json.VerticalOffset : 0, onChange: onChangeVerticalOffset },
-      ]
-    },
-    {
-      blocks: [
-        { title: 'follow', type: BlockType.Checkbox, checked: digit.follow, onChange: onChangeFollow, disabled: followDisabled },
-        { title: 'alignment', type: BlockType.Select, svalue: digit.json?.Alignment, selectOptions: OptionsAlignmentGTs2Mini,  onChange: onChangeAlignment },
-      ]
-    },
-    {
-      disabled: ! showPrefix,
-      blocks: [
-        { title: 'Prefix', type: BlockType.SelectFile, nvalue: digit.prefix, onChange: onChangePrefix },
-      ]
-    },
-    {
-      disabled: ! showDelimiter,
-      blocks: [
-        { title: 'Delimiter', type: BlockType.SelectFile, nvalue: digit.delimiter, onChange: onChangeDelimiter },
-      ]
-    },
-    {
-      disabled: ! showDataType,
-      blocks: [
-        { title: 'Data Type', type: BlockType.SelectFile, nvalue: digit.dataType, onChange: onChangeDataType },
-        { title: 'X', type: BlockType.Number, nvalue: digit.dataTypeCoords?.X ? digit.dataTypeCoords.X : 0, onChange: onChangedataTypeCoordsX },
-        { title: 'Y', type: BlockType.Number, nvalue: digit.dataTypeCoords?.Y ? digit.dataTypeCoords.Y : 0, onChange: onChangedataTypeCoordsY },
+        { title: 'alignment', type: BlockType.Select, svalue: digit.json?.Alignment, selectOptions: OptionsAlignmentBipS,  onChange: onChangeAlignment },
       ]
     },
   ], [digit]) // eslint-disable-line react-hooks/exhaustive-deps
-
-  function onChagePaddingZero(val: boolean) {
-    const d = {...digit};
-    d.paddingZero = val;
-    onUpdate(d);
-  }
-
-  function onChangedataTypeCoordsX(val: number) {
-    const d = {...digit};
-    d.dataTypeCoords.X = val;
-    onUpdate(d);
-  }
-
-  function onChangedataTypeCoordsY(val: number) {
-    const d = {...digit};
-    d.dataTypeCoords.Y = val;
-    onUpdate(d);
-  }
 
   function onChangeImageIndex(index: number) {
     const d = {...digit};
@@ -146,37 +99,6 @@ const WatchNumberComponent: FC<IProps> = ({
     d.json.Spacing = val;
     onUpdate(d);
   }
-
-  function onChangeVerticalOffset(val: number) {
-    const d = {...digit};
-    d.json.VerticalOffset = val;
-    onUpdate(d);
-  }
-
-  function onChangeDataType(index: number) {
-    const d = {...digit};
-    d.dataType = index;
-    onUpdate(d);
-  }
-
-  function onChangeDelimiter(index: number) {
-    const d = {...digit};
-    d.delimiter = index;
-    onUpdate(d);
-  }
-
-  function onChangePrefix(index: number) {
-    const d = {...digit};
-    d.prefix = index;
-    onUpdate(d);
-  }
-
-  function onChangeFollow(val: boolean) {
-    const d = {...digit};
-    d.follow = val;
-    onUpdate(d);
-  }
-
 
   return (
     <Card>

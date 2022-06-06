@@ -7,9 +7,9 @@ export class WatchState {
   hours = this._date.getHours();
   minutes = this._date.getMinutes();
   
-  alarmEnabled = true;
-  alarmHours = this._date.getHours();
-  alarmMinutes = this._date.getMinutes();
+  // alarmEnabled = true;
+  // alarmHours = this._date.getHours();
+  // alarmMinutes = this._date.getMinutes();
 
   sunsetHours = 17;
   sunsetMinutes = 42;
@@ -29,8 +29,8 @@ export class WatchState {
   distance = Math.round(Math.random() * 1000) + 1000;
   paiGoal = 100;
   pai = Math.round(Math.random() * this.paiGoal);
-  standupGoal = 12;
-  standup = Math.round(Math.random() * this.standupGoal);
+  // standupGoal = 12;
+  // standup = Math.round(Math.random() * this.standupGoal);
   bluetooth = true;
   dnd = true;
   lock = false;
@@ -41,23 +41,23 @@ export class WatchState {
   temperatureMax = this.temperature + Math.round(Math.random() * 10)
   weatherIcon = Math.round(Math.random() * 29);
   
-  uvIndexGoal = 11
-  uvIndex = Math.round(Math.random() * this.uvIndexGoal)
+  // uvIndexGoal = 11
+  // uvIndex = Math.round(Math.random() * this.uvIndexGoal)
   airQualityGoal = 500
   airQuality = Math.round(Math.random() * this.airQualityGoal)
   humidityGoal = 100
   humidity = Math.round(Math.random() * this.humidityGoal)
   
-  windForce = Math.round(Math.random() * 12)
+  // windForce = Math.round(Math.random() * 12)
 
-  airPressureGoal = 100
-  airPressure = Math.round(Math.random() * this.airPressureGoal)
+  // airPressureGoal = 100
+  // airPressure = Math.round(Math.random() * this.airPressureGoal)
 
-  stressGoal = 100
-  stress = Math.round(Math.random() * this.stressGoal)
+  // stressGoal = 100
+  // stress = Math.round(Math.random() * this.stressGoal)
 
-  fatBurningGoal = 30
-  fatBurning = Math.round(Math.random() * this.fatBurningGoal)
+  // fatBurningGoal = 30
+  // fatBurning = Math.round(Math.random() * this.fatBurningGoal)
 
-  animation: number[] = []
+  // animation: number[] = []
 }
