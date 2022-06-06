@@ -1,8 +1,10 @@
 import { FC, useContext } from "react";
 import { Card } from "react-bootstrap";
 import { IWatchContext, WatchfaceContext } from "../../context";
-import { WatchAmPmIcon, WatchTwoDigitsSeparated } from "../../model/watchFace.bips.model";
+import { WatchAmPmIcon, WatchImage, WatchNumber, WatchTwoDigitsSeparated } from "../../model/watchFace.bips.model";
 import AmPmComponent from "./ampm.component";
+import ImageComponent from "./image.component";
+import WatchNumberComponent from "./number.component";
 import SeparatedDigitsComponent from "./separatedDigits.component";
 
 const TimeDigitalComponent: FC = () => {
@@ -33,6 +35,46 @@ const TimeDigitalComponent: FC = () => {
     setWatchface(w);
   }
 
+  function updateSunriseHours(h: WatchNumber) {
+    const w = {...watchface};
+    w.time.sunriseHours = h;
+    setWatchface(w);
+  }
+  function updateSunriseMinutes(h: WatchNumber) {
+    const w = {...watchface};
+    w.time.sunriseMinutes = h;
+    setWatchface(w);
+  }
+  function updateSunsetHours(h: WatchNumber) {
+    const w = {...watchface};
+    w.time.sunsetHours = h;
+    setWatchface(w);
+  }
+  function updateSunsetMinutes(h: WatchNumber) {
+    const w = {...watchface};
+    w.time.sunsetMinutes = h;
+    setWatchface(w);
+  }
+  function updateSunriseHoursNoData(h: WatchImage) {
+    const w = {...watchface};
+    w.time.sunriseHoursNoData = h;
+    setWatchface(w);
+  }
+    function updateSunriseMinutesNoData(h: WatchImage) {
+    const w = {...watchface};
+    w.time.sunriseMinutesNoData = h;
+    setWatchface(w);
+  }
+  function updateSunsetHoursNoData(h: WatchImage) {
+    const w = {...watchface};
+    w.time.sunsetHoursNoData = h;
+    setWatchface(w);
+  }
+  function updateSunsetMinutesNoData(h: WatchImage) {
+    const w = {...watchface};
+    w.time.sunsetMinutesNoData = h;
+    setWatchface(w);
+  }
 
   return (
     <Card>
@@ -69,7 +111,48 @@ const TimeDigitalComponent: FC = () => {
             ampm={{...watchface.time.ampm}}
             onUpdate={updateAmPm}
             />
-               
+
+        <WatchNumberComponent
+          title="Sunrise Hours"
+          digit={{...watchface.time.sunriseHours}}
+          onUpdate={updateSunriseHours}
+        />
+        <WatchNumberComponent
+          title="Sunrise Minutes"
+          digit={{...watchface.time.sunriseMinutes}}
+          onUpdate={updateSunriseMinutes}
+        />
+        <ImageComponent
+          title="Sunrise Hours NoData"
+          image={{...watchface.time.sunriseHoursNoData}}
+          onUpdate={updateSunriseHoursNoData}
+        />
+        <ImageComponent
+          title="Sunrise Minutes NoData"
+          image={{...watchface.time.sunriseMinutesNoData}}
+          onUpdate={updateSunriseMinutesNoData}
+        />
+
+        <WatchNumberComponent
+          title="Sunset Hours"
+          digit={{...watchface.time.sunsetHours}}
+          onUpdate={updateSunsetHours}
+        />
+        <WatchNumberComponent
+          title="Sunset Minutes"
+          digit={{...watchface.time.sunsetMinutes}}
+          onUpdate={updateSunsetMinutes}
+        />
+        <ImageComponent
+          title="Sunset Hours NoData"
+          image={{...watchface.time.sunsetHoursNoData}}
+          onUpdate={updateSunsetHoursNoData}
+        />
+        <ImageComponent
+          title="Sunset Minutes NoData"
+          image={{...watchface.time.sunsetMinutesNoData}}
+          onUpdate={updateSunsetMinutesNoData}
+        />
       </Card.Body>
     </Card>
   );

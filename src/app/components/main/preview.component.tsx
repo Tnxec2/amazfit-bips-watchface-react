@@ -143,7 +143,7 @@ const PreviewComponent: FC<IProps> = ({ width, height }) => {
     }
 
     // if (watchface.shortcuts.json) {
-    //   watchface.shortcuts.json.forEach((item) => {
+    //   watchface.shortcuts.json?.forEach((item) => {
     //     drawImage(ctx, images, item.Icon);
     //     drawShortcutElement(ctx, item.Element, shortCutBorder);
     //   });

@@ -666,6 +666,15 @@ export class WatchTime {
   ampm: WatchAmPmIcon = new WatchAmPmIcon()
   drawingOrder: string
 
+  sunriseHours = new WatchNumber(null, digitTypes.sunrise)
+  sunriseMinutes = new WatchNumber(null, digitTypes.sunrise)
+  sunsetHours = new WatchNumber(null, digitTypes.sunrise)
+  sunsetMinutes = new WatchNumber(null, digitTypes.sunrise)
+  sunriseHoursNoData = new WatchImage()
+  sunriseMinutesNoData = new WatchImage()
+  sunsetHoursNoData = new WatchImage()
+  sunsetMinutesNoData = new WatchImage()
+
   constructor(j?: Time) {
     if (j) {
       this.hours = new WatchTwoDigitsSeparated(j.Hours)
@@ -673,6 +682,14 @@ export class WatchTime {
       this.seconds = new WatchTwoDigitsSeparated(j.Seconds)
       this.ampm = new WatchAmPmIcon(j.AmPm)
       this.drawingOrder = j.DrawingOrder
+      this.sunriseHours = new WatchNumber(j.SunriseHours, digitTypes.sunrise)
+      this.sunriseMinutes = new WatchNumber(j.SunriseMinutes, digitTypes.sunrise)
+      this.sunsetHours = new WatchNumber(j.SunsetHours, digitTypes.sunrise)
+      this.sunsetMinutes = new WatchNumber(j.SunsetMinutes, digitTypes.sunrise)
+      this.sunriseHoursNoData = new WatchImage(j.SunriseHoursNoDataImage)
+      this.sunriseMinutesNoData = new WatchImage(j.SunriseMinutesNoDataImage)
+      this.sunsetHoursNoData = new WatchImage(j.SunsetHoursNoDataImage)
+      this.sunsetMinutesNoData = new WatchImage(j.SunsetMinutesNoDataImage)
     }
   }
 }

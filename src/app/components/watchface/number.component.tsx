@@ -35,14 +35,14 @@ const WatchNumberComponent: FC<IProps> = ({
     },
     {
       blocks: [
-        { title: 'X', type: BlockType.Number, nvalue: digit.json.TopLeftX ? digit.json.TopLeftX : 0, onChange: onChangeX },
-        { title: 'Y', type: BlockType.Number, nvalue: digit.json.TopLeftY ? digit.json.TopLeftY : 0, onChange: onChangeY },
+        { title: 'X', type: BlockType.Number, nvalue: digit.json?.TopLeftX ? digit.json.TopLeftX : 0, onChange: onChangeX },
+        { title: 'Y', type: BlockType.Number, nvalue: digit.json?.TopLeftY ? digit.json.TopLeftY : 0, onChange: onChangeY },
       ]
     },
     {
       blocks: [
-        { title: 'Bottom Right X', type: BlockType.Number, nvalue: digit.json.BottomRightX ? digit.json.BottomRightX : 0, onChange: onChangeBottomRightX },
-        { title: 'Bottom Right Y', type: BlockType.Number, nvalue: digit.json.BottomRightX ? digit.json.BottomRightY : 0, onChange: onChangeBottomRightY },
+        { title: 'Bottom Right X', type: BlockType.Number, nvalue: digit.json?.BottomRightX ? digit.json.BottomRightX : 0, onChange: onChangeBottomRightX },
+        { title: 'Bottom Right Y', type: BlockType.Number, nvalue: digit.json?.BottomRightX ? digit.json.BottomRightY : 0, onChange: onChangeBottomRightY },
       ]
     },
     {

@@ -57,6 +57,14 @@ export class Time {
   AmPm: AmPmIcon
   DrawingOrder: string
   //Unknown9: number = 0
+  SunriseHours: NumberJson
+  SunriseMinutes: NumberJson
+  SunsetHours: NumberJson
+  SunsetMinutes: NumberJson
+  SunriseHoursNoDataImage: Image
+  SunriseMinutesNoDataImage: Image
+  SunsetHoursNoDataImage: Image
+  SunsetMinutesNoDataImage: Image
 }
 
 

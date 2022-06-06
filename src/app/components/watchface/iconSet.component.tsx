@@ -15,7 +15,7 @@ const IconSetComponent: FC<IProps> = ({ title, iconSet, onUpdate }) => {
   const ar = useMemo<IRow[]>(() => [
     {
       blocks: [
-        { title: 'Image', type: BlockType.SelectFile, nvalue: iconSet.json.ImageIndex, onChange: onChangeImageIndex },
+        { title: 'Image', type: BlockType.SelectFile, nvalue: iconSet.json?.ImageIndex, onChange: onChangeImageIndex },
         { title: 'Add coordinates', type: BlockType.Button, onClick: addCoordinates, className: 'btn-outline-success' },
       ]
     },

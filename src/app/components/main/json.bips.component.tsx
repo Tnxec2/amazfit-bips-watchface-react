@@ -83,6 +83,14 @@ function getTimeDigital(time: WatchTime): Time {
         Seconds: time.seconds.enabled ? time.seconds.json : null,
         AmPm: time.ampm.enabled ? time.ampm.json : null,
         DrawingOrder: enabledTime ? time.drawingOrder : null,
+        SunriseHours: time.sunriseHours.enabled ? time.sunriseHours.json: null,
+        SunriseMinutes: time.sunriseMinutes.enabled ? time.sunriseMinutes.json: null,
+        SunsetHours: time.sunsetHours.enabled ? time.sunsetHours.json: null,
+        SunsetMinutes: time.sunsetMinutes.enabled ? time.sunsetMinutes.json: null,
+        SunriseHoursNoDataImage: time.sunriseHoursNoData.enabled ? time.sunriseHoursNoData.json: null,
+        SunriseMinutesNoDataImage: time.sunriseMinutesNoData.enabled ? time.sunriseMinutesNoData.json: null,
+        SunsetHoursNoDataImage: time.sunsetHoursNoData.enabled ? time.sunsetHoursNoData.json: null,
+        SunsetMinutesNoDataImage: time.sunsetMinutesNoData.enabled ? time.sunsetMinutesNoData.json: null,
     } : null
 }
 

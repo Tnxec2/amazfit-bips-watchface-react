@@ -15,15 +15,15 @@ const AmPmComponent: FC<IProps> = ({ title, ampm, onUpdate }) => {
   const ar = useMemo<IRow[]>(() => [
     {
       blocks: [
-        { title: 'AM', type: BlockType.SelectFile, nvalue: ampm.json.ImageIndexAMEN, onChange: onChangeAmImageIndex },
-        { title: 'PM', type: BlockType.SelectFile, nvalue: ampm.json.ImageIndexPMEN, onChange: onChangePmImageIndex },
+        { title: 'AM', type: BlockType.SelectFile, nvalue: ampm.json?.ImageIndexAMEN, onChange: onChangeAmImageIndex },
+        { title: 'PM', type: BlockType.SelectFile, nvalue: ampm.json?.ImageIndexPMEN, onChange: onChangePmImageIndex },
       ]
     },
     {
       blocks: [
         { title: 'Coordinates', type: BlockType.Empty },
-        { title: 'X', type: BlockType.Number, nvalue: ampm.json.X ? ampm.json.X : 0, onChange: onChangeX },
-        { title: 'Y', type: BlockType.Number, nvalue: ampm.json.Y ? ampm.json.Y : 0, onChange: onChangeY },
+        { title: 'X', type: BlockType.Number, nvalue: ampm.json?.X ? ampm.json?.X : 0, onChange: onChangeX },
+        { title: 'Y', type: BlockType.Number, nvalue: ampm.json?.Y ? ampm.json?.Y : 0, onChange: onChangeY },
       ]
     },
   ], [ampm]) // eslint-disable-line react-hooks/exhaustive-deps
