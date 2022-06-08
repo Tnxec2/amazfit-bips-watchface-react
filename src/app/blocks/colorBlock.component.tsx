@@ -7,6 +7,9 @@ interface IProps {
 }
 const ColorBlockComponent: FC<IProps> = ({ title, value, onChange }) => {
 
+    function onRemove() {
+        onChange(null);
+      }
 
     return (
         <>
@@ -21,6 +24,14 @@ const ColorBlockComponent: FC<IProps> = ({ title, value, onChange }) => {
               value={value}
               title="Choose color"
               />
+            <button
+                className="btn btn-outline-secondary"
+                type="button"
+                onClick={onRemove}
+                disabled={!value}
+            >
+                x
+            </button>
         </>
     );
 };

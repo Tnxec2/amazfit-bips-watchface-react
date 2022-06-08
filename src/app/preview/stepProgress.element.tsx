@@ -1,8 +1,7 @@
 import { IImage } from "../model/image.model";
-import { WatchFormatedNumber, WatchStepsProgress } from "../model/watchFace.bips.model";
+import {  WatchStepsProgress } from "../model/watchFace.bips.model";
 import { WatchState } from "../model/watchState";
 import drawCircleProgress from "./circleProgress.element";
-import drawDigitImage from "./digitImage.element";
 import drawIconSet from "./iconSet.element";
 import drawImage from "./image.element";
 import drawImageSet from "./imageSet.element";

@@ -1,8 +1,8 @@
 import { FC, useContext, useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import { IWatchContext, WatchfaceContext } from "../../context";
-import { Activity, AnalogDialFace, Background, Battery, Date, Status, StepsProgress, TextTemperature, Time, WatchJson, Weather } from "../../model/json.bips.model";
-import { WatchActivityList, WatchBackground, WatchBattery, WatchDate, WatchFace, WatchStatus, WatchStepsProgress, WatchTextTemperature, WatchTime, WatchTimeAnalog, WatchWeather } from "../../model/watchFace.bips.model";
+import { Activity, AnalogDialFace, Background, Battery, Date, DateExtended, PulseProgress, Status, StepsProgress, TextTemperature, Time, WatchJson, Weather } from "../../model/json.bips.model";
+import { WatchActivityList, WatchBackground, WatchBattery, WatchDate, WatchDateExtended, WatchFace, WatchPulseProgress, WatchStatus, WatchStepsProgress, WatchTextTemperature, WatchTime, WatchTimeAnalog, WatchWeather } from "../../model/watchFace.bips.model";
 
 import cl from './JsonComponent.module.css';
 
@@ -29,7 +29,9 @@ const JsonComponent: FC = () => {
             Status: getStatus(w.status),
             Battery: getBattery(w.battery),
             AnalogDialFace: getAnalogTime(w.analogTime),
-            Shortcuts: null
+            Shortcuts: null,
+            DateExtended: getDateExt(w.dateExtended),
+            PulseProgress: getPulseProgress(w.pulseProgress,)
         }
         return JSON.stringify(j, (key, value) => {
             if (value !== null && value !== undefined) return value
@@ -223,6 +225,19 @@ function getStepsProgress(p: WatchStepsProgress): StepsProgress {
     }
 }
 
+function getPulseProgress(p: WatchPulseProgress): PulseProgress {
+    const enabled = p.image1.enabled || p.image2.enabled || p.image3.enabled || p.image4.enabled || p.image5.enabled || p.image6.enabled || p.circle.enabled
+    if (!enabled) return null
+    return {
+        Image1: p.image1.enabled ? p.image1.json : null,
+        Image2: p.image2.enabled ? p.image2.json : null,
+        Image3: p.image3.enabled ? p.image3.json : null,
+        Image4: p.image4.enabled ? p.image4.json : null,
+        Image5: p.image5.enabled ? p.image5.json : null,
+        Image6: p.image6.enabled ? p.image6.json : null,
+        Circle: p.circle.enabled ? p.circle.json : null,
+    }
+}
 
 function getStatus(s: WatchStatus): Status {
     const enabled = s.doNotDisturb.enabled || s.lock.enabled || s.bluetooth.enabled || s.alarm.enabled
@@ -269,6 +284,16 @@ function getTextTemperature(t: WatchTextTemperature): TextTemperature {
         MinusImageIndex: t.minus,
         DegreesImageIndex: t.degrees,
     } : null
+}
+
+function getDateExt(t: WatchDateExtended): DateExtended {
+    const enabled = t.years.enabled || t.month.enabled || t.day.enabled
+    if (!enabled) return
+    return {
+        YearSeparate:  t.years.enabled ? t.years.json : null,
+        MonthSeparate: t.month.enabled? t.month.json : null,
+        DaySeparate: t.day.enabled ? t.day.json : null,
+    } 
 }
 
 

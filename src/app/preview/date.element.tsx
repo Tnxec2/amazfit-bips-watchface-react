@@ -1,8 +1,9 @@
 import { IImage } from "../model/image.model";
-import { WatchDate } from "../model/watchFace.bips.model";
+import { WatchDate, WatchDateExtended } from "../model/watchFace.bips.model";
 import { WatchState } from "../model/watchState";
 import drawDigitImage, { drawDigitsOneLine } from "./digitImage.element";
 import drawImageSet from "./imageSet.element";
+import { drawFourDigits, drawTwoDigits } from "./separateDigits.element";
 
 
 export default function drawDate(ctx: CanvasRenderingContext2D, 
@@ -36,5 +37,24 @@ export default function drawDate(ctx: CanvasRenderingContext2D,
         drawImageSet(ctx, images, date.weekday.json, watchState.weekday, 7)
 
 
+    
+}
+
+export function drawDateExt(ctx: CanvasRenderingContext2D, 
+    images: IImage[],
+    date: WatchDateExtended,
+    watchState: WatchState,
+    drawborder: boolean
+    ) {
+      
+    
+    if (date.years.enabled) 
+        drawFourDigits(ctx, images, date.years.json, watchState.year, true)
+
+    if (date.month.enabled) 
+        drawTwoDigits(ctx, images, date.month.json, watchState.month, true)
+
+    if (date.day.enabled) 
+        drawTwoDigits(ctx, images, date.day.json, watchState.day, true)
     
 }

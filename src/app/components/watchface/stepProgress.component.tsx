@@ -9,20 +9,12 @@ interface IProps {
     title: string;
     progress: WatchStepsProgress;
     onUpdate(digit: WatchStepsProgress): void;
-    showImageProgress: boolean,
-    showIconProgress: boolean,
-    showPointerProgress: boolean,
-    showCircleScaleProgress: boolean,
   }
 
 const StepProgressComponent: FC<IProps> = ({
     progress,
     title,
     onUpdate,
-    showImageProgress,
-    showIconProgress,
-    showPointerProgress,
-    showCircleScaleProgress,
   }) => {
 
     function updateImageProgress(ip: WatchImageSet) {
@@ -48,30 +40,27 @@ const StepProgressComponent: FC<IProps> = ({
 
     return (
         <div>
-          { showIconProgress ?
+
             <ImageComponent
               title='Goal image'
               onUpdate={updateGoalImage}
               image={progress.goalImage}
-            /> : '' }
-          { showImageProgress ?
+            />
             <ImageSetComponent
               title='Image progress'
               onUpdate={updateImageProgress}
               imageSet={progress.gauge}
-            /> : '' }
-          { showIconProgress ?
+            /> 
             <IconSetComponent
               title='Icon set progress'
               onUpdate={updateIconSet}
               iconSet={progress.linear}
-            /> : '' }
-          { showCircleScaleProgress ?
+            /> 
             <CircleProgressComponent
               title='Circle progress'
               onUpdate={updateCircle}
               scale={progress.circle}
-            /> : '' }
+            /> 
         </div>
     );
 };

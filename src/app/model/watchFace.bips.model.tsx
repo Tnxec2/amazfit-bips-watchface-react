@@ -1,5 +1,5 @@
 import Color from "../shared/color";
-import { Activity, AirQuality, AmPmIcon, AnalogDialFace, Background, Battery, BatteryFormatedNumber, CircleScale, ClockHand, Coordinates, Date, FormatedNumber, Humidity, IconSet, Image, ImageSet, NumberJson, OneLineMinMax, PointerScale, Shortcut, ShortcutElement, Shortcuts, Status, StepsProgress, Switch, TextTemperature, Time, TwoDigits, WatchJson, Weather, WeatherIcon } from "./json.bips.model";
+import { Activity, AirQuality, AmPmIcon, AnalogDialFace, Background, Battery, BatteryFormatedNumber, CircleScale, ClockHand, Coordinates, Date, DateExtended, FormatedNumber, FourDigits, Humidity, IconSet, Image, ImageSet, NumberJson, OneLineMinMax, PointerScale, PulseProgress, Shortcut, ShortcutElement, Shortcuts, Status, StepsProgress, Switch, TextTemperature, Time, TwoDigits, WatchJson, Weather, WeatherIcon } from "./json.bips.model";
 
 interface IDigitConstructor {
   count: number;
@@ -280,6 +280,30 @@ export class WatchScale {
   }
 }
 
+export class WatchPulseProgress {
+  collapsed = true
+  
+  image1: WatchImage = new WatchImage()
+  image2: WatchImage = new WatchImage()
+  image3: WatchImage = new WatchImage()
+  image4: WatchImage = new WatchImage()
+  image5: WatchImage = new WatchImage()
+  image6: WatchImage = new WatchImage()
+
+  circle: WatchCircleScale = new WatchCircleScale()
+
+  constructor(j?: PulseProgress) {
+    if(j) {
+      this.circle = new WatchCircleScale(j.Circle)
+      this.image1 = new WatchImage(j.Image1)
+      this.image2 = new WatchImage(j.Image2)
+      this.image3 = new WatchImage(j.Image3)
+      this.image4 = new WatchImage(j.Image4)
+      this.image5 = new WatchImage(j.Image5)
+      this.image6 = new WatchImage(j.Image6)
+    }
+  }
+}
 export class WatchStepsProgress {
   collapsed = true
   
@@ -461,6 +485,18 @@ export class WatchTwoDigitsSeparated {
   enabled: boolean = false
 
   constructor(j?: TwoDigits) {
+    if (j) {
+      this.enabled = true
+      this.json = j
+    }
+  }
+}
+
+export class WatchFourDigitsSeparated {
+  json: FourDigits = new FourDigits()
+  enabled: boolean = false
+
+  constructor(j?: FourDigits) {
     if (j) {
       this.enabled = true
       this.json = j
@@ -700,7 +736,7 @@ export class WatchBackground {
   image: WatchImage = new WatchImage()
   preview: WatchImage = new WatchImage()
   frontImage: WatchImage = new WatchImage()
-  color: string = Color.DEFAULT_COLOR
+  color: string
 
   constructor(j?: Background) {
     if (j) {
@@ -741,7 +777,25 @@ export class WatchShortcuts {
   }
 }
 
+export class WatchDateExtended {
+  collapsed = true
+  
+  years: WatchFourDigitsSeparated = new WatchFourDigitsSeparated()
+  month: WatchTwoDigitsSeparated = new WatchTwoDigitsSeparated()
+  day: WatchTwoDigitsSeparated = new WatchTwoDigitsSeparated()
+
+  constructor(j?: DateExtended) {
+    if (j) {
+      this.years = new WatchFourDigitsSeparated(j.YearSeparate)
+      this.month = new WatchTwoDigitsSeparated(j.MonthSeparate)
+      this.day = new WatchTwoDigitsSeparated(j.DaySeparate)
+    }
+  }
+}
+
 export class WatchFace {
+  collapsedActivityBlock = true
+  
   background: WatchBackground = new WatchBackground();
   time: WatchTime = new WatchTime()
   date: WatchDate = new WatchDate();
@@ -752,6 +806,8 @@ export class WatchFace {
   weather: WatchWeather = new WatchWeather()
   analogTime: WatchTimeAnalog = new WatchTimeAnalog()
   shortcuts: WatchShortcuts = new WatchShortcuts()
+  dateExtended: WatchDateExtended = new WatchDateExtended()
+  pulseProgress = new WatchPulseProgress()
 
   constructor(j?: WatchJson) {
     if (!j) return;
@@ -766,5 +822,7 @@ export class WatchFace {
     this.weather = new WatchWeather(j.Weather)
     this.analogTime = new WatchTimeAnalog(j.AnalogDialFace)
     this.shortcuts = new WatchShortcuts(j.Shortcuts)
+    this.dateExtended = new WatchDateExtended(j.DateExtended)
+    this.pulseProgress = new WatchPulseProgress(j.PulseProgress)
   }
 }

@@ -1,8 +1,9 @@
 import { FC, useContext } from "react";
 import { Card } from "react-bootstrap";
 import { IWatchContext, WatchfaceContext } from "../../context";
-import { WatchFormatedNumber, WatchStepsProgress } from "../../model/watchFace.bips.model";
+import { WatchFormatedNumber, WatchPulseProgress, WatchStepsProgress } from "../../model/watchFace.bips.model";
 import WatchFormatedNumberComponent from "./formatedNumber.component";
+import PulseProgressComponent from "./pulseProgress.component";
 import StepProgressComponent from "./stepProgress.component";
 
 const ActivityListComponent: FC = () => {
@@ -17,6 +18,11 @@ const ActivityListComponent: FC = () => {
   function updateStepProgress(a: WatchStepsProgress) {
     const w = {...watchface};
     w.stepsProgress = a;
+    setWatchface(w);
+  }
+  function updatePulseProgress(a: WatchPulseProgress) {
+    const w = {...watchface};
+    w.pulseProgress = a;
     setWatchface(w);
   }
   function updateCaloris(a: WatchFormatedNumber) {
@@ -51,15 +57,27 @@ const ActivityListComponent: FC = () => {
         title='Click to open / close'
         onClick={() => {
           const w = {...watchface};
-          w.activity.collapsed = !w.activity.collapsed
+          w.collapsedActivityBlock = !w.collapsedActivityBlock
           setWatchface(w)
         }}
       >
         Activity
-    
       </Card.Header>
-      { !watchface.activity.collapsed  ? (
-      <Card.Body>
+      { !watchface.collapsedActivityBlock  ? (
+        <Card.Body>
+        <Card>
+          <Card.Header 
+              title='Click to open / close'
+              onClick={() => {
+                const w = {...watchface};
+                w.activity.collapsed = !w.activity.collapsed
+                setWatchface(w)
+              }}
+            >
+            Activity Numbers
+          </Card.Header>
+            { !watchface.activity.collapsed  ? (
+          <Card.Body>
             <WatchFormatedNumberComponent
               title='Steps'
               digit={watchface.activity.steps}
@@ -92,32 +110,53 @@ const ActivityListComponent: FC = () => {
               digit={watchface.activity.pai}
               onUpdate={updatePai}
             />
+          </Card.Body>
+            ) : '' }
+        </Card>
+        <Card>
+          <Card.Header
+            title='Click to open / close'
+            onClick={() => {
+              const w = {...watchface};
+              w.stepsProgress.collapsed = !w.stepsProgress.collapsed
+              setWatchface(w)
+            }}
+            >
+              Step Progress
+            </Card.Header>
+            { !watchface.stepsProgress.collapsed  ? (
+              <Card.Body>
+                <StepProgressComponent
+                  progress={watchface.stepsProgress}
+                  title='Step progress'
+                  onUpdate={updateStepProgress}
+                />
+            </Card.Body>
+            ) : "" }
+          </Card>
             <Card>
               <Card.Header
               title='Click to open / close'
               onClick={() => {
                 const w = {...watchface};
-                w.stepsProgress.collapsed = !w.stepsProgress.collapsed
+                w.pulseProgress.collapsed = !w.pulseProgress.collapsed
                 setWatchface(w)
               }}
               >
-                Step Progress
+                Pulse Progress
               </Card.Header>
-              { !watchface.stepsProgress.collapsed  ? (
+              { !watchface.pulseProgress.collapsed  ? (
                 <Card.Body>
-                  <StepProgressComponent
-                    progress={watchface.stepsProgress}
-                    title='Step progress'
-                    onUpdate={updateStepProgress}
-                    showImageProgress={true}
-                    showIconProgress={true}
-                    showPointerProgress={true}
-                    showCircleScaleProgress={true}
+                  <PulseProgressComponent
+                    progress={watchface.pulseProgress}
+                    title='Pulse Progress'
+                    onUpdate={updatePulseProgress}
+                    
                   />
               </Card.Body>
               ) : "" }
             </Card>
-      </Card.Body>
+        </Card.Body>
       ) : ""
       }
     </Card>

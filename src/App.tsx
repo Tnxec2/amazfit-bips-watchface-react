@@ -14,15 +14,15 @@ import { Constant } from "./app/shared/constant";
 
 const App: FC = () => {
   const [images, setImages] = useState<IImage[]>([]);
-  const [watchface, setWatchface] = useState<WatchFace>(loadWatchfaceBackup());
+  const [watchface, setWatchface] = useState<WatchFace>(new WatchFace());
   const [watchState, setWatchState] = useState<WatchState>(new WatchState());
 
   const [jsonName, setJsonName] = useState<string>(null);
   const [previewScreenNormal, setPreviewScreenNormal] = useState<boolean>(true);
 
-  useEffect(() => {
-    localStorage.setItem(Constant.CONFIG_WATCHFACE_BACKUP, JSON.stringify(watchface));
-  }, [watchface]);
+  // useEffect(() => {
+  //   localStorage.setItem(Constant.CONFIG_WATCHFACE_BACKUP, JSON.stringify(watchface));
+  // }, [watchface]);
 
   return (
     <WatchfaceContext.Provider
@@ -58,9 +58,5 @@ const App: FC = () => {
 
 export default App;
 
-function loadWatchfaceBackup(): WatchFace {
-  const s = localStorage.getItem(Constant.CONFIG_WATCHFACE_BACKUP)
-  if (s !== null) return JSON.parse(s)
-  return new WatchFace()
-}
+
 

@@ -32,6 +32,13 @@ export class TwoDigits {
     Ones: ImageSet
 }
 
+export class FourDigits {
+  Thousands: ImageSet
+  Hundreds: ImageSet
+  Tens: ImageSet
+  Ones: ImageSet
+}
+
 export class NumberJson {
   TopLeftX: number = 0
   TopLeftY: number = 0
@@ -162,6 +169,16 @@ export class StepsProgress{
   Circle: CircleScale
 }
 
+export class PulseProgress{
+  Image1: Image
+  Image2: Image
+  Image3: Image
+  Image4: Image
+  Image5: Image
+  Image6: Image
+  Circle: CircleScale
+}
+
 export class Icon{
   Images: ImageSet
 }
@@ -276,6 +293,12 @@ export class AnalogDialFace{
   Seconds: ClockHand
 }
 
+export class DateExtended{
+  YearSeparate: FourDigits
+  MonthSeparate: TwoDigits
+  DaySeparate: TwoDigits
+}
+
 
 export class WatchJson{
   Background: Background;
@@ -288,4 +311,6 @@ export class WatchJson{
   Battery: Battery;
   AnalogDialFace: AnalogDialFace;
   Shortcuts: Shortcuts;
+  DateExtended: DateExtended;
+  PulseProgress: PulseProgress;
 }

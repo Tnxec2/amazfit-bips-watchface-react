@@ -6,7 +6,8 @@ import { WatchState } from "../../model/watchState";
 import { drawActivity } from "../../preview/activity.element";
 import drawBackground from "../../preview/background.element";
 import { drawBattery } from "../../preview/battery.element";
-import drawDate from "../../preview/date.element";
+import drawDate, { drawDateExt } from "../../preview/date.element";
+import { drawPulseProgress } from "../../preview/pulseProgress.element";
 import drawStatus from "../../preview/status.element";
 import { drawStepProgress } from "../../preview/stepProgress.element";
 import drawTimeAnalog from "../../preview/timeAnalog.element";
@@ -78,6 +79,9 @@ const PreviewComponent: FC<IProps> = ({ width, height }) => {
     if (watchface.date) {
       drawDate(ctx, images, watchface.date, watchState, digitBorder);
     }
+    if (watchface.dateExtended) {
+      drawDateExt(ctx, images, watchface.dateExtended, watchState, digitBorder);
+    }
     if (watchface.status) {
       drawStatus(ctx, images, watchface.status, watchState);
     }
@@ -115,6 +119,14 @@ const PreviewComponent: FC<IProps> = ({ width, height }) => {
         watchface.stepsProgress,
         watchState,
         digitBorder,
+      )
+    }
+    if (watchface.pulseProgress) {
+      drawPulseProgress(
+        ctx, 
+        images, 
+        watchface.pulseProgress,
+        watchState,
       )
     }
     // if (watchface.activity.caloriesSeparatedDigits.enabled) drawFourDigits(ctx, images, watchface.activity.caloriesSeparatedDigits.json, watchState.calories, false)
@@ -155,8 +167,8 @@ const PreviewComponent: FC<IProps> = ({ width, height }) => {
       "canvasPreview"
     ) as HTMLCanvasElement;
     const rect = canvas.getBoundingClientRect();
-    let x = event.clientX - rect.left;
-    let y = event.clientY - rect.top;
+    let x = (event.clientX - rect.left) / scaleFactor;
+    let y = (event.clientY - rect.top) / scaleFactor;
     x = Math.min(width, Math.max(0, Math.round(x)));
     y = Math.min(height, Math.max(0, Math.round(y)));
     setX(x);

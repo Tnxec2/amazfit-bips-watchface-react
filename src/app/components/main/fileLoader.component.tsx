@@ -99,7 +99,7 @@ const FileLoaderComponent: FC = () => {
           id="fileUpload"
           accept="image/*"
           onChange={imagesUploadHandler}
-          
+
         />
         {images.length > 0 ? (
           <>
@@ -109,9 +109,7 @@ const FileLoaderComponent: FC = () => {
               accept="application/json"
               id="jsonLoad"
               onChange={uploadJsonFile}
-              
             />
-            
           </>
         ) : (
           ""

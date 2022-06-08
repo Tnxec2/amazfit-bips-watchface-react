@@ -24,11 +24,13 @@ const BatteryComponent: FC = () => {
     w.battery.icon = iconset
     setWatchface(w)
   }
+  
   function updateIconSet(is: WatchIconSet) {
     const w = {...watchface};
     w.battery.scale = is
     setWatchface(w)
   }
+
   function updateCircle(c: WatchCircleScale) {
     const w = {...watchface};
     w.battery.circle = c
