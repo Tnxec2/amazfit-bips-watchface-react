@@ -89,6 +89,18 @@ const WeatherComponent: FC = () => {
             imageSet={{...watchface.weather.icon.customIcon}}
             onUpdate={updateIcon}
           />
+      <Card className="activity w-100">
+      <Card.Header
+        className="d-flex justify-content-between align-items-center"
+        onClick={() => {
+          let w = { ...watchface };
+          w.weather.temperatureCollapsed = !w.weather.temperatureCollapsed;
+          setWatchface(w);
+        }}>
+        Temperature
+      </Card.Header>
+      {!watchface.weather.temperatureCollapsed ? (
+        <Card.Body>
           <WatchWeatherFormatedNumberComponent
             title='Current'
             digit={{...watchface.weather.current}}
@@ -119,13 +131,16 @@ const WeatherComponent: FC = () => {
             coords={{...watchface.weather.nightAltCoords}}
             onUpdate={udpateNightAltCoords}
           />
+          </Card.Body>
+          ) : (
+            ""
+          )}
+        </Card>
           <WatchWeatherAqiComponent
-            title="Air Quality"
             aqi={{...watchface.weather.aqi}}
             onUpdate={updateAqi}
           />
           <WatchWeatherHumidityComponent
-            title="Humidity"
             humidity={{...watchface.weather.humidity}}
             onUpdate={updateHumidity}
           />

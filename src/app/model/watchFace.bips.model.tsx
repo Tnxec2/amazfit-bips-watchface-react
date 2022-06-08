@@ -397,7 +397,7 @@ export class WatchAQI {
 
   constructor(j?: AirQuality) {
     if (j) {
-      this.icon = new WatchImage()
+      this.icon = new WatchImage(j.Icon)
       this.number = new WatchNumber(j.Number, digitTypes.airQuality)
     }
   }
@@ -412,7 +412,7 @@ export class WatchHumidity {
 
   constructor(j?: Humidity) {
     if (j) {
-      this.icon = new WatchImage()
+      this.icon = new WatchImage(j.Icon)
       this.number = new WatchNumber(j.Number, digitTypes.airQuality)
       this.suffix = j.SuffixImageIndex
     }
@@ -421,6 +421,7 @@ export class WatchHumidity {
 
 export class WatchWeather {
   collapsed: boolean = true
+  temperatureCollapsed: boolean = true
 
   icon: WatchWeatherIcon = new WatchWeatherIcon()
   current: WatchTextTemperature = new WatchTextTemperature()

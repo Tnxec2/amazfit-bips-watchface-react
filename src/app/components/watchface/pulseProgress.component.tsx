@@ -50,11 +50,11 @@ const PulseProgressComponent: FC<IProps> = ({
 
       onUpdate(p);
     }
-    function updateCircle(ip: WatchCircleScale ) {
-      const p = {...progress};
-      p.circle = ip;
-      onUpdate(p);
-    }
+    // function updateCircle(ip: WatchCircleScale ) {
+    //   const p = {...progress};
+    //   p.circle = ip;
+    //   onUpdate(p);
+    // }
 
     return (
         <div>
@@ -89,11 +89,11 @@ const PulseProgressComponent: FC<IProps> = ({
               onUpdate={(e) => updateImage(6, e)}
               image={progress.image6}
           /> 
-          <CircleProgressComponent
+          {/* <CircleProgressComponent
             title='Circle progress'
             onUpdate={updateCircle}
             scale={progress.circle}
-          /> 
+          />  */}
         </div>
     );
 };

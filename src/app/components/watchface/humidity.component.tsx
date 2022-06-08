@@ -7,7 +7,6 @@ import ImageComponent from "./image.component";
 import WatchNumberComponent from "./number.component";
 
 interface IProps {
-  title: string;
   humidity: WatchHumidity;
   onUpdate(aqi: WatchHumidity): void;
   onCopyFromNormal?(): void,
@@ -15,7 +14,6 @@ interface IProps {
 }
 
 const WatchWeatherHumidityComponent: FC<IProps> = ({
-  title,
   humidity,
   onUpdate,
 }) => {
@@ -48,22 +46,14 @@ const WatchWeatherHumidityComponent: FC<IProps> = ({
 
   return (
     <Card>
-      <Card.Header>
-        <div className="input-group input-group-sm">
-          <span className="input-group-text">{title}</span>
-          <div className="input-group-text">
-            <input
-              className="form-check-input mt-0"
-              type="checkbox"
-              checked={humidity.collapsed}
-              onChange={() => {
-                const d = { ...humidity };
-                d.collapsed = !d.collapsed;
-                onUpdate(d);
-              }}
-            />
-          </div>
-        </div>
+      <Card.Header
+        className="d-flex justify-content-between align-items-center"
+        onClick={() => {
+          let w = { ...humidity };
+          w.collapsed = !w.collapsed;
+          onUpdate(w);
+        }}>
+          Humidity
       </Card.Header>
       {humidity.collapsed ? (
         <Card.Body>
