@@ -96,9 +96,18 @@ export class Activity {
   Calories: FormatedNumber
   Pulse: FormatedNumber
   Distance: FormatedNumber
-  PAI: FormatedNumber
 }
 
+export class Pai {
+  IconLow: Image
+  IconNormal: Image
+  IconHigh: Image
+  NoDataImage: Image
+  NumberLow: NumberJson
+  NumberNormal: NumberJson
+  NumberHigh: NumberJson
+  NumberGeneric: NumberJson
+}
 
 
 export class OneLineMonthAndDay{
@@ -299,6 +308,16 @@ export class DateExtended{
   DaySeparate: TwoDigits
 }
 
+export class WeekdayIcon {
+  Monday: Image
+  Tuesday: Image
+  Wednesday: Image
+  Thursday: Image
+  Friday: Image
+  Saturday: Image
+  Sunday: Image
+
+}
 
 export class WatchJson{
   Background: Background;
@@ -313,4 +332,6 @@ export class WatchJson{
   Shortcuts: Shortcuts;
   DateExtended: DateExtended;
   PulseProgress: PulseProgress;
+  PAI: Pai;
+  WeekdayIcon: WeekdayIcon;
 }

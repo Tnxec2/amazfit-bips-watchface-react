@@ -3,10 +3,11 @@ import { Card } from "react-bootstrap";
 import BlocksArrayComponent from "../../blocks/blocksArray.component";
 import { IWatchContext, WatchfaceContext } from "../../context";
 import { BlockType } from "../../model/blocks.model";
-import { WatchFourDigitsSeparated, WatchImageSet, WatchNumber, WatchTwoDigitsSeparated } from "../../model/watchFace.bips.model";
+import { WatchFourDigitsSeparated, WatchImageSet, WatchNumber, WatchTwoDigitsSeparated, WatchWeekdayStatus } from "../../model/watchFace.bips.model";
 import WatchNumberComponent from "./number.component";
 import ImageSetComponent from "./imageSet.component";
 import SeparatedDigitsComponent from "./separatedDigits.component";
+import WeekdayIconProgressComponent from "./WeekdayIconProgress.component";
 
 
 const DateComponent: FC = () => {
@@ -76,6 +77,11 @@ const DateComponent: FC = () => {
     w.dateExtended.years = d;
     setWatchface(w);
   }
+  function updateWeekdayProgress(d: WatchWeekdayStatus) {
+    const w = { ...watchface }
+    w.weekdayicon = d;
+    setWatchface(w);
+  }
 
   return (
     <>
@@ -133,25 +139,41 @@ const DateComponent: FC = () => {
             imageSet={{ ...watchface.date.weekday }}
             onUpdate={updateWeekday}
           />
-
-          <SeparatedDigitsComponent
-            title="Year Separate Digits"
-            digit={{...watchface.dateExtended.years}}
-            amountOfDigits={4}
-            onUpdate={updateYearSeparated}
+          <WeekdayIconProgressComponent
+            progress={{...watchface.weekdayicon}}
+            onUpdate={updateWeekdayProgress}
             />
-          <SeparatedDigitsComponent
-            title="Month Separate Digits"
-            digit={{...watchface.dateExtended.month}}
-            amountOfDigits={2}
-            onUpdate={updateMonthSeparated}
-            />
-          <SeparatedDigitsComponent
-            title="Day Separate Digits"
-            digit={{...watchface.dateExtended.day}}
-            amountOfDigits={2}
-            onUpdate={updateDaySeparated}
-            />
+            <Card>
+              <Card.Header
+                onClick={() => {
+                  let w = { ...watchface };
+                  w.dateExtended.collapsed = !watchface.dateExtended.collapsed;
+                  setWatchface(w);
+                }}
+              >
+                Separate Digits
+              </Card.Header>
+              <Card.Body className={`${watchface.dateExtended.collapsed ? "collapse" : ""}`}>
+                <SeparatedDigitsComponent
+                  title="Year Separate Digits"
+                  digit={{...watchface.dateExtended.years}}
+                  amountOfDigits={4}
+                  onUpdate={updateYearSeparated}
+                  />
+                <SeparatedDigitsComponent
+                  title="Month Separate Digits"
+                  digit={{...watchface.dateExtended.month}}
+                  amountOfDigits={2}
+                  onUpdate={updateMonthSeparated}
+                  />
+                <SeparatedDigitsComponent
+                  title="Day Separate Digits"
+                  digit={{...watchface.dateExtended.day}}
+                  amountOfDigits={2}
+                  onUpdate={updateDaySeparated}
+                  />
+                  </Card.Body>
+            </Card>
         </Card.Body>
       </Card>
     </>

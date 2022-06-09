@@ -163,7 +163,7 @@ const ClockHandComponent: FC<IProps> = ({ title, clockHand, onUpdate, showAngle,
           {!onCopyFromNormal ? '' : <div style={{ clear: 'both' }}><button className='btn btn-sm btn-secondary mb-1' style={{ float: 'right' }} onClick={onCopyFromNormal}>Copy from normal screen</button></div>}
           <BlocksArrayComponent ar={ar} />
           { clockHand.json.Shape.map((item, index) => 
-            <BlocksArrayComponent ar={[
+            <BlocksArrayComponent key={'clockhand' + index} ar={[
               {
                 blocks: [
                   { title: (index + 1).toString(), type: BlockType.Empty },

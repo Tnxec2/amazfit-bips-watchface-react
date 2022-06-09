@@ -1,5 +1,5 @@
 import Color from "../shared/color";
-import { Activity, AirQuality, AmPmIcon, AnalogDialFace, Background, Battery, BatteryFormatedNumber, CircleScale, ClockHand, Coordinates, Date, DateExtended, FormatedNumber, FourDigits, Humidity, IconSet, Image, ImageSet, NumberJson, OneLineMinMax, PointerScale, PulseProgress, Shortcut, ShortcutElement, Shortcuts, Status, StepsProgress, Switch, TextTemperature, Time, TwoDigits, WatchJson, Weather, WeatherIcon } from "./json.bips.model";
+import { Activity, AirQuality, AmPmIcon, AnalogDialFace, Background, Battery, BatteryFormatedNumber, CircleScale, ClockHand, Coordinates, Date, DateExtended, FormatedNumber, FourDigits, Humidity, IconSet, Image, ImageSet, NumberJson, OneLineMinMax, Pai, PointerScale, PulseProgress, Shortcut, ShortcutElement, Shortcuts, Status, StepsProgress, Switch, TextTemperature, Time, TwoDigits, WatchJson, Weather, WeatherIcon, WeekdayIcon } from "./json.bips.model";
 
 interface IDigitConstructor {
   count: number;
@@ -627,7 +627,34 @@ export class WatchActivityList {
       if (j.Calories) this.calories = new WatchFormatedNumber(digitTypes.calories, j.Calories)
       if (j.Pulse) this.pulse = new WatchFormatedNumber(digitTypes.heartRate, j.Pulse)
       if (j.Distance) this.distance = new WatchFormatedNumber(digitTypes.distance, j.Distance)
-      if (j.PAI) this.pai = new WatchFormatedNumber(digitTypes.pai, j.PAI)
+    }
+  }
+}
+
+export class WatchPai {
+  collapsed = true
+
+  imageLow: WatchImage = new WatchImage()
+  numberLow: WatchNumber = new WatchNumber()
+  imageNormal: WatchImage = new WatchImage()
+  numberNormal: WatchNumber = new WatchNumber()
+  imageHigh: WatchImage = new WatchImage()
+  numberHigh: WatchNumber = new WatchNumber()
+  imageNoData: WatchImage = new WatchImage()
+  numberGeneric: WatchNumber = new WatchNumber()
+
+  
+    constructor(j?: Pai) {
+    if (j) {
+      if (j.IconLow) this.imageLow = new WatchImage(j.IconLow)
+      if (j.IconNormal) this.imageLow = new WatchImage(j.IconNormal)
+      if (j.IconHigh) this.imageLow = new WatchImage(j.IconHigh)
+      if (j.NumberLow) this.numberLow = new WatchNumber(j.NumberLow)
+      if (j.NumberNormal) this.numberNormal = new WatchNumber(j.NumberNormal)
+      if (j.NumberHigh) this.numberHigh = new WatchNumber(j.NumberHigh)
+      if (j.NumberGeneric) this.numberGeneric = new WatchNumber(j.NumberGeneric)
+
+      if (j.NoDataImage) this.imageNoData = new WatchImage(j.NoDataImage)
     }
   }
 }
@@ -794,6 +821,29 @@ export class WatchDateExtended {
   }
 }
 
+export class WatchWeekdayStatus {
+    Monday: WatchImage = new WatchImage()
+    Tuesday: WatchImage = new WatchImage()
+    Wednesday: WatchImage = new WatchImage()
+    Thursday: WatchImage = new WatchImage()
+    Friday: WatchImage = new WatchImage()
+    Saturday: WatchImage = new WatchImage()
+    Sunday: WatchImage = new WatchImage()
+    collapsed = true;
+    constructor(j?: WeekdayIcon) {
+      if (j) {
+        this.Monday = new WatchImage(j.Monday)
+        this.Tuesday = new WatchImage(j.Tuesday)
+        this.Wednesday = new WatchImage(j.Wednesday)
+        this.Thursday = new WatchImage(j.Thursday)
+        this.Friday = new WatchImage(j.Friday)
+        this.Saturday = new WatchImage(j.Saturday)
+        this.Sunday = new WatchImage(j.Sunday)
+
+      }
+    }
+}
+
 export class WatchFace {
   collapsedActivityBlock = true
   
@@ -809,7 +859,8 @@ export class WatchFace {
   shortcuts: WatchShortcuts = new WatchShortcuts()
   dateExtended: WatchDateExtended = new WatchDateExtended()
   pulseProgress = new WatchPulseProgress()
-
+  pai = new WatchPai()
+  weekdayicon = new WatchWeekdayStatus()
   constructor(j?: WatchJson) {
     if (!j) return;
 
@@ -825,5 +876,7 @@ export class WatchFace {
     this.shortcuts = new WatchShortcuts(j.Shortcuts)
     this.dateExtended = new WatchDateExtended(j.DateExtended)
     this.pulseProgress = new WatchPulseProgress(j.PulseProgress)
+    this.pai = new WatchPai(j.PAI)
+    this.weekdayicon = new WatchWeekdayStatus(j.WeekdayIcon)
   }
 }

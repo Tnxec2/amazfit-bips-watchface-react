@@ -40,11 +40,11 @@ const ActivityListComponent: FC = () => {
     w.activity.distance = a;
     setWatchface(w);
   }
-  function updatePai(a: WatchFormatedNumber) {
-    const w = {...watchface};
-    w.activity.pai = a;
-    setWatchface(w);
-  }
+  // function updatePai(a: WatchFormatedNumber) {
+  //   const w = {...watchface};
+  //   w.activity.pai = a;
+  //   setWatchface(w);
+  // }
   function updateStepsGoal(a: WatchFormatedNumber) {
     const w = {...watchface};
     w.activity.stepsGoals = a;
@@ -82,21 +82,25 @@ const ActivityListComponent: FC = () => {
               title='Steps'
               digit={watchface.activity.steps}
               onUpdate={updateSteps}
+              showSuffix={true}
             />
             <WatchFormatedNumberComponent
               title='Steps goal'
               digit={watchface.activity.stepsGoals}
               onUpdate={updateStepsGoal}
+              showSuffix={true}
             />
             <WatchFormatedNumberComponent
               title='Calories'
               digit={watchface.activity.calories}
               onUpdate={updateCaloris}
+              showSuffix={true}
             />
             <WatchFormatedNumberComponent
               title='Hearthrate'
               digit={watchface.activity.pulse}
               onUpdate={updateHearthrate}
+              showSuffix={true}
             />
             <WatchFormatedNumberComponent
               title='Distance'
@@ -104,11 +108,6 @@ const ActivityListComponent: FC = () => {
               onUpdate={updateDistance}
               showSuffix={true}
               showDecimal={true}
-            />
-            <WatchFormatedNumberComponent
-              title='PAI'
-              digit={watchface.activity.pai}
-              onUpdate={updatePai}
             />
           </Card.Body>
             ) : '' }

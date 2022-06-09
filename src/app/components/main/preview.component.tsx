@@ -6,7 +6,7 @@ import { WatchState } from "../../model/watchState";
 import { drawActivity } from "../../preview/activity.element";
 import drawBackground from "../../preview/background.element";
 import { drawBattery } from "../../preview/battery.element";
-import drawDate, { drawDateExt } from "../../preview/date.element";
+import drawDate, { drawDateExt, drawWeekdayIconProgress } from "../../preview/date.element";
 import { drawPulseProgress } from "../../preview/pulseProgress.element";
 import drawStatus from "../../preview/status.element";
 import { drawStepProgress } from "../../preview/stepProgress.element";
@@ -81,6 +81,9 @@ const PreviewComponent: FC<IProps> = ({ width, height }) => {
     }
     if (watchface.dateExtended) {
       drawDateExt(ctx, images, watchface.dateExtended, watchState, digitBorder);
+    }
+    if (watchface.weekdayicon) {
+      drawWeekdayIconProgress(ctx, images, watchface.weekdayicon, watchState);
     }
     if (watchface.status) {
       drawStatus(ctx, images, watchface.status, watchState);

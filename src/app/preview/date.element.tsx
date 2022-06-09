@@ -1,7 +1,8 @@
 import { IImage } from "../model/image.model";
-import { WatchDate, WatchDateExtended } from "../model/watchFace.bips.model";
+import { WatchDate, WatchDateExtended, WatchWeekdayStatus } from "../model/watchFace.bips.model";
 import { WatchState } from "../model/watchState";
 import drawDigitImage, { drawDigitsOneLine } from "./digitImage.element";
+import drawImage from "./image.element";
 import drawImageSet from "./imageSet.element";
 import { drawFourDigits, drawTwoDigits } from "./separateDigits.element";
 
@@ -56,5 +57,40 @@ export function drawDateExt(ctx: CanvasRenderingContext2D,
 
     if (date.day.enabled) 
         drawTwoDigits(ctx, images, date.day.json, watchState.day, true)
+    
+}
+
+export function drawWeekdayIconProgress(ctx: CanvasRenderingContext2D,
+    images: IImage[],
+    progress: WatchWeekdayStatus,
+    watchState: WatchState,
+    ) {
+    if (!progress) return;
+
+    switch (watchState.weekday) {
+        case 0:
+            drawImage(ctx, images, progress.Monday.json)
+            break;
+        case 1:
+            drawImage(ctx, images, progress.Tuesday.json)
+            break;
+        case 2:
+            drawImage(ctx, images, progress.Wednesday.json)
+            break;
+        case 3:
+            drawImage(ctx, images, progress.Thursday.json)
+            break;
+        case 4:
+            drawImage(ctx, images, progress.Friday.json)
+            break;
+        case 5:
+            drawImage(ctx, images, progress.Saturday.json)
+            break;
+        case 6:
+            drawImage(ctx, images, progress.Sunday.json)
+            break;    
+        default:
+            break;
+    }
     
 }

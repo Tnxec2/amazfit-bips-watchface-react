@@ -25,7 +25,6 @@ export default function drawclockhand(
 
     let color = Color.colorRead(clockHand.json.Color)
     if ( Color.GFG_Fun(color)) {
-        console.log(color, points);
         
         ctx.strokeStyle = color;
         if ( !clockHand.json.OnlyBorder ) ctx.fillStyle = color;
@@ -34,7 +33,7 @@ export default function drawclockhand(
         ctx.translate(center.x, center.y); // now the position (0,0) is found at (250,50)
 
         const angle = (value * 360 / total) - 90
-        console.log(angle);
+
         
         ctx.rotate((Math.PI/180) * angle); // rotate around the start point of your line
         // Draw shape

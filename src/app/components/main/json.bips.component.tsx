@@ -1,8 +1,8 @@
 import { FC, useContext, useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import { IWatchContext, WatchfaceContext } from "../../context";
-import { Activity, AnalogDialFace, Background, Battery, Date, DateExtended, PulseProgress, Status, StepsProgress, TextTemperature, Time, WatchJson, Weather } from "../../model/json.bips.model";
-import { WatchActivityList, WatchBackground, WatchBattery, WatchDate, WatchDateExtended, WatchFace, WatchPulseProgress, WatchStatus, WatchStepsProgress, WatchTextTemperature, WatchTime, WatchTimeAnalog, WatchWeather } from "../../model/watchFace.bips.model";
+import { Activity, AnalogDialFace, Background, Battery, Date, DateExtended, Pai, PulseProgress, Status, StepsProgress, TextTemperature, Time, WatchJson, Weather, WeekdayIcon } from "../../model/json.bips.model";
+import { WatchActivityList, WatchBackground, WatchBattery, WatchDate, WatchDateExtended, WatchFace, WatchPai, WatchPulseProgress, WatchStatus, WatchStepsProgress, WatchTextTemperature, WatchTime, WatchTimeAnalog, WatchWeather, WatchWeekdayStatus } from "../../model/watchFace.bips.model";
 
 import cl from './JsonComponent.module.css';
 
@@ -31,7 +31,9 @@ const JsonComponent: FC = () => {
             AnalogDialFace: getAnalogTime(w.analogTime),
             Shortcuts: null,
             DateExtended: getDateExt(w.dateExtended),
-            PulseProgress: getPulseProgress(w.pulseProgress,)
+            PulseProgress: getPulseProgress(w.pulseProgress,),
+            PAI: getPAI(w.pai),
+            WeekdayIcon: getWeekdayProgress(w.weekdayicon)
         }
         return JSON.stringify(j, (key, value) => {
             if (value !== null && value !== undefined) return value
@@ -107,25 +109,25 @@ function getActivity(a: WatchActivityList): Activity {
     return enabled ? {
         Steps: a.steps.enabled ? {
             Number: a.steps.number.json,
-            SuffixImageIndex: null,
+            SuffixImageIndex: a.steps.suffix,
             DecimalPointImageIndex: null,
             SuffixMilesImageIndex: null
         } : null,
         StepsGoal: a.stepsGoals.enabled ? {
             Number: a.stepsGoals.number.json,
-            SuffixImageIndex: null,
+            SuffixImageIndex: a.stepsGoals.suffix,
             DecimalPointImageIndex: null,
             SuffixMilesImageIndex: null
         } : null,
         Calories: a.calories.enabled ? {
             Number: a.calories.number.json,
-            SuffixImageIndex: null,
+            SuffixImageIndex: a.calories.suffix,
             DecimalPointImageIndex: null,
             SuffixMilesImageIndex: null
         } : null,
         Pulse: a.pulse.enabled ? {
             Number: a.pulse.number.json,
-            SuffixImageIndex: null,
+            SuffixImageIndex: a.pulse.suffix,
             DecimalPointImageIndex: null,
             SuffixMilesImageIndex: null
         } : null,
@@ -133,12 +135,6 @@ function getActivity(a: WatchActivityList): Activity {
             Number: a.distance.number.json,
             SuffixImageIndex: a.distance.suffix,
             DecimalPointImageIndex: a.distance.decimalPointer,
-            SuffixMilesImageIndex: null
-        } : null,
-        PAI: a.pai.enabled ? {
-            Number: a.pai.number.json,
-            SuffixImageIndex: null,
-            DecimalPointImageIndex: null,
             SuffixMilesImageIndex: null
         } : null,
     } : null
@@ -294,6 +290,39 @@ function getDateExt(t: WatchDateExtended): DateExtended {
         MonthSeparate: t.month.enabled? t.month.json : null,
         DaySeparate: t.day.enabled ? t.day.json : null,
     } 
+}
+function getPAI(t: WatchPai): Pai {
+    const enabled = t.imageLow.enabled || t.imageNormal.enabled || t.imageHigh.enabled ||
+                     t.numberLow.enabled || t.numberNormal.enabled || t.numberHigh.enabled ||
+                     t.numberGeneric.enabled || t.imageNoData.enabled
+    if (!enabled) return
+    return {
+        IconLow:  t.imageLow.enabled ? t.imageLow.json : null,
+        IconNormal:  t.imageNormal.enabled ? t.imageNormal.json : null,
+        IconHigh:  t.imageHigh.enabled ? t.imageHigh.json : null,
+        NoDataImage:  t.imageNoData.enabled ? t.imageNoData.json : null,
+        NumberLow:  t.numberLow.enabled ? t.numberLow.json : null,
+        NumberNormal:  t.numberNormal.enabled ? t.numberNormal.json : null,
+        NumberHigh:  t.numberHigh.enabled ? t.numberHigh.json : null,
+        NumberGeneric:  t.numberGeneric.enabled ? t.numberGeneric.json : null,
+
+    } 
+}
+
+function getWeekdayProgress(p: WatchWeekdayStatus): WeekdayIcon {
+    const enabled = p.Monday.enabled || p.Tuesday.enabled || p.Wednesday.enabled || 
+                p.Thursday.enabled || p.Friday.enabled || p.Saturday.enabled || 
+                p.Sunday.enabled
+      if (!enabled) return null
+      return {
+        Monday: p.Monday.enabled ? p.Monday.json : null,
+        Tuesday: p.Tuesday.enabled ? p.Tuesday.json : null,
+        Wednesday: p.Wednesday.enabled ? p.Wednesday.json : null,
+        Thursday: p.Thursday.enabled ? p.Thursday.json : null,
+        Friday: p.Friday.enabled ? p.Friday.json : null,
+        Saturday: p.Saturday.enabled ? p.Saturday.json : null,
+        Sunday: p.Sunday.enabled ? p.Sunday.json : null,
+      }
 }
 
 

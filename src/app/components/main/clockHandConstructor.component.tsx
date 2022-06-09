@@ -160,7 +160,6 @@ function drawclockhand(clockHand: ClockHand, width: number, height: number, ctx:
 
   let color = Color.colorRead(clockHand.Color)
   if ( Color.GFG_Fun(color)) {
-    console.log(color, points);
     
     ctx.strokeStyle = color;
     //if ( !clockHand.OnlyBorder ) ctx.fillStyle = color;

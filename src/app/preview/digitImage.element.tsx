@@ -73,8 +73,6 @@ export default function drawDigitImage(
     suffixKM?: number,
     ): [number, number] | null  {
 
-    console.log(number);
-    
         
     const x = followXY ? followXY[0] : ( digit.json?.TopLeftX ? digit.json?.TopLeftX : 0 )
     const y = followXY ? followXY[1] : ( digit.json?.TopLeftY ? digit.json?.TopLeftY : 0 )

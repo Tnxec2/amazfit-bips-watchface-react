@@ -1,6 +1,5 @@
 import { FC } from 'react';
-import { WatchCircleScale, WatchImage, WatchPulseProgress } from '../../model/watchFace.bips.model';
-import CircleProgressComponent from './circleProgress.component';
+import { WatchImage, WatchPulseProgress } from '../../model/watchFace.bips.model';
 import ImageComponent from './image.component';
 
 interface IProps {
@@ -11,20 +10,10 @@ interface IProps {
 
 const PulseProgressComponent: FC<IProps> = ({
     progress,
-    title,
     onUpdate,
   }) => {
 
-    // function updateImageProgress(ip: WatchImageSet) {
-    //   const p = {...progress};
-    //   p.gauge = ip;
-    //   onUpdate(p);
-    // }
-    // function updateIconSet(ip: WatchIconSet) {
-    //   const p = {...progress};
-    //   p.linear = ip;
-    //   onUpdate(p);
-    // }
+
     function updateImage(n: number, ip: WatchImage) {
       const p = {...progress};
       switch(n){
@@ -50,11 +39,7 @@ const PulseProgressComponent: FC<IProps> = ({
 
       onUpdate(p);
     }
-    // function updateCircle(ip: WatchCircleScale ) {
-    //   const p = {...progress};
-    //   p.circle = ip;
-    //   onUpdate(p);
-    // }
+
 
     return (
         <div>
@@ -89,11 +74,7 @@ const PulseProgressComponent: FC<IProps> = ({
               onUpdate={(e) => updateImage(6, e)}
               image={progress.image6}
           /> 
-          {/* <CircleProgressComponent
-            title='Circle progress'
-            onUpdate={updateCircle}
-            scale={progress.circle}
-          />  */}
+
         </div>
     );
 };
