@@ -753,6 +753,7 @@ export class WatchTime {
   ampm: WatchAmPmIcon = new WatchAmPmIcon()
   drawingOrder: string
 
+  collapsedSunrise = true
   sunriseHours = new WatchNumber(null, digitTypes.sunrise)
   sunriseMinutes = new WatchNumber(null, digitTypes.sunrise)
   sunsetHours = new WatchNumber(null, digitTypes.sunrise)

@@ -11,7 +11,7 @@ export function drawActivity(ctx: CanvasRenderingContext2D,
     if (!activity.enabled) return;
     if (activity.number.enabled) {
         drawDigitImage(ctx, images, activity.number, value, 
-        null, drawBorder, 1, null,
+        drawBorder, 1, null,
         null, 
         activity.decimalPointer, 
         activity.suffix,

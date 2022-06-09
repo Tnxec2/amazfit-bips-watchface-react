@@ -43,16 +43,16 @@ export default function drawTimeDigital(
     }
 
     if (time.sunriseHours.enabled){
-        drawDigitImage(ctx, images, time.sunriseHours, watchState.sunriseHours, null, digitBorder, 2, null, null, null, null)
+        drawDigitImage(ctx, images, time.sunriseHours, watchState.sunriseHours, digitBorder, 2, null, null, null, null)
     }
     if (time.sunriseMinutes.enabled){
-        drawDigitImage(ctx, images, time.sunriseMinutes, watchState.sunriseMinutes, null, digitBorder, 2, null, null, null, null)
+        drawDigitImage(ctx, images, time.sunriseMinutes, watchState.sunriseMinutes, digitBorder, 2, null, null, null, null)
     }
     if (time.sunsetHours.enabled){
-        drawDigitImage(ctx, images, time.sunsetHours, watchState.sunsetHours, null, digitBorder, 2, null, null, null, null)
+        drawDigitImage(ctx, images, time.sunsetHours, watchState.sunsetHours, digitBorder, 2, null, null, null, null)
     }
     if (time.sunsetMinutes.enabled){
-        drawDigitImage(ctx, images, time.sunsetMinutes, watchState.sunsetMinutes, null, digitBorder, 2, null, null, null, null)
+        drawDigitImage(ctx, images, time.sunsetMinutes, watchState.sunsetMinutes, digitBorder, 2, null, null, null, null)
     }
 }
 

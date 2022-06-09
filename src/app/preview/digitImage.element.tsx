@@ -1,7 +1,7 @@
 import { findImageById } from "../shared/helper"
 import { IImage } from "../model/image.model"
 
-import { WatchNumber } from "../model/watchFace.bips.model"
+import { WatchNumber, WatchNumberExt } from "../model/watchFace.bips.model"
 import { AlignmentType } from "../model/types.bips.model"
 
 export interface DigitValueItem {
@@ -63,7 +63,6 @@ export default function drawDigitImage(
     images: IImage[], 
     digit: WatchNumber, 
     number: number, 
-    followXY?: [number, number], 
     drawBorder?: boolean,
     paddingLength: number = 1,
     minus?: number,
@@ -71,13 +70,13 @@ export default function drawDigitImage(
     decimalPointer?: number,
     suffix?: number,
     suffixKM?: number,
-    ): [number, number] | null  {
+    )  {
 
         
-    const x = followXY ? followXY[0] : ( digit.json?.TopLeftX ? digit.json?.TopLeftX : 0 )
-    const y = followXY ? followXY[1] : ( digit.json?.TopLeftY ? digit.json?.TopLeftY : 0 )
-    const bottomx = followXY ? followXY[0] + ( digit.json?.BottomRightX - digit.json?.TopLeftX) : ( digit.json?.BottomRightX ? digit.json?.BottomRightX : 0 )
-    const bottomy = followXY ? followXY[1] + ( digit.json?.BottomRightY - digit.json?.TopLeftY) : ( digit.json?.BottomRightY ? digit.json?.BottomRightY : 0 )
+    const x = digit.json?.TopLeftX ? digit.json?.TopLeftX : 0 
+    const y = digit.json?.TopLeftY ? digit.json?.TopLeftY : 0 
+    const bottomx = digit.json?.BottomRightX ? digit.json?.BottomRightX : 0 
+    const bottomy = digit.json?.BottomRightY ? digit.json?.BottomRightY : 0 
 
     if (digit.json.ImageIndex) {
         let strNumber = number.toString()
@@ -109,12 +108,67 @@ export default function drawDigitImage(
             if (img) { ar.push(img) }
         }
    
-        const followXY = drawImages(ctx, ar, x, y, bottomx, bottomy, digit.json.Spacing, 0,
+        drawImages(ctx, ar, x, y, bottomx, bottomy, digit.json.Spacing, 0,
+            digit.json.Alignment, drawBorder)
+    }
+}
+
+
+export function drawDigitExtendedImage(
+    ctx: CanvasRenderingContext2D, 
+    images: IImage[], 
+    digit: WatchNumberExt, 
+    number: number, 
+    drawBorder?: boolean,
+    paddingLength: number = 1,
+    minus?: number,
+    prefix?: number,
+    decimalPointer?: number,
+    suffix?: number,
+    suffixKM?: number,
+    ) {
+
+        
+    const x = digit.json?.TopLeftX ? digit.json?.TopLeftX : 0 
+    const y = digit.json?.TopLeftY ? digit.json?.TopLeftY : 0 
+    const bottomx =  digit.json?.BottomRightX ? digit.json?.BottomRightX : 0 
+    const bottomy =  digit.json?.BottomRightY ? digit.json?.BottomRightY : 0 
+
+    if (digit.json.ImageIndex) {
+        let strNumber = number.toString()
+        if ( paddingLength > strNumber.length ) {
+            strNumber = strNumber.padStart(paddingLength, '0')
+        }
+        if (number < 0) strNumber = (-number).toString()
+
+        let ar: HTMLImageElement[] = []
+
+        if (prefix) {
+            const img = findImageById(prefix, images)
+            if (img) { ar.push(img) }
+        }
+        if (number < 0 && minus) {
+            const img = findImageById(minus, images)
+            if (img) { ar.push(img) }
+        }
+        ar = ar.concat(getImages(images, strNumber, 
+                digit.json.ImageIndex, 
+                digit.json.ImagesCount,
+                decimalPointer
+                ))
+        if (decimalPointer && suffixKM) {
+            const img = findImageById(suffixKM, images)
+            if (img) { ar.push(img) }
+        } else if (suffix) {
+            const img = findImageById(suffix, images)
+            if (img) { ar.push(img) }
+        }
+   
+        drawImages(ctx, ar, x, y, bottomx, bottomy, digit.json.Spacing, digit.json.VerticalOffset,
             digit.json.Alignment, drawBorder)
 
-        return followXY
     }
-    return followXY;
+
 }
 
 function getImages(
@@ -157,7 +211,7 @@ function drawImages(
     spacing: number, 
     vspacing: number,
     alignment: string, 
-    drawborder: boolean): [number, number] | null  {
+    drawborder: boolean)  {
     if ( ar.length === 0) return
     
     if (!spacing) spacing = 0
@@ -214,6 +268,4 @@ function drawImages(
         ctx.rect(startx, starty, endx - startx, endy-starty);
         ctx.stroke();
     }
-
-    return [x, y]
 }
