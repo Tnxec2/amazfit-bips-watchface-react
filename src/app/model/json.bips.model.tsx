@@ -147,6 +147,28 @@ export class Date{
   DayAlt: NumberExtendedJson
 }
 
+export class DistanceAlt{
+  Number: NumberExtendedJson
+  DecimalPointerImageIndex: number
+  SuffixKMIcon: Image
+  SuffixMIIcon: Image
+}
+
+export class ActivityAlt{
+  Pulse: NumberExtendedJson
+  Battery: NumberExtendedJson
+  Calories: NumberExtendedJson
+  Steps: NumberExtendedJson
+  BatterySuffixImageIndex: number
+  PulseNoDataImageIndex: number
+  Distance: DistanceAlt
+  Icon1: Image
+  Icon2: Image
+  Icon3: Image
+  Icon4: Image
+  Icon5: Image
+}
+
 export class AmPmIcon{
   X: number
   Y: number
@@ -348,4 +370,5 @@ export class WatchJson{
   PulseProgress: PulseProgress;
   PAI: Pai;
   WeekdayIcon: WeekdayIcon;
+  ActivityAlt: ActivityAlt;
 }

@@ -5,6 +5,7 @@ import DateComponent from "../watchface/date.component";
 import StatusComponent from "../watchface/status.component";
 import TimeAnalogComponent from "../watchface/timeAnalog.component";
 import TimeDigitalComponent from "../watchface/timeDigital.component";
+import ActivityAltListComponent from "./activityAltList.component";
 import BatteryComponent from "./battery.component";
 import WeatherComponent from "./weather.component";
 
@@ -17,6 +18,7 @@ const ScreenNormalcomponent: FC = () => {
       <TimeAnalogComponent />
       <DateComponent />
       <ActivityListComponent />
+      <ActivityAltListComponent />
       <StatusComponent />
       <BatteryComponent /> 
       <WeatherComponent />

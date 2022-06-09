@@ -1,5 +1,5 @@
 import Color from "../shared/color";
-import { Activity, AirQuality, AmPmIcon, AnalogDialFace, Background, Battery, BatteryFormatedNumber, CircleScale, ClockHand, Coordinates, Date, DateExtended, FormatedNumber, FourDigits, Humidity, IconSet, Image, ImageSet, NumberExtendedJson, NumberJson, OneLineMinMax, Pai, PointerScale, PulseProgress, Shortcut, ShortcutElement, Shortcuts, Status, StepsProgress, Switch, TextTemperature, Time, TwoDigits, WatchJson, Weather, WeatherIcon, WeekdayIcon } from "./json.bips.model";
+import { Activity, ActivityAlt, AirQuality, AmPmIcon, AnalogDialFace, Background, Battery, BatteryFormatedNumber, CircleScale, ClockHand, Coordinates, Date, DateExtended, FormatedNumber, FourDigits, Humidity, IconSet, Image, ImageSet, NumberExtendedJson, NumberJson, OneLineMinMax, Pai, PointerScale, PulseProgress, Shortcut, ShortcutElement, Shortcuts, Status, StepsProgress, Switch, TextTemperature, Time, TwoDigits, WatchJson, Weather, WeatherIcon, WeekdayIcon } from "./json.bips.model";
 
 interface IDigitConstructor {
   count: number;
@@ -723,6 +723,49 @@ export class WatchDate {
 
 
 
+  export class WatchActivityAlt{
+    collapsed = true
+    
+    
+    pulse = new WatchNumberExt(null, digitTypes.heartRate)
+    battery = new WatchNumberExt(null, digitTypes.battery)
+    calories = new WatchNumberExt(null, digitTypes.calories)
+    steps = new WatchNumberExt(null, digitTypes.steps)
+    batterySuffix: number
+    pulseNoData: number
+    distance = new WatchNumberExt(null, digitTypes.distance)
+    distanceDecimalPointer: number
+    distanceSuffixKM = new WatchImage()
+    distanceSuffixMi = new WatchImage()
+    icon1 = new WatchImage()
+    icon2 = new WatchImage()
+    icon3 = new WatchImage()
+    icon4 = new WatchImage()
+    icon5 = new WatchImage()
+  
+    constructor(j?: ActivityAlt) {
+      if (j) {
+          
+          if (j.Pulse) this.pulse = new WatchNumberExt(j.Pulse, digitTypes.heartRate)
+          if (j.Battery) this.battery = new WatchNumberExt(j.Battery, digitTypes.battery)
+          if (j.Calories) this.calories = new WatchNumberExt(j.Calories, digitTypes.calories)
+          if (j.Steps) this.steps = new WatchNumberExt(j.Steps, digitTypes.steps)
+          if (j.Distance) this.distance = new WatchNumberExt(j.Distance.Number, digitTypes.distance)
+          this.batterySuffix = j.BatterySuffixImageIndex
+          this.pulseNoData = j.PulseNoDataImageIndex
+          this.distanceDecimalPointer = j.Distance?.DecimalPointerImageIndex
+          if (j.Distance?.SuffixKMIcon) this.distanceSuffixKM = new WatchImage(j.Distance.SuffixKMIcon)
+          if (j.Distance?.SuffixMIIcon) this.distanceSuffixMi = new WatchImage(j.Distance.SuffixMIIcon)
+          
+          if (j.Icon1) this.icon1 = new WatchImage(j.Icon1)
+          if (j.Icon2) this.icon1 = new WatchImage(j.Icon2)
+          if (j.Icon3) this.icon1 = new WatchImage(j.Icon3)
+          if (j.Icon4) this.icon1 = new WatchImage(j.Icon4)
+          if (j.Icon5) this.icon1 = new WatchImage(j.Icon5)
+        }
+      }
+    }
+  
 
 export class WatchTimeAnalog {
   collapsed = true
@@ -885,6 +928,8 @@ export class WatchFace {
   pulseProgress = new WatchPulseProgress()
   pai = new WatchPai()
   weekdayicon = new WatchWeekdayStatus()
+  activityAlt = new WatchActivityAlt()
+
   constructor(j?: WatchJson) {
     if (!j) return;
 
@@ -902,5 +947,6 @@ export class WatchFace {
     this.pulseProgress = new WatchPulseProgress(j.PulseProgress)
     this.pai = new WatchPai(j.PAI)
     this.weekdayicon = new WatchWeekdayStatus(j.WeekdayIcon)
+    this.activityAlt = new WatchActivityAlt(j.ActivityAlt)
   }
 }

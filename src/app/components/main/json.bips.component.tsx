@@ -1,8 +1,8 @@
 import { FC, useContext, useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import { IWatchContext, WatchfaceContext } from "../../context";
-import { Activity, AnalogDialFace, Background, Battery, Date, DateExtended, Pai, PulseProgress, Status, StepsProgress, TextTemperature, Time, WatchJson, Weather, WeekdayIcon } from "../../model/json.bips.model";
-import { WatchActivityList, WatchBackground, WatchBattery, WatchDate, WatchDateExtended, WatchFace, WatchPai, WatchPulseProgress, WatchStatus, WatchStepsProgress, WatchTextTemperature, WatchTime, WatchTimeAnalog, WatchWeather, WatchWeekdayStatus } from "../../model/watchFace.bips.model";
+import { Activity, ActivityAlt, AnalogDialFace, Background, Battery, Date, DateExtended, Pai, PulseProgress, Status, StepsProgress, TextTemperature, Time, WatchJson, Weather, WeekdayIcon } from "../../model/json.bips.model";
+import { WatchActivityAlt, WatchActivityList, WatchBackground, WatchBattery, WatchDate, WatchDateExtended, WatchFace, WatchPai, WatchPulseProgress, WatchStatus, WatchStepsProgress, WatchTextTemperature, WatchTime, WatchTimeAnalog, WatchWeather, WatchWeekdayStatus } from "../../model/watchFace.bips.model";
 import Color from "../../shared/color";
 
 import cl from './JsonComponent.module.css';
@@ -34,7 +34,8 @@ const JsonComponent: FC = () => {
             DateExtended: getDateExt(w.dateExtended),
             PulseProgress: getPulseProgress(w.pulseProgress,),
             PAI: getPAI(w.pai),
-            WeekdayIcon: getWeekdayProgress(w.weekdayicon)
+            WeekdayIcon: getWeekdayProgress(w.weekdayicon),
+            ActivityAlt: getActivityAlt(w.activityAlt),
         }
         return JSON.stringify(j, (key, value) => {
             if (value !== null && value !== undefined) return value
@@ -328,5 +329,26 @@ function getWeekdayProgress(p: WatchWeekdayStatus): WeekdayIcon {
       }
 }
 
+function getActivityAlt(p: WatchActivityAlt): ActivityAlt {
+    const enabled = p.pulse.enabled || p.battery.enabled || p.calories.enabled || 
+                p.steps.enabled || p.distance.enabled || p.icon1.enabled || 
+                p.icon2.enabled || p.icon3.enabled || p.icon4.enabled || p.icon5.enabled
+      if (!enabled) return null
+      return {
+        Pulse: p.pulse.enabled ? p.pulse.json : null,
+        Battery: p.battery.enabled ? p.battery.json : null,
+        Calories: p.calories.enabled ? p.calories.json : null,
+        Steps: p.steps.enabled ? p.steps.json : null,
+        BatterySuffixImageIndex: p.battery.enabled ? p.batterySuffix : null,
+        PulseNoDataImageIndex: p.pulse.enabled ? p.pulseNoData : null,
+        Distance: null,
+        Icon1: p.icon1.enabled ? p.icon1.json : null,
+        Icon2: p.icon2.enabled ? p.icon2.json : null,
+        Icon3: p.icon3.enabled ? p.icon3.json : null,
+        Icon4: p.icon4.enabled ? p.icon4.json : null,
+        Icon5: p.icon5.enabled ? p.icon5.json : null,
+        
+      }
+}
 
 
