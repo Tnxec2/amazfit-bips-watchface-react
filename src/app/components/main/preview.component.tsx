@@ -4,6 +4,7 @@ import { IImage } from "../../model/image.model";
 import { WatchActivityList } from "../../model/watchFace.bips.model";
 import { WatchState } from "../../model/watchState";
 import { drawActivity } from "../../preview/activity.element";
+import drawActivitysAlt from "../../preview/activityAlt.element";
 import drawBackground from "../../preview/background.element";
 import { drawBattery } from "../../preview/battery.element";
 import drawDate, { drawDateExt, drawWeekdayIconProgress } from "../../preview/date.element";
@@ -115,6 +116,8 @@ const PreviewComponent: FC<IProps> = ({ width, height }) => {
         digitBorder,
       );
     }
+    if (watchface.activityAlt)
+      drawActivitysAlt(ctx, images, watchface.activityAlt, watchState, digitBorder)
     if (watchface.stepsProgress) {
       drawStepProgress(
         ctx, 
