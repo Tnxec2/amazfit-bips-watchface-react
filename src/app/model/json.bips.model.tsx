@@ -50,6 +50,18 @@ export class NumberJson {
   ImagesCount: number = 1
 }
 
+export class NumberExtendedJson {
+  TopLeftX: number = 0
+  TopLeftY: number = 0
+  BottomRightX: number = 0
+  BottomRightY: number = 0
+  Alignment: string = AlignmentType.TopLeft.json
+  Spacing: number = 0
+  VerticalOffset: number = 0
+  ImageIndex: number
+  ImagesCount: number = 1
+}
+
 export class ShortcutElement {
   TopLeftX: number = 0
   TopLeftY: number = 0
@@ -131,6 +143,8 @@ export class MonthAndDay{
 export class Date{
   MonthAndDay: MonthAndDay
   WeekDay: ImageSet
+  MonthAlt: NumberExtendedJson
+  DayAlt: NumberExtendedJson
 }
 
 export class AmPmIcon{

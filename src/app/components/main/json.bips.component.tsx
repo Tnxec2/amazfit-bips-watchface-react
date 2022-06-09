@@ -3,6 +3,7 @@ import { Card } from "react-bootstrap";
 import { IWatchContext, WatchfaceContext } from "../../context";
 import { Activity, AnalogDialFace, Background, Battery, Date, DateExtended, Pai, PulseProgress, Status, StepsProgress, TextTemperature, Time, WatchJson, Weather, WeekdayIcon } from "../../model/json.bips.model";
 import { WatchActivityList, WatchBackground, WatchBattery, WatchDate, WatchDateExtended, WatchFace, WatchPai, WatchPulseProgress, WatchStatus, WatchStepsProgress, WatchTextTemperature, WatchTime, WatchTimeAnalog, WatchWeather, WatchWeekdayStatus } from "../../model/watchFace.bips.model";
+import Color from "../../shared/color";
 
 import cl from './JsonComponent.module.css';
 
@@ -71,7 +72,7 @@ export default JsonComponent;
 function getBackground(background: WatchBackground): Background {
     return {
         Image: background.image.enabled ? background.image.json : null ,
-        BackgroundColor: background.color,
+        BackgroundColor: background.image.enabled ? null : Color.colorWrite(background.color),
         Preview: background.preview.enabled ? background.preview.json : null,
         FrontImage: background.frontImage.enabled ? background.frontImage.json : null,
     }
@@ -142,7 +143,7 @@ function getActivity(a: WatchActivityList): Activity {
 
 
 function getDate(d: WatchDate): Date {
-    const enabledDate = d.day.enabled || d.month.enabled || d.montName.enabled
+    const enabledDate = d.day.enabled || d.month.enabled || d.montName.enabled || d.monthAlt.enabled || d.dayAlt.enabled
     const enabled = enabledDate || d.weekday.enabled
     if (!enabled ) return null
     return {
@@ -160,6 +161,8 @@ function getDate(d: WatchDate): Date {
             TwoDigitsMonth: d.twoDigitsMonth
         } : null,
         WeekDay: d.weekday.enabled ? d.weekday.json : null,
+        MonthAlt: d.monthAlt.enabled ? d.monthAlt.json:null,
+        DayAlt: d.dayAlt.enabled ? d.dayAlt.json:null,
     }
 }
 

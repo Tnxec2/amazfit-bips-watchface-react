@@ -1,5 +1,5 @@
 import Color from "../shared/color";
-import { Activity, AirQuality, AmPmIcon, AnalogDialFace, Background, Battery, BatteryFormatedNumber, CircleScale, ClockHand, Coordinates, Date, DateExtended, FormatedNumber, FourDigits, Humidity, IconSet, Image, ImageSet, NumberJson, OneLineMinMax, Pai, PointerScale, PulseProgress, Shortcut, ShortcutElement, Shortcuts, Status, StepsProgress, Switch, TextTemperature, Time, TwoDigits, WatchJson, Weather, WeatherIcon, WeekdayIcon } from "./json.bips.model";
+import { Activity, AirQuality, AmPmIcon, AnalogDialFace, Background, Battery, BatteryFormatedNumber, CircleScale, ClockHand, Coordinates, Date, DateExtended, FormatedNumber, FourDigits, Humidity, IconSet, Image, ImageSet, NumberExtendedJson, NumberJson, OneLineMinMax, Pai, PointerScale, PulseProgress, Shortcut, ShortcutElement, Shortcuts, Status, StepsProgress, Switch, TextTemperature, Time, TwoDigits, WatchJson, Weather, WeatherIcon, WeekdayIcon } from "./json.bips.model";
 
 interface IDigitConstructor {
   count: number;
@@ -182,6 +182,24 @@ export class WatchNumber {
     }
     if ( con ) {
       if (!this.json) this.json = new NumberJson()
+      this.json.ImagesCount = con.count
+      this.con = con
+    }
+  }
+}
+
+export class WatchNumberExt {
+  enabled: boolean = false
+  json: NumberExtendedJson = new NumberExtendedJson()
+  con: IDigitConstructor
+
+  constructor(j?: NumberExtendedJson, con?: IDigitConstructor) {
+    if (j) {
+      this.json = j
+      this.enabled = true
+    }
+    if ( con ) {
+      if (!this.json) this.json = new NumberExtendedJson()
       this.json.ImagesCount = con.count
       this.con = con
     }
@@ -673,6 +691,10 @@ export class WatchDate {
   twoDigitsMonth: boolean
   twoDigitsDay: boolean
 
+  collapsedAlt = true
+  monthAlt = new WatchNumberExt(null, digitTypes.month)
+  dayAlt = new WatchNumberExt(null, digitTypes.day)
+
   constructor(j?: Date) {
     if (j) {
         if (j.WeekDay){
@@ -693,7 +715,8 @@ export class WatchDate {
           this.twoDigitsMonth = j.MonthAndDay.TwoDigitsMonth
           this.twoDigitsDay = j.MonthAndDay.TwoDigitsDay
         } 
-        
+        if (j.MonthAlt) this.monthAlt = new WatchNumberExt(j.MonthAlt, digitTypes.month)
+        if (j.DayAlt) this.dayAlt = new WatchNumberExt(j.DayAlt, digitTypes.day)
       }
     }
   }
@@ -764,7 +787,7 @@ export class WatchBackground {
   image: WatchImage = new WatchImage()
   preview: WatchImage = new WatchImage()
   frontImage: WatchImage = new WatchImage()
-  color: string
+  color: string = Color.DEFAULT_COLOR
 
   constructor(j?: Background) {
     if (j) {

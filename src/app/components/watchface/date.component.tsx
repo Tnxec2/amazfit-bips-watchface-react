@@ -3,11 +3,12 @@ import { Card } from "react-bootstrap";
 import BlocksArrayComponent from "../../blocks/blocksArray.component";
 import { IWatchContext, WatchfaceContext } from "../../context";
 import { BlockType } from "../../model/blocks.model";
-import { WatchFourDigitsSeparated, WatchImageSet, WatchNumber, WatchTwoDigitsSeparated, WatchWeekdayStatus } from "../../model/watchFace.bips.model";
+import { WatchFourDigitsSeparated, WatchImageSet, WatchNumber, WatchNumberExt, WatchTwoDigitsSeparated, WatchWeekdayStatus } from "../../model/watchFace.bips.model";
 import WatchNumberComponent from "./number.component";
 import ImageSetComponent from "./imageSet.component";
 import SeparatedDigitsComponent from "./separatedDigits.component";
 import WeekdayIconProgressComponent from "./WeekdayIconProgress.component";
+import WatchNumberExtendedComponent from "./numberExt.component";
 
 
 const DateComponent: FC = () => {
@@ -82,7 +83,16 @@ const DateComponent: FC = () => {
     w.weekdayicon = d;
     setWatchface(w);
   }
-
+  function updateMonthAlt(d: WatchNumberExt) {
+    const w = { ...watchface }
+    w.date.monthAlt = d;
+    setWatchface(w);
+  }
+  function updateDayAlt(d: WatchNumberExt) {
+    const w = { ...watchface }
+    w.date.dayAlt = d;
+    setWatchface(w);
+  }
   return (
     <>
       <Card>
@@ -173,6 +183,29 @@ const DateComponent: FC = () => {
                   onUpdate={updateDaySeparated}
                   />
                   </Card.Body>
+            </Card>
+            <Card>
+              <Card.Header
+                onClick={() => {
+                  let w = { ...watchface };
+                  w.date.collapsedAlt = !watchface.date.collapsedAlt;
+                  setWatchface(w);
+                }}
+              >
+                Date Alt (with vertical offset)
+              </Card.Header>
+              <Card.Body className={`${watchface.date.collapsedAlt ? "collapse" : ""}`}>
+                <WatchNumberExtendedComponent
+                  title="Month Alt"
+                  digit={{...watchface.date.monthAlt}}
+                  onUpdate={updateMonthAlt}
+                />
+                <WatchNumberExtendedComponent
+                  title="Day Alt"
+                  digit={{...watchface.date.dayAlt}}
+                  onUpdate={updateDayAlt}
+                />
+              </Card.Body>
             </Card>
         </Card.Body>
       </Card>

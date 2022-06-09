@@ -50,11 +50,10 @@ export default class Color {
     let b = h.b;
 
     let new_color =
-      "0x00" +
       r.toString(16).padStart(2, "0") +
       g.toString(16).padStart(2, "0") +
       b.toString(16).padStart(2, "0");
-    return new_color.toUpperCase();
+    return "0x00" + new_color.toUpperCase();
   }
 
   static GFG_Fun(color: any) {

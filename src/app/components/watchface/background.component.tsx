@@ -5,6 +5,7 @@ import { IWatchContext, WatchfaceContext } from "../../context";
 import { BlockType, IRow } from "../../model/blocks.model";
 import { WatchImage } from "../../model/watchFace.bips.model";
 import ImageComponent from "./image.component";
+import Color from "../../shared/color";
 
 const BackgroundComponent: FC = () => {
   const { watchface, setWatchface } = useContext<IWatchContext>(WatchfaceContext)
