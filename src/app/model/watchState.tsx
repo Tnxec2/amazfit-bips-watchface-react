@@ -23,7 +23,7 @@ export class WatchState {
   hearthrateGoal = 220
   hearthrate = Math.round(Math.random() * 200);
   distance = Math.round(Math.random() * 1000) + 1000;
-  paiGoal = 100;
+  paiGoal = 999;
   pai = Math.round(Math.random() * this.paiGoal);
 
   bluetooth = true;

@@ -28,7 +28,7 @@ const ActivityAltListComponent: FC = () => {
     <Card>
       <Card.Header 
         title='Click to open / close'
-        onClick={() => toggleActivityAlt}
+        onClick={() => toggleActivityAlt()}
       >
         Activity Alt (with vertical offset)
       </Card.Header>

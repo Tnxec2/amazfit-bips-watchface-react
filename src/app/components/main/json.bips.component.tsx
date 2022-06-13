@@ -2,8 +2,8 @@ import { FC, useContext, useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import { AppContext, IAppContext } from "../../context/app.context";
 import { IWatchContext, WatchfaceContext } from "../../context/watchface.context";
-import { Activity, ActivityAlt, AnalogDialFace, Background, Battery, Date, DateExtended, Pai, PulseProgress, Status, StepsProgress, TextTemperature, Time, WatchJson, Weather, WeekdayIcon } from "../../model/json.bips.model";
-import { WatchActivityAlt, WatchActivityList, WatchBackground, WatchBattery, WatchDate, WatchDateExtended, WatchFace, WatchPai, WatchPulseProgress, WatchStatus, WatchStepsProgress, WatchTextTemperature, WatchTime, WatchTimeAnalog, WatchWeather, WatchWeekdayStatus } from "../../model/watchFace.bips.model";
+import { Activity, ActivityAlt, AnalogDialFace, Background, Battery, CaloriesProgress, Date, DateExtended, Pai, PulseProgress, Status, StepsProgress, TextTemperature, Time, WatchJson, Weather, WeekdayIcon } from "../../model/json.bips.model";
+import { WatchActivityAlt, WatchActivityList, WatchBackground, WatchBattery, WatchCaloriesProgress, WatchDate, WatchDateExtended, WatchFace, WatchPai, WatchPulseProgress, WatchStatus, WatchStepsProgress, WatchTextTemperature, WatchTime, WatchTimeAnalog, WatchWeather, WatchWeekdayStatus } from "../../model/watchFace.bips.model";
 import Color from "../../shared/color";
 
 import cl from './JsonComponent.module.css';
@@ -37,6 +37,7 @@ const JsonComponent: FC = () => {
             PAI: getPAI(w.pai),
             WeekdayIcon: getWeekdayProgress(w.weekdayicon),
             ActivityAlt: getActivityAlt(w.activityAlt),
+            CaloriesProgress: getCaloriesProgress(w.caloriesProgress),
         }
         return JSON.stringify(j, (key, value) => {
             if (value !== null && value !== undefined) return value
@@ -176,7 +177,7 @@ function getWeather(w: WatchWeather): Weather {
 
     if (!enabled) return null
     return {
-        Icon: w.icon.enabled ? {
+        Icon: w.icon.enabled && w.icon.customIcon.enabled ? {
             CustomIcon: w.icon.customIcon.enabled ? w.icon.customIcon.json : null
         } : null,
         Temperature: enabledTemp ? {
@@ -221,6 +222,14 @@ function getStepsProgress(p: WatchStepsProgress): StepsProgress {
         GoalImage: p.goalImage.enabled ? p.goalImage.json : null,
         Linear: p.linear.enabled ? p.linear.json : null,
         Gauge: p.gauge.enabled ? p.gauge.json : null,
+        Circle: p.circle.enabled ? p.circle.json : null,
+    }
+}
+function getCaloriesProgress(p: WatchCaloriesProgress): CaloriesProgress {
+    const enabled = p.icon.enabled || p.circle.enabled
+    if (!enabled) return null
+    return {
+        Icon: p.icon.enabled ? p.icon.json : null,
         Circle: p.circle.enabled ? p.circle.json : null,
     }
 }
@@ -298,7 +307,7 @@ function getDateExt(t: WatchDateExtended): DateExtended {
 function getPAI(t: WatchPai): Pai {
     const enabled = t.imageLow.enabled || t.imageNormal.enabled || t.imageHigh.enabled ||
                      t.numberLow.enabled || t.numberNormal.enabled || t.numberHigh.enabled ||
-                     t.numberGeneric.enabled || t.imageNoData.enabled
+                     t.numberGeneral.enabled || t.imageNoData.enabled
     if (!enabled) return
     return {
         IconLow:  t.imageLow.enabled ? t.imageLow.json : null,
@@ -308,7 +317,7 @@ function getPAI(t: WatchPai): Pai {
         NumberLow:  t.numberLow.enabled ? t.numberLow.json : null,
         NumberNormal:  t.numberNormal.enabled ? t.numberNormal.json : null,
         NumberHigh:  t.numberHigh.enabled ? t.numberHigh.json : null,
-        NumberGeneric:  t.numberGeneric.enabled ? t.numberGeneric.json : null,
+        NumberGeneral:  t.numberGeneral.enabled ? t.numberGeneral.json : null,
 
     } 
 }

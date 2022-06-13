@@ -95,6 +95,18 @@ export enum watchfaceActionsEnum {
   UPDATE_WEATHER_DAY_ALT_COORDS,
   UPDATE_WEATHER_AQI,
   UPDATE_WEATHER_HUMIDITY,
+  TOGGLE_PAI,
+  UPDATE_PAI_IMAGE_LOW,
+  UPDATE_PAI_IMAGE_NORMAL,
+  UPDATE_PAI_IMAGE_HIGH,
+  UPDATE_PAI_NUMBER_LOW,
+  UPDATE_PAI_NUMBER_NORMAL,
+  UPDATE_PAI_NUMBER_HIGH,
+  UPDATE_PAI_NUMBER_GENERAL,
+  UPDATE_PAI_IMAGE_NODATA,
+  TOGGLE_CALORIES_PROGRESS,
+  UPDATE_CALORIES_ICON,
+  UPDATE_CALORIES_CIRCLE,
 };
 
 interface IAction {
@@ -455,6 +467,61 @@ export const watchfaceReducer = (state: IWatchfaceState, action: IAction): IWatc
         case watchfaceActionsEnum.UPDATE_WEATHER_HUMIDITY:
           return {
             ...state, watchface: {...state.watchface, weather: {...state.watchface.weather, humidity: action.value}}
+          };
+
+
+        // PAI
+      
+        case watchfaceActionsEnum.TOGGLE_PAI:
+          return {
+            ...state, watchface: {...state.watchface, pai: {...state.watchface.pai, collapsed: ! state.watchface.pai.collapsed}}
+          };
+        case watchfaceActionsEnum.UPDATE_PAI_IMAGE_LOW:
+          return {
+            ...state, watchface: {...state.watchface, pai: {...state.watchface.pai, imageLow: action.value}}
+          };
+        case watchfaceActionsEnum.UPDATE_PAI_IMAGE_NORMAL:
+          return {
+            ...state, watchface: {...state.watchface, pai: {...state.watchface.pai, imageNormal: action.value}}
+          };
+        case watchfaceActionsEnum.UPDATE_PAI_IMAGE_HIGH:
+          return {
+            ...state, watchface: {...state.watchface, pai: {...state.watchface.pai, imageHigh: action.value}}
+          };
+        case watchfaceActionsEnum.UPDATE_PAI_IMAGE_NODATA:
+          return {
+            ...state, watchface: {...state.watchface, pai: {...state.watchface.pai, imageNoData: action.value}}
+          };
+        case watchfaceActionsEnum.UPDATE_PAI_NUMBER_LOW:
+          return {
+            ...state, watchface: {...state.watchface, pai: {...state.watchface.pai, numberLow: action.value}}
+          };
+        case watchfaceActionsEnum.UPDATE_PAI_NUMBER_NORMAL:
+          return {
+            ...state, watchface: {...state.watchface, pai: {...state.watchface.pai, numberNormal: action.value}}
+          };
+        case watchfaceActionsEnum.UPDATE_PAI_NUMBER_HIGH:
+          return {
+            ...state, watchface: {...state.watchface, pai: {...state.watchface.pai, numberHigh: action.value}}
+          };
+        case watchfaceActionsEnum.UPDATE_PAI_NUMBER_GENERAL:
+          return {
+            ...state, watchface: {...state.watchface, pai: {...state.watchface.pai, numberGeneral: action.value}}
+          };
+
+        // Calories progress
+
+        case watchfaceActionsEnum.TOGGLE_CALORIES_PROGRESS:
+          return {
+            ...state, watchface: {...state.watchface, caloriesProgress: {...state.watchface.caloriesProgress, collapsed: ! state.watchface.caloriesProgress.collapsed}}
+          };
+        case watchfaceActionsEnum.UPDATE_CALORIES_ICON:
+          return {
+            ...state, watchface: {...state.watchface, caloriesProgress: {...state.watchface.caloriesProgress, icon: action.value}}
+          };
+        case watchfaceActionsEnum.UPDATE_CALORIES_CIRCLE:
+          return {
+            ...state, watchface: {...state.watchface, caloriesProgress: {...state.watchface.caloriesProgress, circle: action.value}}
           };
 
       case watchfaceActionsEnum.SET_WATCHFACE_FROM_JSON:

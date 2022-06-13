@@ -93,6 +93,18 @@ export interface IWatchContext {
     updateWeatherIcon(d: WatchImageSet): void,
     updateWeatherAqi(d: WatchAQI): void,
     updateWeatherHumidity(d: WatchHumidity): void,
+    togglePai(): void,
+    updatePaiImageLow(i: WatchImage): void,
+    updatePaiImageNormal(i: WatchImage): void,
+    updatePaiImageHigh(i: WatchImage): void,
+    updatePaiImageNoData(i: WatchImage): void,
+    updatePaiNumberLow(i: WatchNumber): void,
+    updatePaiNumberNormal(i: WatchNumber): void,
+    updatePaiNumberHigh(i: WatchNumber): void,
+    updatePaiNumberGeneral(i: WatchNumber): void,
+    toggleCaloriesProgress(): void,
+    updateCaloriesIcon(i: WatchImageSet): void,
+    updateCaloriesCircle(i: WatchCircleScale): void,
 }
 
 export const WatchfaceProvider = ({ children }) => {
@@ -241,6 +253,20 @@ export const WatchfaceProvider = ({ children }) => {
     updateWeatherIcon:(d: WatchImageSet)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_WEATHER_ICON, value: d });},
     updateWeatherAqi:(d: WatchAQI)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_WEATHER_AQI, value: d });},
     updateWeatherHumidity:(d: WatchHumidity)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_WEATHER_HUMIDITY, value: d });},
+
+    togglePai:()=>  {dispatch({ type: watchfaceActionsEnum.TOGGLE_PAI});},
+    updatePaiImageLow:(i: WatchImage)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_PAI_IMAGE_LOW, value: i });},
+    updatePaiImageNormal:(i: WatchImage)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_PAI_IMAGE_NORMAL, value: i });},
+    updatePaiImageHigh:(i: WatchImage)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_PAI_IMAGE_HIGH, value: i });},
+    updatePaiImageNoData:( n: WatchImage)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_PAI_IMAGE_NODATA, value: n });},
+    updatePaiNumberLow:(n: WatchNumber)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_PAI_NUMBER_LOW, value: n });},
+    updatePaiNumberNormal:(n: WatchNumber)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_PAI_NUMBER_NORMAL, value: n });},
+    updatePaiNumberHigh:(n: WatchNumber)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_PAI_NUMBER_HIGH, value: n });},
+    updatePaiNumberGeneral:(n: WatchNumber)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_PAI_NUMBER_GENERAL, value: n });},
+
+    toggleCaloriesProgress:()=>  {dispatch({ type: watchfaceActionsEnum.TOGGLE_CALORIES_PROGRESS});},
+    updateCaloriesIcon:(i: WatchImageSet)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_CALORIES_ICON, value: i });},
+    updateCaloriesCircle:(i: WatchCircleScale)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_CALORIES_CIRCLE, value: i });},
 
     setWatchfaceFromJson: (json: WatchJson) => {
       dispatch({ type: watchfaceActionsEnum.SET_WATCHFACE_FROM_JSON, value: json });

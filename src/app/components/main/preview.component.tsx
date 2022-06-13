@@ -9,7 +9,9 @@ import { drawActivity } from "../../preview/activity.element";
 import drawActivitysAlt from "../../preview/activityAlt.element";
 import drawBackground from "../../preview/background.element";
 import { drawBattery } from "../../preview/battery.element";
+import { drawCalorieProgress } from "../../preview/calorieProgress.element";
 import drawDate, { drawDateExt, drawWeekdayIconProgress } from "../../preview/date.element";
+import { drawPai } from "../../preview/pai.element";
 import { drawPulseProgress } from "../../preview/pulseProgress.element";
 import drawStatus from "../../preview/status.element";
 import { drawStepProgress } from "../../preview/stepProgress.element";
@@ -115,6 +117,24 @@ const PreviewComponent: FC<IProps> = ({ width, height }) => {
         watchface.activity,
         watchState,
         digitBorder,
+      );
+    }
+    if (watchface.pai) {
+      drawPai(
+        ctx,
+        images,
+        watchface.pai,
+        watchState.pai,
+        digitBorder,
+      );
+    }
+    if (watchface.caloriesProgress) {
+      drawCalorieProgress(
+        ctx,
+        images,
+        watchface.caloriesProgress,
+        watchState.calories,
+        watchState.caloriesGoal
       );
     }
     if (watchface.activityAlt)
@@ -343,13 +363,6 @@ function drawActivitys(
     activitylist.pulse,
     watchState.hearthrate,
     digitBorder
-  );
-  drawActivity(
-    ctx,
-    images,
-    activitylist.pai,
-    watchState.pai,
-    digitBorder,
   );
   
 }

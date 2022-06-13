@@ -118,7 +118,7 @@ export class Pai {
   NumberLow: NumberJson
   NumberNormal: NumberJson
   NumberHigh: NumberJson
-  NumberGeneric: NumberJson
+  NumberGeneral: NumberJson
 }
 
 
@@ -355,6 +355,11 @@ export class WeekdayIcon {
 
 }
 
+export class CaloriesProgress {
+  Icon: ImageSet
+  Circle: CircleScale
+}
+
 export class WatchJson{
   Background: Background;
   Time: Time;
@@ -371,4 +376,5 @@ export class WatchJson{
   PAI: Pai;
   WeekdayIcon: WeekdayIcon;
   ActivityAlt: ActivityAlt;
+  CaloriesProgress: CaloriesProgress;
 }
