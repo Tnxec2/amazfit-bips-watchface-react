@@ -1,5 +1,5 @@
 export class Constant {
-  static readonly version = '1.0.4'
+  static readonly version = '1.0.5'
   static readonly NONE = "None";
   static readonly startImageIndex = 0;
   static readonly width: number = 176;
