@@ -6,20 +6,17 @@ import { IWatchContext, WatchfaceContext } from "../../context/watchface.context
 import { IImage } from "../../model/image.model";
 import { WatchJson } from "../../model/json.bips.model";
 
-import { WatchFace } from "../../model/watchFace.bips.model";
-
 import { Constant } from "../../shared/constant";
 
 const FileLoaderComponent: FC = () => {
   const { changeJsonName, clearJsonName } = useContext<IAppContext>(AppContext);
-  const { setWatchface } = useContext<IWatchContext>(WatchfaceContext);
+  const { setWatchfaceFromJson, clearWatchface } = useContext<IWatchContext>(WatchfaceContext);
   const { images, addImage, clear } = useContext<IImagesContext>(ImagesContext);
 
   function onLoadJson(e: ProgressEvent<FileReader>) {
     let json = e.target.result;
     let j: WatchJson = JSON.parse(json.toString());
-    let w = new WatchFace(j);
-    setWatchface(w);
+    setWatchfaceFromJson(j);
   }
 
   function uploadJsonFile(e) {
@@ -91,7 +88,7 @@ const FileLoaderComponent: FC = () => {
   function clearInput() {
     if (document.getElementById("jsonLoad")) (document.getElementById("jsonLoad") as HTMLInputElement).value = null;
     clearJsonName()
-    setWatchface(new WatchFace());
+    clearWatchface();
   }
 
   return (

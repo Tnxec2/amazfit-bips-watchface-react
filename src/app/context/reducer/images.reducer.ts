@@ -7,25 +7,25 @@ export const imagesInitialState = {
   images: []
 };
 
-export const imagesActions = {
-  ADD_IMAGE: "ADD_IMAGE",
-  CLEAR: 'CLEAR',
+export enum imagesActionsEnum {
+  ADD_IMAGE,
+  CLEAR,
 };
 
 interface IImageAction {
-    type: string,
+    type: imagesActionsEnum,
     image?: IImage
 }
 
 export const imagesReducer = (state: IImagesState, action: IImageAction): IImagesState => {
     switch (action.type) {
-      case imagesActions.ADD_IMAGE:
+      case imagesActionsEnum.ADD_IMAGE:
         return {
           images: [
             ...state.images, action.image            
           ]
         };
-      case imagesActions.CLEAR: {
+      case imagesActionsEnum.CLEAR: {
         return { images: [] };
       }
       default:

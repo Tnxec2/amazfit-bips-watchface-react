@@ -5,10 +5,9 @@ import { IWatchContext, WatchfaceContext } from "../../context/watchface.context
 import { BlockType, IRow } from "../../model/blocks.model";
 import { WatchImage } from "../../model/watchFace.bips.model";
 import ImageComponent from "./image.component";
-import Color from "../../shared/color";
 
 const BackgroundComponent: FC = () => {
-  const { watchface, setWatchface } = useContext<IWatchContext>(WatchfaceContext)
+  const { watchface, updateBackground, toggleBackground } = useContext<IWatchContext>(WatchfaceContext)
 
   const ar = useMemo<IRow[]>(() => [
     {
@@ -19,40 +18,24 @@ const BackgroundComponent: FC = () => {
   ], [watchface.background])  // eslint-disable-line react-hooks/exhaustive-deps
 
   function onChangePreview(i: WatchImage) {
-    setWatchface({
-      ...watchface,
-      background: { ...watchface.background, preview: i },
-    });
+    updateBackground({ ...watchface.background, preview: i })
   }
   function onChangeImage(i: WatchImage) {
-    setWatchface({
-      ...watchface,
-      background: { ...watchface.background, image: i },
-    });
+    updateBackground({ ...watchface.background, image: i })
   }
   function onChangeFrontImage(i: WatchImage) {
-    setWatchface({
-      ...watchface,
-      background: { ...watchface.background, frontImage: i },
-    });
+    updateBackground({ ...watchface.background, frontImage: i });
   }
 
   function onChangeBackgroundColor(value: string) {
-    setWatchface({
-      ...watchface,
-      background: { ...watchface.background, color: value },
-    });
+    updateBackground( { ...watchface.background, color: value });
   }
 
   return (
     <Card>
       <Card.Header
         className="clickable"
-        onClick={() => {
-          let w = { ...watchface };
-          w.background.collapsed = !w.background.collapsed;
-          setWatchface(w);
-        }}
+        onClick={() => {toggleBackground()}}
       >
         Background
       </Card.Header>

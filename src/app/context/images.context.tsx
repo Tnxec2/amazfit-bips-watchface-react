@@ -1,13 +1,13 @@
 import {createContext, useReducer} from 'react'
 import { IImage } from '../model/image.model';
-import { imagesActions, imagesInitialState, imagesReducer } from './reducer/images.reducer';
+import { imagesActionsEnum, imagesInitialState, imagesReducer } from './reducer/images.reducer';
 
 export const ImagesContext = createContext(null);
 
 export interface IImagesContext {
   images: IImage[],
-  addImage(image: IImage),
-  clear(),
+  addImage(image: IImage): void,
+  clear(): void,
 }
 
 export const ImagesProvider = ({ children }) => {
@@ -16,10 +16,10 @@ export const ImagesProvider = ({ children }) => {
   const value: IImagesContext = {
     images: state.images,
     addImage: (image: IImage) => {
-      dispatch({ type: imagesActions.ADD_IMAGE, image });
+      dispatch({ type: imagesActionsEnum.ADD_IMAGE, image });
     },
     clear: () => {
-      dispatch({ type: imagesActions.CLEAR });
+      dispatch({ type: imagesActionsEnum.CLEAR });
     }
   };
 

@@ -3,7 +3,6 @@ import { Card } from "react-bootstrap";
 import BlocksArrayComponent from "../../blocks/blocksArray.component";
 import { IWatchContext, WatchfaceContext } from "../../context/watchface.context";
 import { BlockType } from "../../model/blocks.model";
-import { WatchFourDigitsSeparated, WatchImageSet, WatchNumber, WatchNumberExt, WatchTwoDigitsSeparated, WatchWeekdayStatus } from "../../model/watchFace.bips.model";
 import WatchNumberComponent from "./number.component";
 import ImageSetComponent from "./imageSet.component";
 import SeparatedDigitsComponent from "./separatedDigits.component";
@@ -12,96 +11,19 @@ import WatchNumberExtendedComponent from "./numberExt.component";
 
 
 const DateComponent: FC = () => {
-  const { watchface, setWatchface } =
+  const { watchface, toggleDate, toggleDateAlt, toggleDateExt,
+  updateDay, updateMonth, updateMonthAsWord, updateWeekday,
+  updateDayAlt, updateMonthAlt, updateOneLineDateMonth, updateOneLineDateDelimiter,
+  updateTwoDigitsDay, updateTwoDigitsMonth, 
+  updateDaySeparated, updateMonthSeparated, updateYearSeparated,
+  updateWeekdayProgress } =
     useContext<IWatchContext>(WatchfaceContext);
 
-
-
-  function updateDay(d: WatchNumber) {
-    const w = { ...watchface }
-    w.date.day = d;
-    setWatchface(w);
-  }
-
-  function updateMonth(d: WatchNumber) {
-    const w = { ...watchface }
-    w.date.month = d;
-    setWatchface(w);
-  }
-  function updateMonthAsWord(d: WatchImageSet) {
-    const w = { ...watchface }
-    w.date.montName = d;
-    setWatchface(w);
-  }
-
-  function updateWeekday(d: WatchImageSet) {
-    const w = { ...watchface }
-    w.date.weekday = d;
-    setWatchface(w);
-  }
-
-  function onChangeOneLineMonth(val: boolean) {
-    const w = { ...watchface }
-    w.date.oneLine = val;
-    setWatchface(w);
-  }
-
-  function onChangeDelimiter(val: number) {
-    const w = { ...watchface }
-    w.date.oneLineDelimiter = val;
-    setWatchface(w);
-  }
-  function onChangeTwoDigitsMonth(val: boolean) {
-    const w = { ...watchface }
-    w.date.twoDigitsMonth = val;
-    setWatchface(w);
-  }
-  function onChangeTwoDigitsDay(val: boolean) {
-    const w = { ...watchface }
-    w.date.twoDigitsDay = val;
-    setWatchface(w);
-  }
-
-  function updateDaySeparated(d: WatchTwoDigitsSeparated) {
-    const w = { ...watchface }
-    w.dateExtended.day = d;
-    setWatchface(w);
-  }
-
-  function updateMonthSeparated(d: WatchTwoDigitsSeparated) {
-    const w = { ...watchface }
-    w.dateExtended.month = d;
-    setWatchface(w);
-  }
-  function updateYearSeparated(d: WatchFourDigitsSeparated) {
-    const w = { ...watchface }
-    w.dateExtended.years = d;
-    setWatchface(w);
-  }
-  function updateWeekdayProgress(d: WatchWeekdayStatus) {
-    const w = { ...watchface }
-    w.weekdayicon = d;
-    setWatchface(w);
-  }
-  function updateMonthAlt(d: WatchNumberExt) {
-    const w = { ...watchface }
-    w.date.monthAlt = d;
-    setWatchface(w);
-  }
-  function updateDayAlt(d: WatchNumberExt) {
-    const w = { ...watchface }
-    w.date.dayAlt = d;
-    setWatchface(w);
-  }
   return (
     <>
       <Card>
         <Card.Header
-          onClick={() => {
-            let w = { ...watchface };
-            w.date.collapsed = !watchface.date.collapsed;
-            setWatchface(w);
-          }}
+          onClick={() => toggleDate()}
         >
           Date
         </Card.Header>
@@ -110,14 +32,14 @@ const DateComponent: FC = () => {
           <BlocksArrayComponent ar={[
             {
               blocks: [
-                { title: 'One Line Mont/Day', type: BlockType.Checkbox, checked: watchface.date.oneLine, onChange: onChangeOneLineMonth },
-                { title: 'Delimiter', type: BlockType.SelectFile, nvalue: watchface.date.oneLineDelimiter, onChange: onChangeDelimiter },
+                { title: 'One Line Mont/Day', type: BlockType.Checkbox, checked: watchface.date.oneLine, onChange: updateOneLineDateMonth },
+                { title: 'Delimiter', type: BlockType.SelectFile, nvalue: watchface.date.oneLineDelimiter, onChange: updateOneLineDateDelimiter },
               ]
             },
             {
               blocks: [
-                { title: 'Two Digits for Month', type: BlockType.Checkbox, checked: watchface.date.twoDigitsMonth, onChange: onChangeTwoDigitsMonth },
-                { title: 'Two Digits for Day', type: BlockType.Checkbox, checked: watchface.date.twoDigitsDay, onChange: onChangeTwoDigitsDay },
+                { title: 'Two Digits for Month', type: BlockType.Checkbox, checked: watchface.date.twoDigitsMonth, onChange: updateTwoDigitsMonth },
+                { title: 'Two Digits for Day', type: BlockType.Checkbox, checked: watchface.date.twoDigitsDay, onChange: updateTwoDigitsDay },
               ]
             }
           ]} />
@@ -155,11 +77,7 @@ const DateComponent: FC = () => {
             />
             <Card>
               <Card.Header
-                onClick={() => {
-                  let w = { ...watchface };
-                  w.dateExtended.collapsed = !watchface.dateExtended.collapsed;
-                  setWatchface(w);
-                }}
+                onClick={() => toggleDateExt}
               >
                 Separate Digits
               </Card.Header>
@@ -186,11 +104,7 @@ const DateComponent: FC = () => {
             </Card>
             <Card>
               <Card.Header
-                onClick={() => {
-                  let w = { ...watchface };
-                  w.date.collapsedAlt = !watchface.date.collapsedAlt;
-                  setWatchface(w);
-                }}
+                onClick={() => toggleDateAlt}
               >
                 Date Alt (with vertical offset)
               </Card.Header>

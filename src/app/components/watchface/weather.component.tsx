@@ -1,8 +1,6 @@
 import { FC, useContext } from "react";
 import { Card } from "react-bootstrap";
-import NumberBlockComponent from "../../blocks/numberBlock.component";
 import { IWatchContext, WatchfaceContext } from "../../context/watchface.context";
-import { WatchAQI, WatchCoordinates, WatchHumidity, WatchImageSet, WatchOneLineTemperature, WatchTextTemperature } from "../../model/watchFace.bips.model";
 import WatchWeatherAqiComponent from "./aqi.component";
 import CoordinatesComponent from "./coordinates.component";
 import WatchWeatherHumidityComponent from "./humidity.component";
@@ -12,74 +10,18 @@ import WatchWeatherOneLineTemperatureComponent from "./weatherOneLineTemperature
 
 
 const WeatherComponent: FC = () => {
-  const { watchface, setWatchface } =
+  const { watchface, toggleWeather, toggleWeatherTemp,
+    udpateWeatherCurrent, updateWeatherIcon, updateWeatherOneLine,
+  udpateWeatherNight, udpateWeatherNightAltCoords,
+udpateWeatherDay, udpateWeatherDayAltCoords,
+updateWeatherAqi, updateWeatherHumidity } =
   useContext<IWatchContext>(WatchfaceContext);
-
-  function udpateCurrent(d: WatchTextTemperature) {
-    const w = {...watchface};
-    w.weather.current = d
-    setWatchface(w)
-  }
-  function updateOneLine(d: WatchOneLineTemperature) {
-    const w = {...watchface};
-    w.weather.todayOneLine = d
-    setWatchface(w)
-  }
-
-  function udpateNight(d: WatchTextTemperature) {
-    const w = {...watchface};
-    w.weather.night = d
-    setWatchface(w)
-  }
-
-  function udpateDay(d: WatchTextTemperature) {
-    const w = {...watchface};
-    w.weather.day = d
-    setWatchface(w)
-  }
-
-  function udpateNightAltCoords(d: WatchCoordinates) {
-    const w = {...watchface};
-    w.weather.nightAltCoords = d
-    setWatchface(w)
-  }
-  
-  function udpateDayAltCoords(d: WatchCoordinates) {
-    const w = {...watchface};
-    w.weather.dayAltCoords = d
-    setWatchface(w)
-  }  
-  
-
-  function updateIcon(d: WatchImageSet) {
-    const w = {...watchface};
-
-    w.weather.icon.customIcon = d
-    setWatchface(w)
-  }
-  function updateAqi(d: WatchAQI) {
-    const w = {...watchface};
-
-    w.weather.aqi = d
-    setWatchface(w)
-  }
-  function updateHumidity(d: WatchHumidity) {
-    const w = {...watchface};
-
-    w.weather.humidity = d
-    setWatchface(w)
-  }
-
 
   return (
     <Card className="activity w-100">
       <Card.Header
         className="d-flex justify-content-between align-items-center"
-        onClick={() => {
-          let w = { ...watchface };
-          w.weather.collapsed = !w.weather.collapsed;
-          setWatchface(w);
-        }}>
+        onClick={() => toggleWeather()}>
         Weather
       </Card.Header>
       {!watchface.weather.collapsed ? (
@@ -87,16 +29,12 @@ const WeatherComponent: FC = () => {
           <ImageSetComponent
             title='Icon'
             imageSet={{...watchface.weather.icon.customIcon}}
-            onUpdate={updateIcon}
+            onUpdate={updateWeatherIcon}
           />
       <Card className="activity w-100">
       <Card.Header
         className="d-flex justify-content-between align-items-center"
-        onClick={() => {
-          let w = { ...watchface };
-          w.weather.temperatureCollapsed = !w.weather.temperatureCollapsed;
-          setWatchface(w);
-        }}>
+        onClick={() => toggleWeatherTemp()}>
         Temperature
       </Card.Header>
       {!watchface.weather.temperatureCollapsed ? (
@@ -104,32 +42,32 @@ const WeatherComponent: FC = () => {
           <WatchWeatherFormatedNumberComponent
             title='Current'
             digit={{...watchface.weather.current}}
-            onUpdate={udpateCurrent}
+            onUpdate={udpateWeatherCurrent}
           />
           <WatchWeatherOneLineTemperatureComponent
             title='Today One Line'
             digit={{...watchface.weather.todayOneLine}}
-            onUpdate={updateOneLine}
+            onUpdate={updateWeatherOneLine}
           />
           <WatchWeatherFormatedNumberComponent
             title='Today Separate Day'
             digit={{...watchface.weather.day}}
-            onUpdate={udpateDay}
+            onUpdate={udpateWeatherDay}
           />
           <WatchWeatherFormatedNumberComponent
             title='Today Separate Night'
             digit={{...watchface.weather.night}}
-            onUpdate={udpateNight}
+            onUpdate={udpateWeatherNight}
           />
           <CoordinatesComponent
             title='Alt Day Coordinates'
             coords={{...watchface.weather.dayAltCoords}}
-            onUpdate={udpateDayAltCoords}
+            onUpdate={udpateWeatherDayAltCoords}
           />
           <CoordinatesComponent
             title='Alt Night Coordinates'
             coords={{...watchface.weather.nightAltCoords}}
-            onUpdate={udpateNightAltCoords}
+            onUpdate={udpateWeatherNightAltCoords}
           />
           </Card.Body>
           ) : (
@@ -138,11 +76,11 @@ const WeatherComponent: FC = () => {
         </Card>
           <WatchWeatherAqiComponent
             aqi={{...watchface.weather.aqi}}
-            onUpdate={updateAqi}
+            onUpdate={updateWeatherAqi}
           />
           <WatchWeatherHumidityComponent
             humidity={{...watchface.weather.humidity}}
-            onUpdate={updateHumidity}
+            onUpdate={updateWeatherHumidity}
           />
         </Card.Body>
       ) : (

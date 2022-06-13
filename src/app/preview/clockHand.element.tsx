@@ -14,7 +14,7 @@ export default function drawclockhand(
     value: number, 
     total: number ) {
 
-    if (total === null) return
+    if (total === null || clockHand.json.Shape?.length === 0) return
 
     const points: ICoords[] = []
     const center: ICoords = {x: clockHand.json.Center?.X ? clockHand.json?.Center?.X : 0, y: clockHand.json?.Center?.Y ? clockHand.json.Center?.Y : 0}

@@ -1,12 +1,12 @@
 import {createContext, useReducer} from 'react'
-import { appActions, appInitialState, appReducer } from './reducer/app.reducer';
+import { appActionsEnum, appInitialState, appReducer } from './reducer/app.reducer';
 
 export const AppContext = createContext(null);
 
 export interface IAppContext {
   jsonName: string,
-  changeJsonName(name: string),
-  clearJsonName(),
+  changeJsonName(name: string): void,
+  clearJsonName(): void,
 }
 
 export const AppContextProvider = ({ children }) => {
@@ -15,10 +15,10 @@ export const AppContextProvider = ({ children }) => {
   const value: IAppContext = {
     jsonName: state.jsonName,
     changeJsonName: (name: string) => {
-      dispatch({ type: appActions.CHANGE_JSON_NAME, jsonName: name });
+      dispatch({ type: appActionsEnum.CHANGE_JSON_NAME, jsonName: name });
     },
     clearJsonName: () => {
-      dispatch({ type: appActions.CLEAR_JSON_NAME });
+      dispatch({ type: appActionsEnum.CLEAR_JSON_NAME });
     }
   };
 
