@@ -14,8 +14,8 @@ export function drawWeather(ctx: CanvasRenderingContext2D,
     ) {
     if (!weather) return;
     
-    if (weather.icon?.enabled && weather.icon?.customIcon?.enabled) {
-        drawImageSet(ctx, images, weather.icon.customIcon.json, watchState.weatherIcon, 26);
+    if (weather.customIcon?.enabled) {
+        drawImageSet(ctx, images, weather.customIcon.json, watchState.weatherIcon, 26);
     }
     if (weather.current.enabled) {
         drawDigitImage(ctx, images, weather.current.number, watchState.temperature, drawBorder, 

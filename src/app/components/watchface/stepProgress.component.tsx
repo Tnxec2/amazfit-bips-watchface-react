@@ -44,22 +44,22 @@ const StepProgressComponent: FC<IProps> = ({
             <ImageComponent
               title='Goal image'
               onUpdate={updateGoalImage}
-              image={progress.goalImage}
+              image={{...progress.goalImage}}
             />
             <ImageSetComponent
               title='Image progress'
               onUpdate={updateImageProgress}
-              imageSet={progress.gauge}
+              imageSet={{...progress.gauge}}
             /> 
             <IconSetComponent
               title='Icon set progress'
               onUpdate={updateIconSet}
-              iconSet={progress.linear}
+              iconSet={{...progress.linear}}
             /> 
             <CircleProgressComponent
               title='Circle progress'
               onUpdate={updateCircle}
-              scale={progress.circle}
+              scale={{...progress.circle}}
             /> 
         </div>
     );

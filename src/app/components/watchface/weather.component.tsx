@@ -28,7 +28,7 @@ updateWeatherAqi, updateWeatherHumidity } =
         <Card.Body>
           <ImageSetComponent
             title='Icon'
-            imageSet={{...watchface.weather.icon.customIcon}}
+            imageSet={{...watchface.weather.customIcon}}
             onUpdate={updateWeatherIcon}
           />
       <Card className="activity w-100">

@@ -59,7 +59,7 @@ const WatchWeatherHumidityComponent: FC<IProps> = ({
         <Card.Body>
           <WatchNumberComponent
             title='Number'
-            digit={humidity.number}
+            digit={{...humidity.number}}
             onUpdate={onUpdateNumber} 
             showDelimiter={false}
             paddingDisabled={true}

@@ -173,12 +173,12 @@ function getWeather(w: WatchWeather): Weather {
     const enabledTemp = w.current.enabled || w.day.enabled || w.night.enabled || w.todayOneLine.enabled
     const enabledAqi = w.aqi.icon.enabled || w.aqi.number.enabled
     const enabledHumidity = w.humidity.icon.enabled || w.humidity.number.enabled
-    const enabled = w.icon.customIcon.enabled || enabledTemp || enabledAqi || enabledHumidity
+    const enabled = w.customIcon.enabled || enabledTemp || enabledAqi || enabledHumidity
 
     if (!enabled) return null
     return {
-        Icon: w.icon.enabled && w.icon.customIcon.enabled ? {
-            CustomIcon: w.icon.customIcon.enabled ? w.icon.customIcon.json : null
+        Icon: w.customIcon.enabled ? {
+            CustomIcon: w.customIcon.enabled ? w.customIcon.json : null
         } : null,
         Temperature: enabledTemp ? {
             Current: w.current.enabled ? {

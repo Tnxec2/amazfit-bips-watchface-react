@@ -88,7 +88,7 @@ const WatchWeatherOneLineTemperatureComponent: FC<IProps> = ({
         <Card.Body>
           <WatchNumberComponent
             title='Number'
-            digit={digit.number}
+            digit={{...digit.number}}
             onUpdate={onUpdateNumber} 
             showDelimiter={false}
             paddingDisabled={true}

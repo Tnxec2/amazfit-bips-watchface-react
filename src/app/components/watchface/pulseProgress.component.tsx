@@ -47,32 +47,32 @@ const PulseProgressComponent: FC<IProps> = ({
           <ImageComponent
               title='Image 1'
               onUpdate={(e) => updateImage(1, e)}
-              image={progress.image1}
+              image={{...progress.image1}}
           /> 
           <ImageComponent
               title='Image 2'
               onUpdate={(e) => updateImage(2, e)}
-              image={progress.image2}
+              image={{...progress.image2}}
           /> 
           <ImageComponent
               title='Image 3'
               onUpdate={(e) => updateImage(3, e)}
-              image={progress.image3}
+              image={{...progress.image3}}
           /> 
           <ImageComponent
               title='Image 4'
               onUpdate={(e) => updateImage(4, e)}
-              image={progress.image4}
+              image={{...progress.image4}}
           /> 
           <ImageComponent
               title='Image 5'
               onUpdate={(e) => updateImage(5, e)}
-              image={progress.image5}
+              image={{...progress.image5}}
           /> 
           <ImageComponent
               title='Image 6'
               onUpdate={(e) => updateImage(6, e)}
-              image={progress.image6}
+              image={{...progress.image6}}
           /> 
 
         </div>

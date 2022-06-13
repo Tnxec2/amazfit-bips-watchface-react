@@ -59,37 +59,37 @@ const WeekdayIconProgressComponent: FC<IProps> = ({
           <ImageComponent
               title='Monday'
               onUpdate={(e) => updateImage(1, e)}
-              image={progress.Monday}
+              image={{...progress.Monday}}
           /> 
           <ImageComponent
               title='Tuesday'
               onUpdate={(e) => updateImage(2, e)}
-              image={progress.Tuesday}
+              image={{...progress.Tuesday}}
           /> 
           <ImageComponent
               title='Wednesday'
               onUpdate={(e) => updateImage(3, e)}
-              image={progress.Wednesday}
+              image={{...progress.Wednesday}}
           /> 
           <ImageComponent
               title='Thursday'
               onUpdate={(e) => updateImage(4, e)}
-              image={progress.Thursday}
+              image={{...progress.Thursday}}
           /> 
           <ImageComponent
               title='Friday'
               onUpdate={(e) => updateImage(5, e)}
-              image={progress.Friday}
+              image={{...progress.Friday}}
           /> 
           <ImageComponent
               title='Saturday'
               onUpdate={(e) => updateImage(6, e)}
-              image={progress.Saturday}
+              image={{...progress.Saturday}}
           /> 
           <ImageComponent
               title='Sunday'
               onUpdate={(e) => updateImage(7, e)}
-              image={progress.Sunday}
+              image={{...progress.Sunday}}
           /> 
 
         </Card.Body>

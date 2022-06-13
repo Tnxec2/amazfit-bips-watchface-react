@@ -41,7 +41,7 @@ const WatchWeatherAqiComponent: FC<IProps> = ({
         <Card.Body>
           <WatchNumberComponent
             title='Number'
-            digit={aqi.number}
+            digit={{...aqi.number}}
             onUpdate={onUpdateNumber} 
             showDelimiter={false}
             paddingDisabled={true}

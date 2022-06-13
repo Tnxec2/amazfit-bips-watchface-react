@@ -363,20 +363,6 @@ export class WatchCaloriesProgress {
 }
 
 
-export class WatchWeatherIcon {
-  enabled: boolean = true
-
-  customIcon: WatchImageSet = new WatchImageSet(digitTypes.weather.imageProgressTotal)
-
-
-  constructor(j?: WeatherIcon) {
-    if (j) {
-      this.customIcon = new WatchImageSet(digitTypes.weather.imageProgressTotal, j.CustomIcon)
-      
-    }
-  }
-}
-
 export class WatchTextTemperature {
   enabled: boolean = false
   number: WatchNumber = new WatchNumber(null, digitTypes.weather)
@@ -462,7 +448,7 @@ export class WatchWeather {
   collapsed: boolean = true
   temperatureCollapsed: boolean = true
 
-  icon: WatchWeatherIcon = new WatchWeatherIcon()
+  customIcon: WatchImageSet = new WatchImageSet(digitTypes.weather.imageProgressTotal)
   current: WatchTextTemperature = new WatchTextTemperature()
   
   todayOneLine: WatchOneLineTemperature = new WatchOneLineTemperature(null, digitTypes.weather)
@@ -478,7 +464,7 @@ export class WatchWeather {
 
   constructor(j?: Weather) {
     if (j) {
-      this.icon = new WatchWeatherIcon(j.Icon)
+      this.customIcon = new WatchImageSet(digitTypes.weather.imageProgressTotal, j.Icon?.CustomIcon)
     
       if (j.Temperature) {
         if (j.Temperature.Current)

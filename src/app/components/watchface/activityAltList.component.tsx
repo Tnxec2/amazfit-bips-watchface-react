@@ -36,7 +36,7 @@ const ActivityAltListComponent: FC = () => {
           <Card.Body>
             <WatchNumberExtendedComponent
               title='Battery'
-              digit={watchface.activityAlt.battery}
+              digit={{...watchface.activityAlt.battery}}
               onUpdate={updateActivityAltBattery}
             />
             { watchface.activityAlt.battery.enabled ?
@@ -51,17 +51,17 @@ const ActivityAltListComponent: FC = () => {
             /> : '' }
             <WatchNumberExtendedComponent
               title='Steps'
-              digit={watchface.activityAlt.steps}
+              digit={{...watchface.activityAlt.steps}}
               onUpdate={updateActivityAltSteps}
             />
             <WatchNumberExtendedComponent
               title='Calories'
-              digit={watchface.activityAlt.calories}
+              digit={{...watchface.activityAlt.calories}}
               onUpdate={updateActivityAltCalories}
             />
             <WatchNumberExtendedComponent
               title='Heartrate'
-              digit={watchface.activityAlt.pulse}
+              digit={{...watchface.activityAlt.pulse}}
               onUpdate={updateActivityAltHearthrate}
             />
             { watchface.activityAlt.pulse.enabled ?
@@ -76,7 +76,7 @@ const ActivityAltListComponent: FC = () => {
             /> :''}
             <WatchNumberExtendedComponent
               title='Distance'
-              digit={watchface.activityAlt.distance}
+              digit={{...watchface.activityAlt.distance}}
               onUpdate={updateActivityAltDistance}
             />
             { watchface.activityAlt.distance.enabled ?

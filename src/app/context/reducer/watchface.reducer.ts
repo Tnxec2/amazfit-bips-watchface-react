@@ -434,7 +434,7 @@ export const watchfaceReducer = (state: IWatchfaceState, action: IAction): IWatc
           };
         case watchfaceActionsEnum.UPDATE_WEATHER_ICON:
           return {
-            ...state, watchface: {...state.watchface, weather: {...state.watchface.weather, icon: action.value}}
+            ...state, watchface: {...state.watchface, weather: {...state.watchface.weather, customIcon: action.value}}
           };
         case watchfaceActionsEnum.UPDATE_WEATHER_CURRENT:
           return {
