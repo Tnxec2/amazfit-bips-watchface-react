@@ -1,21 +1,23 @@
 import React, { FC, ReactElement, useContext, useState } from "react";
 import { Constant } from "./constant";
-import { IWatchContext, WatchfaceContext } from "../context";
 import "./selectFileList.css";
+import { IImagesContext, ImagesContext } from "../context/images.context";
 interface IProps {
   title: string,
   value: number;
   onChange(id: number): void;
   disabled?: boolean
+  error?: string
 }
 
 const SelectFileListComponent: FC<IProps> = ({
   title,
   value,
   onChange,
-  disabled
+  disabled,
+  error,
 }) => {
-  const { images } = useContext<IWatchContext>(WatchfaceContext);
+  const { images } = useContext<IImagesContext>(ImagesContext);
 
   const [collapsed, setCollapsed] = useState<boolean>(true);
 
@@ -57,7 +59,7 @@ const SelectFileListComponent: FC<IProps> = ({
   return (
     <>
       <span className="input-group-text">{title}</span>
-      <div className="input-group-text dropdown">
+      <div className={`input-group-text dropdown ${error ? 'bg-danger' : ''}`} title={error}>
         <div>
           {value !== null &&
           value !== undefined &&

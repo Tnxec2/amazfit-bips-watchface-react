@@ -33,6 +33,10 @@ export class JsonType {
       if (json === undefined) return this.Default.index;
       return Object.values(AlignmentType).find((val) => val.json === json).index;
     }
+
+    static hasFlag(alignment: number, flag: number) {
+      return (alignment & flag) !== 0
+    }
   }
 
   

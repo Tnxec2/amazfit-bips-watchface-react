@@ -1,5 +1,5 @@
 import { FC, useContext, useState } from "react";
-import { IWatchContext, WatchfaceContext } from "../../context";
+import { IWatchContext, WatchfaceContext } from "../../context/watchface.context";
 import { ClockHand } from "../../model/json.bips.model";
 import Color from "../../shared/color";
 import Canvas from "./canvas.function";
@@ -13,7 +13,7 @@ interface IProps {
 const scaleFactor = 2
 
 const ClockhandConstructorComponent: FC<IProps> = ({ width, height }) => {
-  const { images, watchface } =
+  const { watchface } =
     useContext<IWatchContext>(WatchfaceContext);
 
   const [x, setX] = useState<number>(0);
@@ -22,7 +22,7 @@ const ClockhandConstructorComponent: FC<IProps> = ({ width, height }) => {
   const [type, setType] = useState<number>(1);
 
   function draw(canvas, ctx: CanvasRenderingContext2D) {
-    if (images && watchface) {
+    if (watchface) {
       if (canvas) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         drawGrid(ctx)

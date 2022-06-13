@@ -8,7 +8,6 @@ export function drawActivity(ctx: CanvasRenderingContext2D,
     value: number,
     drawBorder: boolean,
     ) {
-    if (!activity.enabled) return;
     if (activity.number.enabled) {
         drawDigitImage(ctx, images, activity.number, value, 
         drawBorder, 1, null,

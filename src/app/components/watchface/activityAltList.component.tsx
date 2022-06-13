@@ -1,7 +1,7 @@
 import { FC, useContext } from "react";
 import { Card } from "react-bootstrap";
 import BlocksArrayComponent from "../../blocks/blocksArray.component";
-import { IWatchContext, WatchfaceContext } from "../../context";
+import { IWatchContext, WatchfaceContext } from "../../context/watchface.context";
 import { BlockType } from "../../model/blocks.model";
 import { WatchImage, WatchNumberExt } from "../../model/watchFace.bips.model";
 import ImageComponent from "./image.component";
@@ -149,7 +149,7 @@ const ActivityAltListComponent: FC = () => {
               ar={[
                 {
                   blocks: [
-                    { title: 'Distance decimal pointer', type: BlockType.SelectFile, nvalue: watchface.activityAlt?.distanceDecimalPointer, onChange: onChangeDistanceDecimalPointer },
+                    { title: 'Distance decimal pointer', type: BlockType.SelectFile, nvalue: watchface.activityAlt?.distanceDecimalPointer, onChange: onChangeDistanceDecimalPointer, error: watchface.activityAlt?.distance.enabled && !watchface.activityAlt?.distanceDecimalPointer ? 'Decimal pointer is not set' : null },
                   ]
                 },
               ]}

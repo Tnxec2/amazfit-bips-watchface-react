@@ -1,5 +1,7 @@
 import { FC, useContext, useState } from "react";
-import { IWatchContext, WatchfaceContext } from "../../context";
+import { IImagesContext, ImagesContext } from "../../context/images.context";
+import { IWatchContext, WatchfaceContext } from "../../context/watchface.context";
+import { IWatchStateContext, WatchStateContext } from "../../context/watchstate.context";
 import { IImage } from "../../model/image.model";
 import { WatchActivityList } from "../../model/watchFace.bips.model";
 import { WatchState } from "../../model/watchState";
@@ -31,8 +33,12 @@ const storage_items = {
 };
 
 const PreviewComponent: FC<IProps> = ({ width, height }) => {
-  const { images, watchface, watchState, previewScreenNormal } =
+  const { watchface } =
     useContext<IWatchContext>(WatchfaceContext);
+  const { images } =
+    useContext<IImagesContext>(ImagesContext);
+  const { watchState } =
+    useContext<IWatchStateContext>(WatchStateContext);
 
   const [x, setX] = useState<number>(0);
   const [y, setY] = useState<number>(0);
@@ -51,11 +57,6 @@ const PreviewComponent: FC<IProps> = ({ width, height }) => {
       ? JSON.parse(localStorage.getItem(storage_items.preview_digit_border))
       : false
   );
-  const [shortCutBorder, setShortCutBorder] = useState<boolean>(
-    localStorage.getItem(storage_items.preview_shortcut_border)
-      ? JSON.parse(localStorage.getItem(storage_items.preview_shortcut_border))
-      : false
-  );
   const [scaleFactor, setScaleFactor] = useState<number>(
     localStorage.getItem(storage_items.preview_scale_factor)
       ? JSON.parse(localStorage.getItem(storage_items.preview_scale_factor))
@@ -66,7 +67,7 @@ const PreviewComponent: FC<IProps> = ({ width, height }) => {
     if (images && watchface) {
       if (canvas) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        if (previewScreenNormal) drawNormal(canvas, ctx, images);
+        drawNormal(canvas, ctx, images);
         drawGrid(ctx);
       } else {
         console.error("don't find canvas with id canvasPreview");
@@ -135,37 +136,10 @@ const PreviewComponent: FC<IProps> = ({ width, height }) => {
         watchState,
       )
     }
-    // if (watchface.activity.caloriesSeparatedDigits.enabled) drawFourDigits(ctx, images, watchface.activity.caloriesSeparatedDigits.json, watchState.calories, false)
-    // if (watchface.activity.stepsSeparatedDigits.enabled) drawFiveDigits(ctx, images, watchface.activity.stepsSeparatedDigits.json, watchState.steps, false)
-    // if (watchface.activity.batterySeparatedDigits.enabled) drawThreeDigits(ctx, images, watchface.activity.batterySeparatedDigits.json, watchState.battery, false)
-    // if (watchface.activity.heartRateSeparatedDigits.enabled) drawThreeDigits(ctx, images, watchface.activity.heartRateSeparatedDigits.json, watchState.hearthrate, false)
     if (watchface.time) {
-      // drawAlarm(
-      //   ctx,
-      //   images,
-      //   watchface.time.alarm,
-      //   watchState,
-      //   digitBorder,
-      //   shortCutBorder
-      // );
-      // drawSunset(
-      //   ctx,
-      //   images,
-      //   watchface.time.sunset,
-      //   watchState,
-      //   digitBorder,
-      //   shortCutBorder
-      // );
       drawTimeDigital(ctx, images, watchface.time, watchState, digitBorder);
       drawTimeAnalog(ctx, images, watchface.analogTime, watchState);
     }
-
-    // if (watchface.shortcuts.json) {
-    //   watchface.shortcuts.json?.forEach((item) => {
-    //     drawImage(ctx, images, item.Icon);
-    //     drawShortcutElement(ctx, item.Element, shortCutBorder);
-    //   });
-    // }
   }
 
   function getCursorPosition(event) {
@@ -201,14 +175,7 @@ const PreviewComponent: FC<IProps> = ({ width, height }) => {
       JSON.stringify(db)
     );
   }
-  function onToggleShortCutBorder() {
-    const db = !shortCutBorder;
-    setShortCutBorder(db);
-    localStorage.setItem(
-      storage_items.preview_shortcut_border,
-      JSON.stringify(db)
-    );
-  }
+  
 
   function drawGrid(ctx: CanvasRenderingContext2D) {
     if (!whiteGrid && !blackGrid) return;
@@ -254,7 +221,7 @@ const PreviewComponent: FC<IProps> = ({ width, height }) => {
   return (
     <>
       <div className={cl.canvasCcontainer}>
-        {previewScreenNormal ? "Screen Normal" : "AOD"}
+        "Screen Normal"
         <div>
           x: {x}, y: {y}
         </div>
@@ -308,17 +275,6 @@ const PreviewComponent: FC<IProps> = ({ width, height }) => {
                 onChange={onToggleDigitBorder}
               />
             </div>
-            {/* <span className="input-group-text" id="addon-wrapping">
-              border on shortcut
-            </span>
-            <div className="input-group-text">
-              <input
-                className="form-check-input mt-0"
-                type="checkbox"
-                checked={shortCutBorder}
-                onChange={onToggleShortCutBorder}
-              />
-            </div> */}
           </div>
         </div>
       </div>

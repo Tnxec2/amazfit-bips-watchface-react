@@ -1,9 +1,8 @@
 import { FC, useContext } from "react";
-import { IWatchContext, WatchfaceContext } from "../../context";
-
+import { IImagesContext, ImagesContext } from "../../context/images.context";
 
 const UploadedImagesomponent: FC = () => {
-  const { images } = useContext<IWatchContext>(WatchfaceContext);
+  const { images } = useContext<IImagesContext>(ImagesContext);
 
   return (
     <div className="container d-flex justify-content-center">

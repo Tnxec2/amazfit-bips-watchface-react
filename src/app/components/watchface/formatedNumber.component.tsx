@@ -33,7 +33,7 @@ const WatchFormatedNumberComponent: FC<IProps> = ({
     {
       disabled: !showDecimal,
       blocks: [
-        { title: 'desimal pointer', type: BlockType.SelectFile, nvalue: digit.suffix, onChange: onChangeDecimalPointer },
+        { title: 'desimal pointer', type: BlockType.SelectFile, nvalue: digit.decimalPointer, onChange: onChangeDecimalPointer, error: digit.number?.enabled && showDecimal && !digit.decimalPointer ? 'Decimal pointer is not set' : null },
       ]
     },
   ], [digit]) // eslint-disable-line react-hooks/exhaustive-deps

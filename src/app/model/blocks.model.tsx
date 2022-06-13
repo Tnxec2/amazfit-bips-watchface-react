@@ -14,7 +14,7 @@ export  interface IRow {
     blocks: IBlock[],
     disabled?: boolean,
     onDelete?(): void,
-    showDelete?: boolean
+    showDelete?: boolean,
 }
 
 export interface IOption {
@@ -51,4 +51,5 @@ export interface IBlock {
     max?: number
     onClick?(e): any
     className?: string
+    error?: string
 }

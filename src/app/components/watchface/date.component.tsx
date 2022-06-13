@@ -1,7 +1,7 @@
 import { FC, useContext } from "react";
 import { Card } from "react-bootstrap";
 import BlocksArrayComponent from "../../blocks/blocksArray.component";
-import { IWatchContext, WatchfaceContext } from "../../context";
+import { IWatchContext, WatchfaceContext } from "../../context/watchface.context";
 import { BlockType } from "../../model/blocks.model";
 import { WatchFourDigitsSeparated, WatchImageSet, WatchNumber, WatchNumberExt, WatchTwoDigitsSeparated, WatchWeekdayStatus } from "../../model/watchFace.bips.model";
 import WatchNumberComponent from "./number.component";

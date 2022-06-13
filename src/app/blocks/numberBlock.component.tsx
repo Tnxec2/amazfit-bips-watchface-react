@@ -7,8 +7,9 @@ interface IProps {
     disabled?: boolean,
     min?: number,
     max?: number,
+    error?: string
 }
-const NumberBlockComponent: FC<IProps> = ({ title, value, onChange, disabled, min, max }) => {
+const NumberBlockComponent: FC<IProps> = ({ title, value, onChange, disabled, min, max, error }) => {
     return (
         <>
             <span className="input-group-text" id="addon-wrapping">
@@ -16,7 +17,7 @@ const NumberBlockComponent: FC<IProps> = ({ title, value, onChange, disabled, mi
             </span>
             <input
                 type="number"
-                className="form-control form-control-sm"
+                className={`form-control form-control-sm ${error ? 'bg-danger' : ''}`} title={error} 
                 value={value || 0}
                 min={min}
                 max={max}

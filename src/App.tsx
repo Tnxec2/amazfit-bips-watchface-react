@@ -5,43 +5,22 @@ import "./App.css";
 import FileLoaderComponent from "./app/components/main/fileLoader.component";
 import LeftSideComponent from "./app/components/main/leftside.component";
 import RightSideComponent from "./app/components/main/rightside.component";
-import { IImage } from "./app/model/image.model";
+import { AppContextProvider } from "./app/context/app.context";
+import { ImagesProvider } from "./app/context/images.context";
 
-import { WatchState } from "./app/model/watchState";
-import { WatchfaceContext } from "./app/context";
-import { WatchFace } from "./app/model/watchFace.bips.model";
-import { Constant } from "./app/shared/constant";
+import { WatchfaceProvider } from "./app/context/watchface.context";
+import { WatchstateContextProvider } from "./app/context/watchstate.context";
 
 const App: FC = () => {
-  const [images, setImages] = useState<IImage[]>([]);
-  const [watchface, setWatchface] = useState<WatchFace>(new WatchFace());
-  const [watchState, setWatchState] = useState<WatchState>(new WatchState());
-
-  const [jsonName, setJsonName] = useState<string>(null);
-  const [previewScreenNormal, setPreviewScreenNormal] = useState<boolean>(true);
-
-  // useEffect(() => {
-  //   localStorage.setItem(Constant.CONFIG_WATCHFACE_BACKUP, JSON.stringify(watchface));
-  // }, [watchface]);
 
   return (
-    <WatchfaceContext.Provider
-      value={{
-        images,
-        setImages,
-        watchface,
-        setWatchface,
-        watchState,
-        setWatchState,
-        jsonName,
-        setJsonName,
-        previewScreenNormal,
-        setPreviewScreenNormal,
-      }}
-    >
+    <AppContextProvider>
+    <WatchfaceProvider>
+    <ImagesProvider>
+    <WatchstateContextProvider>
       <Container className="App d-flex flex-column min-vh-100 vh-100">
         <Row className="header">
-          <FileLoaderComponent />
+            <FileLoaderComponent />
         </Row>
         <Row className="main">
           <Col xs={6} className="leftcol">
@@ -52,7 +31,10 @@ const App: FC = () => {
           </Col>
         </Row>
       </Container>
-    </WatchfaceContext.Provider>
+    </WatchstateContextProvider>
+    </ImagesProvider>
+    </WatchfaceProvider>
+    </AppContextProvider>
   );
 };
 

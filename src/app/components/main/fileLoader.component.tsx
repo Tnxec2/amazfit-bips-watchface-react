@@ -1,6 +1,8 @@
 import { FC, useContext } from "react";
 import { Button } from "react-bootstrap";
-import { IWatchContext, WatchfaceContext } from "../../context";
+import { AppContext, IAppContext } from "../../context/app.context";
+import { IImagesContext, ImagesContext } from "../../context/images.context";
+import { IWatchContext, WatchfaceContext } from "../../context/watchface.context";
 import { IImage } from "../../model/image.model";
 import { WatchJson } from "../../model/json.bips.model";
 
@@ -9,8 +11,9 @@ import { WatchFace } from "../../model/watchFace.bips.model";
 import { Constant } from "../../shared/constant";
 
 const FileLoaderComponent: FC = () => {
-  const { images, setImages, setWatchface, setJsonName } =
-    useContext<IWatchContext>(WatchfaceContext);
+  const { changeJsonName, clearJsonName } = useContext<IAppContext>(AppContext);
+  const { setWatchface } = useContext<IWatchContext>(WatchfaceContext);
+  const { images, addImage, clear } = useContext<IImagesContext>(ImagesContext);
 
   function onLoadJson(e: ProgressEvent<FileReader>) {
     let json = e.target.result;
@@ -26,7 +29,7 @@ const FileLoaderComponent: FC = () => {
       let fr = new FileReader();
       fr.onload = onLoadJson;
       fr.readAsText(file);
-      setJsonName(e.target.files.item(0).name);
+      changeJsonName(e.target.files.item(0).name);
     }
   }
 
@@ -80,11 +83,14 @@ const FileLoaderComponent: FC = () => {
     if ( sortedAr[0].id !== Constant.startImageIndex) {
       window.alert(`Images file numbering must start at ${Constant.startImageIndex}.`)
     }
-    setImages(sortedAr)
+
+    clear()
+    sortedAr.forEach((image) => {addImage(image)})
   }
 
   function clearInput() {
     if (document.getElementById("jsonLoad")) (document.getElementById("jsonLoad") as HTMLInputElement).value = null;
+    clearJsonName()
     setWatchface(new WatchFace());
   }
 

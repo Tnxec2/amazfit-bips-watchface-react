@@ -29,7 +29,7 @@ const WatchNumberComponent: FC<IProps> = ({
   const ar = useMemo<IRow[]>(() => [
     {
       blocks: [
-        { title: 'Image', type: BlockType.SelectFile, nvalue: digit.json?.ImageIndex, onChange: onChangeImageIndex },
+        { title: 'Image', type: BlockType.SelectFile, nvalue: digit.json?.ImageIndex, onChange: onChangeImageIndex, error: digit.enabled && !digit.json?.ImageIndex ? 'Image not set' : ''  },
         { title: `Count: ${digit.json?.ImagesCount}`, type: BlockType.Empty },
       ]
     },
@@ -62,29 +62,29 @@ const WatchNumberComponent: FC<IProps> = ({
   function onChangeX(val: number) {
     const d = {...digit};
     
-    let width = d.json.BottomRightX && d.json.TopLeftX ? d.json.BottomRightX - d.json.TopLeftX : 1
     d.json.TopLeftX = val;
-    d.json.BottomRightX = val + width
+    d.json.BottomRightX = val + d.width
     onUpdate(d);
   }
 
   function onChangeY(val: number) {
     const d = {...digit};
-    let height = d.json.BottomRightY && d.json.TopLeftY ? d.json.BottomRightY - d.json.TopLeftY : 1
     d.json.TopLeftY = val;
-    d.json.BottomRightY = val + height
+    d.json.BottomRightY = val + d.height
     onUpdate(d);
   }
 
   function onChangeBottomRightX(val: number) {
     const d = {...digit};
     d.json.BottomRightX = val;
+    d.width = val - d.json.TopLeftX
     onUpdate(d);
   }
 
   function onChangeBottomRightY(val: number) {
     const d = {...digit};
     d.json.BottomRightY = val;
+    d.height = val - d.json.TopLeftY
     onUpdate(d);
   }
 

@@ -6,7 +6,7 @@ import PreviewComponent from "./preview.component";
 import UploadedImagesomponent from "./uploadedImages.component";
 
 const tabs = [
-  { id: 0, name: "Preview", el: <PreviewComponent width={Constant.width} height={Constant.height} /> },
+  { id: 0, name: "Preview", el: <PreviewComponent width={Constant.width} height={Constant.height} />},
   { id: 1, name: "Uploaded Images", el:  <UploadedImagesomponent />},
   { id: 2, name: "Json", el: <JsonComponent /> },
   { id: 3, name: "Clockhand", el: <ClockhandConstructorComponent width={Constant.width} height={Constant.height} /> },

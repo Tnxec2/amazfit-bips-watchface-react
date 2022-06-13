@@ -2,6 +2,7 @@ import { FC, useMemo } from "react";
 import { Card } from "react-bootstrap";
 import BlocksArrayComponent from "../../blocks/blocksArray.component";
 import { BlockType, IRow, OptionsAlignmentBipS } from "../../model/blocks.model";
+import { AlignmentType } from "../../model/types.bips.model";
 import { WatchNumberExt } from "../../model/watchFace.bips.model";
 
 interface IProps {
@@ -39,11 +40,12 @@ const WatchNumberExtendedComponent: FC<IProps> = ({
       blocks: [
         { title: 'spacing', type: BlockType.Number, nvalue: digit.json?.Spacing ? digit.json.Spacing : 0, onChange: onChangeSpacing },
         { title: 'vertical offset', type: BlockType.Number, nvalue: digit.json?.VerticalOffset ? digit.json.VerticalOffset : 0, onChange: onChangeVerticalOffset },
-        { title: 'alignment', type: BlockType.Select, svalue: digit.json?.Alignment, selectOptions: OptionsAlignmentBipS,  onChange: onChangeAlignment },
+        { title: 'alignment', type: BlockType.Select, svalue: digit.json?.Alignment, selectOptions: OptionsAlignmentBipS,  onChange: onChangeAlignment, error: digit.json?.VerticalOffset && AlignmentType.fromJson(digit.json?.Alignment) === AlignmentType.BottomRight.index ? 'BottomRight don\'t works properly with vertical offset on watch':'' },
       ]
     },
   ], [digit]) // eslint-disable-line react-hooks/exhaustive-deps
 
+ 
   function onChangeImageIndex(index: number) {
     const d = {...digit};
     d.json.ImageIndex = index;
@@ -53,29 +55,30 @@ const WatchNumberExtendedComponent: FC<IProps> = ({
   function onChangeX(val: number) {
     const d = {...digit};
     
-    let width = d.json.BottomRightX && d.json.TopLeftX ? d.json.BottomRightX - d.json.TopLeftX : 1
     d.json.TopLeftX = val;
-    d.json.BottomRightX = val + width
+    d.json.BottomRightX = val + d.width
     onUpdate(d);
   }
 
   function onChangeY(val: number) {
     const d = {...digit};
-    let height = d.json.BottomRightY && d.json.TopLeftY ? d.json.BottomRightY - d.json.TopLeftY : 1
+
     d.json.TopLeftY = val;
-    d.json.BottomRightY = val + height
+    d.json.BottomRightY = val + d.height
     onUpdate(d);
   }
 
   function onChangeBottomRightX(val: number) {
     const d = {...digit};
     d.json.BottomRightX = val;
+    d.width = val - d.json.TopLeftX
     onUpdate(d);
   }
 
   function onChangeBottomRightY(val: number) {
     const d = {...digit};
     d.json.BottomRightY = val;
+    d.height = val - d.json.TopLeftY
     onUpdate(d);
   }
 

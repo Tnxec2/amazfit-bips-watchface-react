@@ -1,7 +1,7 @@
 import { FC, useContext } from "react";
 import { Card } from "react-bootstrap";
 import NumberBlockComponent from "../../blocks/numberBlock.component";
-import { IWatchContext, WatchfaceContext } from "../../context";
+import { IWatchContext, WatchfaceContext } from "../../context/watchface.context";
 import { WatchAQI, WatchCoordinates, WatchHumidity, WatchImageSet, WatchOneLineTemperature, WatchTextTemperature } from "../../model/watchFace.bips.model";
 import WatchWeatherAqiComponent from "./aqi.component";
 import CoordinatesComponent from "./coordinates.component";

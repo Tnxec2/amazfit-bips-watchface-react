@@ -78,7 +78,7 @@ export default function drawDigitImage(
     const bottomx = digit.json?.BottomRightX ? digit.json?.BottomRightX : 0 
     const bottomy = digit.json?.BottomRightY ? digit.json?.BottomRightY : 0 
 
-    if (digit.json.ImageIndex) {
+    if (digit.json.ImageIndex>= 0) {
         let strNumber = number.toString()
         if ( paddingLength > strNumber.length ) {
             strNumber = strNumber.padStart(paddingLength, '0')
@@ -214,7 +214,7 @@ function drawImages(
     drawborder: boolean)  {
     if ( ar.length === 0) return
     
-    if (!spacing) spacing = 0
+/*     if (!spacing) spacing = 0
     
     let imageWidth: number = 0
     let imageHeight: number = 0
@@ -242,19 +242,43 @@ function drawImages(
     let  maxHeight = endy - starty
 
     let x = startx
-    let y = starty
-    if (alignment === AlignmentType.Right.json || alignment === AlignmentType.TopRight.json || alignment === AlignmentType.CenterRight.json || alignment === AlignmentType.BottomRight.json ) { // right
-        x = x + maxWidth - imageWidth
-    } else if (alignment === AlignmentType.Center.json || alignment === AlignmentType.TopCenter.json || alignment === AlignmentType.BottomCenter.json ) { // center
-        x = x + maxWidth / 2 - imageWidth / 2
+    let y = starty */
+    // if (alignment === AlignmentType.Right.json || alignment === AlignmentType.TopRight.json || alignment === AlignmentType.CenterRight.json || alignment === AlignmentType.BottomRight.json ) { // right
+    //     x = x + maxWidth - imageWidth
+    // } else if (alignment === AlignmentType.Center.json || alignment === AlignmentType.TopCenter.json || alignment === AlignmentType.BottomCenter.json ) { // center
+    //     x = x + maxWidth / 2 - imageWidth / 2
+    // }
+
+    // if (alignment === AlignmentType.Bottom.json || alignment === AlignmentType.BottomLeft.json || alignment === AlignmentType.BottomCenter.json || alignment === AlignmentType.BottomRight.json  ) { // bottom
+    //     y = y + maxHeight - imageHeight
+    // } else if (alignment === AlignmentType.Center.json || alignment === AlignmentType.CenterLeft.json || alignment === AlignmentType.CenterRight.json ) { // center
+    //     y = y + maxHeight / 2 - imageHeight / 2
+    // }
+
+    const bounds = calculateBounds(ar, spacing)
+
+    var x = 0
+    var y = 0
+    if (AlignmentType.hasFlag(AlignmentType.fromJson(alignment), AlignmentType.Left.index)) {
+        x = startx
+    } else if (AlignmentType.hasFlag(AlignmentType.fromJson(alignment), AlignmentType.Right.index)) {
+        x = endx - bounds[0] + 1
+    } else { 
+        x = (startx + endx - bounds[0]) >> 1
     }
 
-    if (alignment === AlignmentType.Bottom.json || alignment === AlignmentType.BottomLeft.json || alignment === AlignmentType.BottomCenter.json || alignment === AlignmentType.BottomRight.json  ) { // bottom
-        y = y + maxHeight - imageHeight
-    } else if (alignment === AlignmentType.Center.json || alignment === AlignmentType.CenterLeft.json || alignment === AlignmentType.CenterRight.json ) { // center
-        y = y + maxHeight / 2 - imageHeight / 2
+    if (AlignmentType.hasFlag(AlignmentType.fromJson(alignment), AlignmentType.Top.index)) {
+        y = starty
+    } else if (AlignmentType.hasFlag(AlignmentType.fromJson(alignment), AlignmentType.Bottom.index)) {
+        y = endy - bounds[1] + 1
+    } else {
+        y = (starty + endy - bounds[1]) >> 1
     }
-    
+    if (x < startx)
+        x = startx
+    if (y < starty)
+        y = starty
+   
 
     ar.forEach(img => {
         ctx.drawImage(img, x, y);
@@ -268,4 +292,20 @@ function drawImages(
         ctx.rect(startx, starty, endx - startx, endy-starty);
         ctx.stroke();
     }
+}
+
+function calculateBounds(images: HTMLImageElement[], spacing: number): number[] {
+    var width = 0
+    var height = 0
+
+    for (const image of images) {
+        let imageWidth = image.width
+        let imageHeight = image.height
+
+        width += imageWidth + spacing
+        if (imageHeight > height)
+            height = imageHeight
+    }
+    width -= spacing
+    return [width, height]
 }

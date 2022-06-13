@@ -3,9 +3,10 @@ import React, { FC } from 'react';
 interface IProps {
     title: string,
     value: string,
-    onChange(value: string): void
+    onChange(value: string): void,
+    error?: string,
 }
-const ColorBlockComponent: FC<IProps> = ({ title, value, onChange }) => {
+const ColorBlockComponent: FC<IProps> = ({ title, value, onChange, error }) => {
 
     function onRemove() {
         onChange(null);
@@ -16,13 +17,12 @@ const ColorBlockComponent: FC<IProps> = ({ title, value, onChange }) => {
             <span className="input-group-text">{title}</span>
             <input
               type="color"
-              className="form-control form-control-sm"
+              className={`form-control form-control-sm ${error ? 'bg-danger' : ''}`} title={error ? error: 'Choose color'} 
               onChange={(e) => {
                 onChange(e.target.value)
               }}
               id="colorBackground"
               value={value}
-              title="Choose color"
               />
             <button
                 className="btn btn-outline-secondary"

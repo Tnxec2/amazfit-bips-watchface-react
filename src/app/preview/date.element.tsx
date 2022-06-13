@@ -39,10 +39,10 @@ export default function drawDate(ctx: CanvasRenderingContext2D,
 
 
     if (date.monthAlt.enabled)
-        drawDigitExtendedImage(ctx, images, date.monthAlt, watchState.month, drawborder, date.twoDigitsMonth ? 2 : 1, null, null, null, null)
+        drawDigitExtendedImage(ctx, images, date.monthAlt, watchState.month, drawborder, 2, null, null, null, null)
     
     if (date.dayAlt.enabled)
-        drawDigitExtendedImage(ctx, images, date.dayAlt, watchState.day, drawborder, date.twoDigitsDay ? 2 : 1, null, null, null, null)
+        drawDigitExtendedImage(ctx, images, date.dayAlt, watchState.day, drawborder, 2, null, null, null, null)
     
 }
 

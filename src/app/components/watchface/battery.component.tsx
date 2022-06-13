@@ -1,6 +1,6 @@
 import { FC, useContext } from "react";
 import { Card } from "react-bootstrap";
-import { IWatchContext, WatchfaceContext } from "../../context";
+import { IWatchContext, WatchfaceContext } from "../../context/watchface.context";
 import { WatchBatteryFormatedNumber, WatchCircleScale, WatchIconSet, WatchImageSet } from "../../model/watchFace.bips.model";
 import WatchBatteryFormatedNumberComponent from "./batteryFormatedNumber.component";
 import CircleProgressComponent from "./circleProgress.component";

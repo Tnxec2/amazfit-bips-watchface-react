@@ -173,12 +173,16 @@ export class Coords {
 export class WatchNumber {
   enabled: boolean = false
   json: NumberJson = new NumberJson()
+  width: number
+  height: number
   con: IDigitConstructor
 
   constructor(j?: NumberJson, con?: IDigitConstructor) {
     if (j) {
       this.json = j
       this.enabled = true
+      this.width = this.json.BottomRightX ? this.json.BottomRightX - this.json.TopLeftX : this.json.TopLeftX + 1
+      this.height = this.json.BottomRightY ? this.json.BottomRightY - this.json.TopLeftY : this.json.TopLeftY + 1
     }
     if ( con ) {
       if (!this.json) this.json = new NumberJson()
@@ -191,12 +195,16 @@ export class WatchNumber {
 export class WatchNumberExt {
   enabled: boolean = false
   json: NumberExtendedJson = new NumberExtendedJson()
+  width: number
+  height: number
   con: IDigitConstructor
 
   constructor(j?: NumberExtendedJson, con?: IDigitConstructor) {
     if (j) {
       this.json = j
       this.enabled = true
+      this.width = this.json.BottomRightX ? this.json.BottomRightX - this.json.TopLeftX : this.json.TopLeftX + 1
+      this.height = this.json.BottomRightY ? this.json.BottomRightY - this.json.TopLeftY : this.json.TopLeftY + 1
     }
     if ( con ) {
       if (!this.json) this.json = new NumberExtendedJson()

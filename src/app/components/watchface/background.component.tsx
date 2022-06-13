@@ -1,7 +1,7 @@
 import React, { FC, useContext, useMemo } from "react";
 import { Card } from "react-bootstrap";
 import BlocksArrayComponent from "../../blocks/blocksArray.component";
-import { IWatchContext, WatchfaceContext } from "../../context";
+import { IWatchContext, WatchfaceContext } from "../../context/watchface.context";
 import { BlockType, IRow } from "../../model/blocks.model";
 import { WatchImage } from "../../model/watchFace.bips.model";
 import ImageComponent from "./image.component";

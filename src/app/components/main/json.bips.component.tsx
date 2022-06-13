@@ -1,6 +1,7 @@
 import { FC, useContext, useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
-import { IWatchContext, WatchfaceContext } from "../../context";
+import { AppContext, IAppContext } from "../../context/app.context";
+import { IWatchContext, WatchfaceContext } from "../../context/watchface.context";
 import { Activity, ActivityAlt, AnalogDialFace, Background, Battery, Date, DateExtended, Pai, PulseProgress, Status, StepsProgress, TextTemperature, Time, WatchJson, Weather, WeekdayIcon } from "../../model/json.bips.model";
 import { WatchActivityAlt, WatchActivityList, WatchBackground, WatchBattery, WatchDate, WatchDateExtended, WatchFace, WatchPai, WatchPulseProgress, WatchStatus, WatchStepsProgress, WatchTextTemperature, WatchTime, WatchTimeAnalog, WatchWeather, WatchWeekdayStatus } from "../../model/watchFace.bips.model";
 import Color from "../../shared/color";
@@ -9,8 +10,8 @@ import cl from './JsonComponent.module.css';
 
 const JsonComponent: FC = () => {
 
-    const {watchface, jsonName } = useContext<IWatchContext>(WatchfaceContext);
-
+    const {watchface} = useContext<IWatchContext>(WatchfaceContext);
+    const {jsonName } = useContext<IAppContext>(AppContext);
     const [json, setJson] = useState<string>('')
 
     useEffect(() => {
@@ -102,38 +103,37 @@ function getTimeDigital(time: WatchTime): Time {
 
 
 function getActivity(a: WatchActivityList): Activity {
-    const enabled = a.steps.enabled ||
-                    a.stepsGoals.enabled ||
-                    a.calories.enabled ||
-                    a.pulse.enabled ||
-                    a.distance.enabled ||
-                    a.pai.enabled
+    const enabled = (a.steps.enabled && a.steps.number.enabled) ||
+                    (a.stepsGoals.enabled && a.stepsGoals.number.enabled) ||
+                    (a.calories.enabled && a.calories.number.enabled) ||
+                    (a.pulse.enabled  && a.pulse.number.enabled) ||
+                    (a.distance.enabled  && a.distance.number.enabled)
     return enabled ? {
-        Steps: a.steps.enabled ? {
+        Steps: a.steps.enabled && a.steps.number.enabled ? {
             Number: a.steps.number.json,
             SuffixImageIndex: a.steps.suffix,
             DecimalPointImageIndex: null,
             SuffixMilesImageIndex: null
         } : null,
-        StepsGoal: a.stepsGoals.enabled ? {
+        StepsGoal: a.stepsGoals.enabled && a.stepsGoals.number.enabled ? {
             Number: a.stepsGoals.number.json,
             SuffixImageIndex: a.stepsGoals.suffix,
             DecimalPointImageIndex: null,
             SuffixMilesImageIndex: null
         } : null,
-        Calories: a.calories.enabled ? {
+        Calories: a.calories.enabled  && a.calories.number.enabled? {
             Number: a.calories.number.json,
             SuffixImageIndex: a.calories.suffix,
             DecimalPointImageIndex: null,
             SuffixMilesImageIndex: null
         } : null,
-        Pulse: a.pulse.enabled ? {
+        Pulse: a.pulse.enabled && a.pulse.number.enabled ? {
             Number: a.pulse.number.json,
             SuffixImageIndex: a.pulse.suffix,
             DecimalPointImageIndex: null,
             SuffixMilesImageIndex: null
         } : null,
-        Distance: a.distance.enabled ? {
+        Distance: a.distance.enabled && a.distance.number.enabled ? {
             Number: a.distance.number.json,
             SuffixImageIndex: a.distance.suffix,
             DecimalPointImageIndex: a.distance.decimalPointer,
@@ -158,8 +158,8 @@ function getDate(d: WatchDate): Date {
                 Number: d.month.enabled ? d.month.json: null,
                 DelimiterImageIndex: d.oneLineDelimiter
             } : null,
-            TwoDigitsDay: d.twoDigitsDay,
-            TwoDigitsMonth: d.twoDigitsMonth
+            TwoDigitsDay: d.twoDigitsDay ? true : false,
+            TwoDigitsMonth: d.twoDigitsMonth ? true : false,
         } : null,
         WeekDay: d.weekday.enabled ? d.weekday.json : null,
         MonthAlt: d.monthAlt.enabled ? d.monthAlt.json:null,
@@ -341,7 +341,12 @@ function getActivityAlt(p: WatchActivityAlt): ActivityAlt {
         Steps: p.steps.enabled ? p.steps.json : null,
         BatterySuffixImageIndex: p.battery.enabled ? p.batterySuffix : null,
         PulseNoDataImageIndex: p.pulse.enabled ? p.pulseNoData : null,
-        Distance: null,
+        Distance: p.distance.enabled ? {
+            Number: p.distance.json,
+            DecimalPointerImageIndex: p.distanceDecimalPointer,
+            SuffixKMIcon: p.distanceSuffixKM.enabled ? p.distanceSuffixKM.json : null,
+            SuffixMIIcon: p.distanceSuffixMi.enabled ? p.distanceSuffixMi.json : null,
+        }:null,
         Icon1: p.icon1.enabled ? p.icon1.json : null,
         Icon2: p.icon2.enabled ? p.icon2.json : null,
         Icon3: p.icon3.enabled ? p.icon3.json : null,

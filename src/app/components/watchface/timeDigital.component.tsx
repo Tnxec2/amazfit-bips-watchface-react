@@ -1,6 +1,6 @@
 import { FC, useContext } from "react";
 import { Card } from "react-bootstrap";
-import { IWatchContext, WatchfaceContext } from "../../context";
+import { IWatchContext, WatchfaceContext } from "../../context/watchface.context";
 import { WatchAmPmIcon, WatchImage, WatchNumber, WatchTwoDigitsSeparated } from "../../model/watchFace.bips.model";
 import AmPmComponent from "./ampm.component";
 import ImageComponent from "./image.component";

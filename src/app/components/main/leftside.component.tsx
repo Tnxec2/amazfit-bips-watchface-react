@@ -11,7 +11,7 @@ const tabs = [
   },
   {
     id: 1, name: "Preview State", el: <div className="mt-3">
-      <PreviewStatesComponent />
+        <PreviewStatesComponent />
     </div>
   },
 ];
