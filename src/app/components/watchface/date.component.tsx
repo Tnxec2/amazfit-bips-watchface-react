@@ -33,7 +33,7 @@ const DateComponent: FC = () => {
             {
               blocks: [
                 { title: 'One Line Mont/Day', type: BlockType.Checkbox, checked: watchface.date.oneLine, onChange: updateOneLineDateMonth },
-                { title: 'Delimiter', type: BlockType.SelectFile, nvalue: watchface.date.oneLineDelimiter, onChange: updateOneLineDateDelimiter },
+                { title: 'Delimiter', type: BlockType.SelectFile, imageIndex: watchface.date.oneLineDelimiter, onChange: updateOneLineDateDelimiter, imagesCount: 1 },
               ]
             },
             {
@@ -64,12 +64,14 @@ const DateComponent: FC = () => {
             title="Month as word"
             imageSet={{ ...watchface.date.montName }}
             onUpdate={updateMonthAsWord}
+            disableCount={true}
           />
 
           <ImageSetComponent
             title="Weekday"
             imageSet={{ ...watchface.date.weekday }}
             onUpdate={updateWeekday}
+            disableCount={true}
           />
           <WeekdayIconProgressComponent
             progress={{...watchface.weekdayicon}}
@@ -77,7 +79,7 @@ const DateComponent: FC = () => {
             />
             <Card>
               <Card.Header
-                onClick={() => toggleDateExt}
+                onClick={toggleDateExt}
               >
                 Separate Digits
               </Card.Header>
@@ -104,7 +106,7 @@ const DateComponent: FC = () => {
             </Card>
             <Card>
               <Card.Header
-                onClick={() => toggleDateAlt}
+                onClick={toggleDateAlt}
               >
                 Date Alt (with vertical offset)
               </Card.Header>

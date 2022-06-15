@@ -22,8 +22,8 @@ const WatchWeatherFormatedNumberComponent: FC<IProps> = ({
   const ar = useMemo<IRow[]>(() => [
     {
       blocks: [
-        { title: 'minus', type: BlockType.SelectFile, nvalue: digit.minus, onChange: onUpdateMinus },
-        { title: 'degrees', type: BlockType.SelectFile, nvalue: digit.degrees, onChange: onChangeDegrees },
+        { title: 'minus', type: BlockType.SelectFile, imageIndex: digit.minus, onChange: onUpdateMinus , imagesCount: 1},
+        { title: 'degrees', type: BlockType.SelectFile, imageIndex: digit.degrees, onChange: onChangeDegrees , imagesCount: 1},
       ]
     },
   ], [digit]) // eslint-disable-line react-hooks/exhaustive-deps

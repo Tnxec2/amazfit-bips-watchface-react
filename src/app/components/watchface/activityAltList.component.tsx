@@ -44,7 +44,7 @@ const ActivityAltListComponent: FC = () => {
               ar={[
                 {
                   blocks: [
-                    { title: 'Battery suffix', type: BlockType.SelectFile, nvalue: watchface.activityAlt?.batterySuffix, onChange: onChangeActivityAltBatterySuffix },
+                    { title: 'Battery suffix', type: BlockType.SelectFile, imageIndex: watchface.activityAlt?.batterySuffix, onChange: onChangeActivityAltBatterySuffix, imagesCount: 1 },
                   ]
                 },
               ]}
@@ -69,7 +69,7 @@ const ActivityAltListComponent: FC = () => {
               ar={[
                 {
                   blocks: [
-                    { title: 'Pulse no data', type: BlockType.SelectFile, nvalue: watchface.activityAlt?.pulseNoData, onChange: onChangeActivityAltPulseNoData },
+                    { title: 'Pulse no data', type: BlockType.SelectFile, imageIndex: watchface.activityAlt?.pulseNoData, onChange: onChangeActivityAltPulseNoData, imagesCount: 1 },
                   ]
                 },
               ]}
@@ -85,7 +85,10 @@ const ActivityAltListComponent: FC = () => {
               ar={[
                 {
                   blocks: [
-                    { title: 'Distance decimal pointer', type: BlockType.SelectFile, nvalue: watchface.activityAlt?.distanceDecimalPointer, onChange: onChangeActivityAltDistanceDecimalPointer, error: watchface.activityAlt?.distance.enabled && !watchface.activityAlt?.distanceDecimalPointer ? 'Decimal pointer is not set' : null },
+                    { title: 'Distance decimal pointer', type: BlockType.SelectFile, imageIndex: watchface.activityAlt?.distanceDecimalPointer, 
+                    onChange: onChangeActivityAltDistanceDecimalPointer, 
+                    error: watchface.activityAlt?.distance.enabled && !watchface.activityAlt?.distanceDecimalPointer ? 'Decimal pointer is not set' : null,
+                    imagesCount: 1 },
                   ]
                 },
               ]}

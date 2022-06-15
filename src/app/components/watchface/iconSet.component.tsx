@@ -15,7 +15,8 @@ const IconSetComponent: FC<IProps> = ({ title, iconSet, onUpdate }) => {
   const ar = useMemo<IRow[]>(() => [
     {
       blocks: [
-        { title: 'Image', type: BlockType.SelectFile, nvalue: iconSet.json?.ImageIndex, onChange: onChangeImageIndex },
+        { title: 'Image', type: BlockType.SelectFile, imageIndex: iconSet.json?.ImageIndex, 
+          onChange: onChangeImageIndex, imagesCount: iconSet.json?.Coordinates ? iconSet.json.Coordinates.length : 0},
         { title: 'Add coordinates', type: BlockType.Button, onClick: addCoordinates, className: 'btn-outline-success' },
       ]
     },
@@ -91,8 +92,8 @@ const IconSetComponent: FC<IProps> = ({ title, iconSet, onUpdate }) => {
               {
                 blocks: [
                   { title: (index + 1).toString(), type: BlockType.Empty },
-                  { title: 'X', type: BlockType.Number, nvalue: item.X, onChange: (val) => onChangeX(index, val) },
-                  { title: 'Y', type: BlockType.Number, nvalue: item.Y, onChange: (val) => onChangeY(index, val) },
+                  { title: 'X', type: BlockType.Number, numberValue: item.X, onChange: (val) => onChangeX(index, val) },
+                  { title: 'Y', type: BlockType.Number, numberValue: item.Y, onChange: (val) => onChangeY(index, val) },
                   { title: 'Del', type: BlockType.Button, disabled: iconSet.json.Coordinates.length <= 1, className: 'btn-outline-danger', onClick: (e) => deleteCoordinates(index) },
                 ]
               }

@@ -27,13 +27,13 @@ const WatchFormatedNumberComponent: FC<IProps> = ({
     {
       disabled: !showSuffix,
       blocks: [
-        { title: 'suffix', type: BlockType.SelectFile, nvalue: digit.suffix, onChange: onChangeSuffix,  }
+        { title: 'suffix', type: BlockType.SelectFile, imageIndex: digit.suffix, onChange: onChangeSuffix, imagesCount: 1  }
       ]
     },
     {
       disabled: !showDecimal,
       blocks: [
-        { title: 'desimal pointer', type: BlockType.SelectFile, nvalue: digit.decimalPointer, onChange: onChangeDecimalPointer, error: digit.number?.enabled && showDecimal && !digit.decimalPointer ? 'Decimal pointer is not set' : null },
+        { title: 'desimal pointer', type: BlockType.SelectFile, imageIndex: digit.decimalPointer, onChange: onChangeDecimalPointer, error: digit.number?.enabled && showDecimal && !digit.decimalPointer ? 'Decimal pointer is not set' : null, imagesCount: 1 },
       ]
     },
   ], [digit]) // eslint-disable-line react-hooks/exhaustive-deps

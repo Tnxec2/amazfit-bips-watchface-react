@@ -1,4 +1,3 @@
-import { findImageById } from "../shared/helper";
 import { IImage } from "../model/image.model";
 import { CircleScale } from "../model/json.bips.model";
 import Color from "../shared/color";
@@ -46,7 +45,7 @@ export default function drawCircleProgress(
     }
 
 }
-
+/* 
 function drawArcPath(ctx: CanvasRenderingContext2D, flatness: number, x: number, y: number, 
     startAngle: number, endAngle: number, radius: number, width: number) {
     if (width < 3) return
@@ -127,7 +126,7 @@ function drawArcPath(ctx: CanvasRenderingContext2D, flatness: number, x: number,
         ctx.arc(x, y, radius+width/2, radianStart, radianEnd, !clockwise);
         ctx.lineTo(x4, y4)
     }
-}
+} */
 
 function drawColorEndings(ctx: CanvasRenderingContext2D, color: string, 
     flatness: number, x: number, y: number, startAngle: number, endAngle: number, 

@@ -21,7 +21,7 @@ const WatchWeatherHumidityComponent: FC<IProps> = ({
   const ar = useMemo<IRow[]>(() => [
     {
       blocks: [
-        { title: 'Suffix', type: BlockType.SelectFile, nvalue: humidity.suffix, onChange: onChangeSuffix },
+        { title: 'Suffix', type: BlockType.SelectFile, imageIndex: humidity.suffix, onChange: onChangeSuffix, imagesCount: 1 },
       ]
     },
   ], [humidity]) // eslint-disable-line react-hooks/exhaustive-deps

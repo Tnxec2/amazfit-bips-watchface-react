@@ -17,26 +17,26 @@ const CircleProgressComponent: FC<IProps> = ({ title, scale, onUpdate }) => {
   const ar = useMemo<IRow[]>(() => [
     {
       blocks: [
-        { title: 'Color', type: BlockType.Color, svalue: Color.colorRead(scale.json?.Color), onChange: changeColor }, 
+        { title: 'Color', type: BlockType.Color, colorString: Color.colorRead(scale.json?.Color), onChange: changeColor }, 
       ]
     },
     {
       blocks: [
         { title: 'Center', type: BlockType.Empty },
-        { title: 'X', type: BlockType.Number, nvalue: scale.json?.CenterX ? scale.json.CenterX : 0, onChange: changeX },
-        { title: 'Y', type: BlockType.Number, nvalue: scale.json?.CenterY ? scale.json.CenterY : 0, onChange: changeY },
+        { title: 'X', type: BlockType.Number, numberValue: scale.json?.CenterX ? scale.json.CenterX : 0, onChange: changeX },
+        { title: 'Y', type: BlockType.Number, numberValue: scale.json?.CenterY ? scale.json.CenterY : 0, onChange: changeY },
       ]
     },
     {
       blocks: [
-        { title: 'Start angle', type: BlockType.Number, nvalue: scale.json?.StartAngle ? scale.json.StartAngle : 0, onChange: changeStartAngle },
-        { title: 'End angle', type: BlockType.Number, nvalue: scale.json?.EndAngle ? scale.json.EndAngle : 360, onChange: changeEndAngle },
+        { title: 'Start angle', type: BlockType.Number, numberValue: scale.json?.StartAngle ? scale.json.StartAngle : 0, onChange: changeStartAngle },
+        { title: 'End angle', type: BlockType.Number, numberValue: scale.json?.EndAngle ? scale.json.EndAngle : 360, onChange: changeEndAngle },
       ]
     },
     {
       blocks: [
-        { title: 'Radius', type: BlockType.Number, nvalue: scale.json?.RadiusX ? scale.json.RadiusX : 0, onChange: changeRadius },
-        { title: 'Width',  type: BlockType.Number, nvalue: scale.json?.Width ? scale.json.Width : 1, onChange: changeWidth },
+        { title: 'Radius', type: BlockType.Number, numberValue: scale.json?.RadiusX ? scale.json.RadiusX : 0, min: 0, onChange: changeRadius },
+        { title: 'Width',  type: BlockType.Number, numberValue: scale.json?.Width ? scale.json.Width : 1, min: 0, onChange: changeWidth },
       ]
     },
   ], [scale]) // eslint-disable-line react-hooks/exhaustive-deps

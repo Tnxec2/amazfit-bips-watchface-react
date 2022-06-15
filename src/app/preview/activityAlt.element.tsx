@@ -1,10 +1,8 @@
 import { IImage } from "../model/image.model";
-import { WatchActivityAlt, WatchTime } from "../model/watchFace.bips.model";
+import { WatchActivityAlt } from "../model/watchFace.bips.model";
 import { WatchState } from "../model/watchState";
-import { findImageById } from "../shared/helper";
-import drawDigitImage, { drawDigitExtendedImage } from "./digitImage.element";
+import { drawDigitExtendedImage } from "./digitImage.element";
 import drawImage from "./image.element";
-import { drawTwoDigits } from "./separateDigits.element";
 
 export default function drawActivitysAlt(
     ctx: CanvasRenderingContext2D, 

@@ -1,5 +1,5 @@
 import Color from "../shared/color";
-import { Activity, ActivityAlt, AirQuality, AmPmIcon, AnalogDialFace, Background, Battery, BatteryFormatedNumber, CaloriesProgress, CircleScale, ClockHand, Coordinates, Date, DateExtended, FormatedNumber, FourDigits, Humidity, IconSet, Image, ImageSet, NumberExtendedJson, NumberJson, OneLineMinMax, Pai, PointerScale, PulseProgress, Shortcut, ShortcutElement, Shortcuts, Status, StepsProgress, Switch, TextTemperature, Time, TwoDigits, WatchJson, Weather, WeatherIcon, WeekdayIcon } from "./json.bips.model";
+import { Activity, ActivityAlt, AirQuality, AmPmIcon, AnalogDialFace, Background, Battery, BatteryFormatedNumber, CaloriesProgress, CircleScale, ClockHand, Coordinates, Date, DateExtended, FormatedNumber, FourDigits, Humidity, IconSet, Image, ImageSet, NumberExtendedJson, NumberJson, OneLineMinMax, Pai, PointerScale, PulseProgress, Shortcut, ShortcutElement, Shortcuts, Status, StepsProgress, Switch, TextTemperature, Time, TwoDigits, WatchJson, Weather, WeekdayIcon } from "./json.bips.model";
 
 interface IDigitConstructor {
   count: number;

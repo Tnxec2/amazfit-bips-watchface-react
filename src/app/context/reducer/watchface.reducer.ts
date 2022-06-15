@@ -250,6 +250,10 @@ export const watchfaceReducer = (state: IWatchfaceState, action: IAction): IWatc
         return {
           ...state, watchface: {...state.watchface, date: {...state.watchface.date, dayAlt: action.value}}
         };
+      case watchfaceActionsEnum.UPDATE_WEEKDAY_PROGRESS:
+        return {
+          ...state, watchface: {...state.watchface, weekdayicon: action.value}
+        };
       case watchfaceActionsEnum.UPDATE_MONTH_ALT:
         return {
           ...state, watchface: {...state.watchface, date: {...state.watchface.date, monthAlt: action.value}}

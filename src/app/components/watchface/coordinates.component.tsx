@@ -15,8 +15,8 @@ const CoordinatesComponent: FC<IProps> = ({ title, coords, onUpdate }) => {
   const ar = useMemo<IRow[]>(() => [
     {
       blocks: [
-        { title: 'X', type: BlockType.Number, nvalue: coords.json?.X, onChange: onChangeX },
-        { title: 'Y', type: BlockType.Number, nvalue: coords.json?.Y, onChange: onChangeY },
+        { title: 'X', type: BlockType.Number, numberValue: coords.json?.X, onChange: onChangeX },
+        { title: 'Y', type: BlockType.Number, numberValue: coords.json?.Y, onChange: onChangeY },
       ]
     }
   ], [coords]) // eslint-disable-line react-hooks/exhaustive-deps

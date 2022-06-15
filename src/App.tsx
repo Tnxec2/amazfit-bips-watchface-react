@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import "./App.css";
 import FileLoaderComponent from "./app/components/main/fileLoader.component";

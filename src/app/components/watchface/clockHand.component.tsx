@@ -20,22 +20,22 @@ const ClockHandComponent: FC<IProps> = ({ title, clockHand, onUpdate, showAngle,
     // TODO: add shape input
     {
       blocks: [
-        { title: 'Color', type: BlockType.Color, svalue: Color.colorRead(clockHand.json?.Color), onChange: onChangeColor },
+        { title: 'Color', type: BlockType.Color, colorString: Color.colorRead(clockHand.json?.Color), onChange: onChangeColor },
         { title: 'Only Border', type: BlockType.Checkbox, checked: clockHand.json?.OnlyBorder, onChange: onChangeOnlyBorder },
       ]
     },
     {
       blocks: [
         { title: 'Center of rotation', type: BlockType.Empty },
-        { title: 'X', type: BlockType.Number, nvalue: clockHand.json?.Center?.X ? clockHand.json.Center.X : 0, onChange: onChangeCenterX },
-        { title: 'Y', type: BlockType.Number, nvalue: clockHand.json?.Center?.Y ? clockHand.json.Center.Y : 0, onChange: onChangeCenterY },
+        { title: 'X', type: BlockType.Number, numberValue: clockHand.json?.Center?.X ? clockHand.json.Center.X : 0, onChange: onChangeCenterX },
+        { title: 'Y', type: BlockType.Number, numberValue: clockHand.json?.Center?.Y ? clockHand.json.Center.Y : 0, onChange: onChangeCenterY },
       ]
     },
     {
       blocks: [
-        { title: 'Center Image', type: BlockType.SelectFile, nvalue: clockHand.json?.CenterImage?.ImageIndex, onChange: onChangeCenterImageIndex },
-        { title: 'X', type: BlockType.Number, nvalue: clockHand.json?.Center?.X ? clockHand.json.CenterImage?.X : 0, onChange: onChangeCenterImageX },
-        { title: 'Y', type: BlockType.Number, nvalue: clockHand.json?.Center?.Y ? clockHand.json.CenterImage?.Y : 0, onChange: onChangeCenterImageY },
+        { title: 'Center Image', type: BlockType.SelectFile, imageIndex: clockHand.json?.CenterImage?.ImageIndex, onChange: onChangeCenterImageIndex, imagesCount: 1 },
+        { title: 'X', type: BlockType.Number, numberValue: clockHand.json?.Center?.X ? clockHand.json.CenterImage?.X : 0, onChange: onChangeCenterImageX },
+        { title: 'Y', type: BlockType.Number, numberValue: clockHand.json?.Center?.Y ? clockHand.json.CenterImage?.Y : 0, onChange: onChangeCenterImageY },
       ]
     },
     {
@@ -167,8 +167,8 @@ const ClockHandComponent: FC<IProps> = ({ title, clockHand, onUpdate, showAngle,
               {
                 blocks: [
                   { title: (index + 1).toString(), type: BlockType.Empty },
-                  { title: 'X', type: BlockType.Number, nvalue: item.X, onChange: (val) => onChangeX(index, val) },
-                  { title: 'Y', type: BlockType.Number, nvalue: item.Y, onChange: (val) => onChangeY(index, val) },
+                  { title: 'X', type: BlockType.Number, numberValue: item.X, onChange: (val) => onChangeX(index, val) },
+                  { title: 'Y', type: BlockType.Number, numberValue: item.Y, onChange: (val) => onChangeY(index, val) },
                   { title: 'Del', type: BlockType.Button, disabled: clockHand.json.Shape.length <= 1, className: 'btn-outline-danger', onClick: (e) => deleteCoordinates(index) },
                 ]
               }

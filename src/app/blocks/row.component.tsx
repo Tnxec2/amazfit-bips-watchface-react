@@ -16,7 +16,7 @@ const RowComponent: FC<IProps> = ({ row }) => {
         let result: any = '';
         switch (block.type) {
             case BlockType.Empty:
-                result = <span key={index} className='input-group-text'>{block.title}</span>
+                result = <span key={index} className={`input-group-text ${block.error ? 'bg-danger' : ''}`} title={block.error}>{block.title}</span>
                 break;
             case BlockType.SelectFile:
                 result =
@@ -24,9 +24,10 @@ const RowComponent: FC<IProps> = ({ row }) => {
                         key={index} 
                         title={block.title}
                         onChange={block.onChange}
-                        value={block.nvalue}
+                        value={block.imageIndex}
                         disabled={block.disabled}
                         error={block.error}
+                        imagesCount={block.imagesCount}
                     />
                 break;
             case BlockType.Number:
@@ -35,7 +36,7 @@ const RowComponent: FC<IProps> = ({ row }) => {
                         key={index} 
                         title={block.title}
                         onChange={block.onChange}
-                        value={block.nvalue}
+                        value={block.numberValue}
                         disabled={block.disabled}
                         error={block.error}
                     />
@@ -57,7 +58,7 @@ const RowComponent: FC<IProps> = ({ row }) => {
                         key={index} 
                         title={block.title}
                         onChange={block.onChange}
-                        value={block.svalue}
+                        value={block.selectedValue}
                         disabled={block.disabled}
                         options={block.selectOptions}
                         error={block.error}
@@ -69,7 +70,7 @@ const RowComponent: FC<IProps> = ({ row }) => {
                         key={index} 
                         title={block.title}
                         onChange={block.onChange}
-                        value={block.svalue}
+                        value={block.colorString}
                         error={block.error}
                     />
                 break;

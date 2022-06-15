@@ -20,8 +20,8 @@ const WatchBatteryFormatedNumberComponent: FC<IProps> = ({
   const ar = useMemo<IRow[]>(() => [
     {
       blocks: [
-        { title: 'suffix', type: BlockType.SelectFile, nvalue: digit.suffix, onChange: onChangeSuffix },
-        { title: 'icon', type: BlockType.SelectFile, nvalue: digit.iconimageindex, onChange: onChangeIcon },
+        { title: 'suffix', type: BlockType.SelectFile, imageIndex: digit.suffix, onChange: onChangeSuffix, imagesCount: 1 },
+        { title: 'icon', type: BlockType.SelectFile, imageIndex: digit.iconimageindex, onChange: onChangeIcon, imagesCount: 1 },
       ]
     },
   ], [digit]) // eslint-disable-line react-hooks/exhaustive-deps

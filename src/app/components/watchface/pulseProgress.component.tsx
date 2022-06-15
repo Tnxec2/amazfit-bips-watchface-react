@@ -45,32 +45,32 @@ const PulseProgressComponent: FC<IProps> = ({
         <div>
 
           <ImageComponent
-              title='Image 1'
+              title='Image 1 (Relaxed)'
               onUpdate={(e) => updateImage(1, e)}
               image={{...progress.image1}}
           /> 
           <ImageComponent
-              title='Image 2'
+              title='Image 2 (Warm Up)'
               onUpdate={(e) => updateImage(2, e)}
               image={{...progress.image2}}
           /> 
           <ImageComponent
-              title='Image 3'
+              title='Image 3 (Fat Burning)'
               onUpdate={(e) => updateImage(3, e)}
               image={{...progress.image3}}
           /> 
           <ImageComponent
-              title='Image 4'
+              title='Image 4 (Aerobic)'
               onUpdate={(e) => updateImage(4, e)}
               image={{...progress.image4}}
           /> 
           <ImageComponent
-              title='Image 5'
+              title='Image 5 (Anaerobic)'
               onUpdate={(e) => updateImage(5, e)}
               image={{...progress.image5}}
           /> 
           <ImageComponent
-              title='Image 6'
+              title='Image 6 (Maximum)'
               onUpdate={(e) => updateImage(6, e)}
               image={{...progress.image6}}
           /> 

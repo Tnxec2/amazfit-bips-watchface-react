@@ -15,9 +15,9 @@ const ImageComponent: FC<IProps> = ({ title, image, onUpdate }) => {
   const ar = useMemo<IRow[]>(() => [
     {
       blocks: [
-        { title: 'Image', type: BlockType.SelectFile, nvalue: image.json?.ImageIndex, onChange: onChangeImageIndex },
-        { title: 'X', type: BlockType.Number, nvalue: image.json?.X, onChange: onChangeX },
-        { title: 'Y', type: BlockType.Number, nvalue: image.json?.Y, onChange: onChangeY },
+        { title: 'Image', type: BlockType.SelectFile, imageIndex: image.json?.ImageIndex, onChange: onChangeImageIndex, imagesCount: 1 },
+        { title: 'X', type: BlockType.Number, numberValue: image.json?.X, onChange: onChangeX },
+        { title: 'Y', type: BlockType.Number, numberValue: image.json?.Y, onChange: onChangeY },
       ]
     }
   ], [image]) // eslint-disable-line react-hooks/exhaustive-deps

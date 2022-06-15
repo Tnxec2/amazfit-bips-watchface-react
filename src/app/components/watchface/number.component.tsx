@@ -29,26 +29,26 @@ const WatchNumberComponent: FC<IProps> = ({
   const ar = useMemo<IRow[]>(() => [
     {
       blocks: [
-        { title: 'Image', type: BlockType.SelectFile, nvalue: digit.json?.ImageIndex, onChange: onChangeImageIndex, error: digit.enabled && !digit.json?.ImageIndex ? 'Image not set' : ''  },
+        { title: 'Image', type: BlockType.SelectFile, imageIndex: digit.json?.ImageIndex, onChange: onChangeImageIndex, error: digit.enabled && !digit.json?.ImageIndex ? 'Image not set' : '', imagesCount: digit.json?.ImagesCount },
         { title: `Count: ${digit.json?.ImagesCount}`, type: BlockType.Empty },
       ]
     },
     {
       blocks: [
-        { title: 'X', type: BlockType.Number, nvalue: digit.json?.TopLeftX ? digit.json.TopLeftX : 0, onChange: onChangeX },
-        { title: 'Y', type: BlockType.Number, nvalue: digit.json?.TopLeftY ? digit.json.TopLeftY : 0, onChange: onChangeY },
+        { title: 'X', type: BlockType.Number, numberValue: digit.json?.TopLeftX ? digit.json.TopLeftX : 0, onChange: onChangeX },
+        { title: 'Y', type: BlockType.Number, numberValue: digit.json?.TopLeftY ? digit.json.TopLeftY : 0, onChange: onChangeY },
       ]
     },
     {
       blocks: [
-        { title: 'Bottom Right X', type: BlockType.Number, nvalue: digit.json?.BottomRightX ? digit.json.BottomRightX : 0, onChange: onChangeBottomRightX },
-        { title: 'Bottom Right Y', type: BlockType.Number, nvalue: digit.json?.BottomRightX ? digit.json.BottomRightY : 0, onChange: onChangeBottomRightY },
+        { title: 'Bottom Right X', type: BlockType.Number, numberValue: digit.json?.BottomRightX ? digit.json.BottomRightX : 0, onChange: onChangeBottomRightX },
+        { title: 'Bottom Right Y', type: BlockType.Number, numberValue: digit.json?.BottomRightX ? digit.json.BottomRightY : 0, onChange: onChangeBottomRightY },
       ]
     },
     {
       blocks: [
-        { title: 'spacing', type: BlockType.Number, nvalue: digit.json?.Spacing ? digit.json.Spacing : 0, onChange: onChangeSpacing },
-        { title: 'alignment', type: BlockType.Select, svalue: digit.json?.Alignment, selectOptions: OptionsAlignmentBipS,  onChange: onChangeAlignment },
+        { title: 'spacing', type: BlockType.Number, numberValue: digit.json?.Spacing ? digit.json.Spacing : 0, onChange: onChangeSpacing },
+        { title: 'alignment', type: BlockType.Select, selectedValue: digit.json?.Alignment, selectOptions: OptionsAlignmentBipS,  onChange: onChangeAlignment },
       ]
     },
   ], [digit]) // eslint-disable-line react-hooks/exhaustive-deps

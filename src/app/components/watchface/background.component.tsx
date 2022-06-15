@@ -12,7 +12,7 @@ const BackgroundComponent: FC = () => {
   const ar = useMemo<IRow[]>(() => [
     {
       blocks: [
-        { title: 'Color', type: BlockType.Color, svalue: watchface.background.color, onChange: onChangeBackgroundColor },
+        { title: 'Color', type: BlockType.Color, colorString: watchface.background.color, onChange: onChangeBackgroundColor },
       ]
     }
   ], [watchface.background])  // eslint-disable-line react-hooks/exhaustive-deps

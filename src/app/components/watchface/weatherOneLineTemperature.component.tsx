@@ -22,13 +22,13 @@ const WatchWeatherOneLineTemperatureComponent: FC<IProps> = ({
   const ar = useMemo<IRow[]>(() => [
     {
       blocks: [
-        { title: 'minus', type: BlockType.SelectFile, nvalue: digit.minus, onChange: onUpdateMinus },
-        { title: 'degrees', type: BlockType.SelectFile, nvalue: digit.degrees, onChange: onChangeDegrees },
+        { title: 'minus', type: BlockType.SelectFile, imageIndex: digit.minus, onChange: onUpdateMinus, imagesCount: 1 },
+        { title: 'degrees', type: BlockType.SelectFile, imageIndex: digit.degrees, onChange: onChangeDegrees , imagesCount: 1},
       ]
     },
     {
       blocks: [
-        { title: 'delimiter', type: BlockType.SelectFile, nvalue: digit.delimiter, onChange: onUpdateDelimiter },
+        { title: 'delimiter', type: BlockType.SelectFile, imageIndex: digit.delimiter, onChange: onUpdateDelimiter , imagesCount: 1},
         { title: 'append degrees to both', type: BlockType.Checkbox, checked: digit.appendDegreesToBoth, onChange: onChangeAppendDegreesToBoth },
       ]
     },

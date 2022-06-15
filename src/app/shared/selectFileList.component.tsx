@@ -1,13 +1,15 @@
-import React, { FC, ReactElement, useContext, useState } from "react";
+import React, { FC, ReactElement, useContext, useMemo, useState } from "react";
 import { Constant } from "./constant";
 import "./selectFileList.css";
 import { IImagesContext, ImagesContext } from "../context/images.context";
+
 interface IProps {
   title: string,
   value: number;
   onChange(id: number): void;
   disabled?: boolean
   error?: string
+  imagesCount: number
 }
 
 const SelectFileListComponent: FC<IProps> = ({
@@ -16,10 +18,23 @@ const SelectFileListComponent: FC<IProps> = ({
   onChange,
   disabled,
   error,
+  imagesCount,
 }) => {
   const { images } = useContext<IImagesContext>(ImagesContext);
 
   const [collapsed, setCollapsed] = useState<boolean>(true);
+
+  const imagesCountError = useMemo<boolean>(() => {
+    if (value-Constant.startImageIndex+imagesCount > images.length) return true
+    else return false
+  },[images, value, imagesCount])
+
+  const selectFileTitle = useMemo<string>(() => {
+    if (!error && !imagesCountError) return 'Select image'
+    const imagesCountErrorString = `Not all images exist for count ${imagesCount}.`
+    if (error && imagesCountError) return error + '\n' + imagesCountErrorString
+    else return imagesCountErrorString
+  }, [error, imagesCountError, imagesCount])
 
   function onFileSelected(id: number) {
     onChange(id);
@@ -59,7 +74,7 @@ const SelectFileListComponent: FC<IProps> = ({
   return (
     <>
       <span className="input-group-text">{title}</span>
-      <div className={`input-group-text dropdown ${error ? 'bg-danger' : ''}`} title={error}>
+      <div className={`input-group-text dropdown ${error || imagesCountError ? 'bg-danger' : ''}`} title={selectFileTitle}>
         <div>
           {value !== null &&
           value !== undefined &&

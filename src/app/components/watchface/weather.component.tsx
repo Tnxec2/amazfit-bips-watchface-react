@@ -30,6 +30,7 @@ updateWeatherAqi, updateWeatherHumidity } =
             title='Icon'
             imageSet={{...watchface.weather.customIcon}}
             onUpdate={updateWeatherIcon}
+            disableCount={true}
           />
       <Card className="activity w-100">
       <Card.Header
