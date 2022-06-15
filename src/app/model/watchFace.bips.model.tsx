@@ -181,8 +181,8 @@ export class WatchNumber {
     if (j) {
       this.json = j
       this.enabled = true
-      this.width = this.json.BottomRightX ? this.json.BottomRightX - this.json.TopLeftX : this.json.TopLeftX + 1
-      this.height = this.json.BottomRightY ? this.json.BottomRightY - this.json.TopLeftY : this.json.TopLeftY + 1
+      this.width = this.json.BottomRightX && this.json.TopLeftX ? this.json.BottomRightX - this.json.TopLeftX : 1
+      this.height = this.json.BottomRightY && this.json.TopLeftY ? this.json.BottomRightY - this.json.TopLeftY : 1
     }
     if ( con ) {
       if (!this.json) this.json = new NumberJson()
