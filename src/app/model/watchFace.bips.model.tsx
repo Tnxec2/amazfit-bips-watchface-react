@@ -400,7 +400,7 @@ export class WatchOneLineTemperature {
   constructor(j?: OneLineMinMax, con?: IDigitConstructor) {
     if (j) {
       this.number = new WatchNumber(j.Number, digitTypes.weather)
-      this.minus = j.MinusImageIndex
+      this.minus = j.MinusSignImageIndex
       this.degrees = j.DegreesImageIndex
       this.delimiter = j.DelimiterImageIndex
       this.appendDegreesToBoth = j.AppendDegresForBoth
