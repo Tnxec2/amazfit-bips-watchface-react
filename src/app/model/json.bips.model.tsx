@@ -239,7 +239,7 @@ export class TextTemperature{
 
 export class OneLineMinMax {
   Number: NumberJson
-  MinusImageIndex:  number
+  MinusSignImageIndex:  number
   DelimiterImageIndex:  number
   AppendDegresForBoth:  boolean
   DegreesImageIndex:  number

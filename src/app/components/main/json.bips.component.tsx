@@ -195,7 +195,7 @@ function getWeather(w: WatchWeather): Weather {
                 } : null,
                 OneLine: w.todayOneLine.enabled ? {
                     Number: w.todayOneLine.number.enabled ? w.todayOneLine.number.json : null,
-                    MinusImageIndex: w.todayOneLine.minus,
+                    MinusSignImageIndex: w.todayOneLine.minus,
                     DelimiterImageIndex: w.todayOneLine.delimiter,
                     AppendDegresForBoth: w.todayOneLine.appendDegreesToBoth,
                     DegreesImageIndex: w.todayOneLine.degrees,
