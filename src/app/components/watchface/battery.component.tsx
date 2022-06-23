@@ -3,8 +3,8 @@ import { Card } from "react-bootstrap";
 import { IWatchContext, WatchfaceContext } from "../../context/watchface.context";
 import WatchBatteryFormatedNumberComponent from "./batteryFormatedNumber.component";
 import CircleProgressComponent from "./circleProgress.component";
-import IconSetComponent from "./iconSet.component";
 import ImageSetComponent from "./imageSet.component";
+import LinearIconSetComponent from "./lineariconset.component";
 
 
 const BatteryComponent: FC = () => {
@@ -34,9 +34,9 @@ const BatteryComponent: FC = () => {
             imageSet={{...watchface.battery.icon}}
             onUpdate={updateBatteryImageSet}
           />
-          <IconSetComponent
+          <LinearIconSetComponent
             title='Icon set'
-            iconSet={{...watchface.battery.scale}}
+            linearIconSet={{...watchface.battery.scale}}
             onUpdate={updateBatteryIconSet}
             />
           <CircleProgressComponent

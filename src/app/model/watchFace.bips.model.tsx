@@ -1,5 +1,5 @@
 import Color from "../shared/color";
-import { Activity, ActivityAlt, AirQuality, AmPmIcon, AnalogDialFace, Background, Battery, BatteryFormatedNumber, CaloriesProgress, CircleScale, ClockHand, Coordinates, Date, DateExtended, FormatedNumber, FourDigits, Humidity, IconSet, Image, ImageSet, NumberExtendedJson, NumberJson, OneLineMinMax, Pai, PointerScale, PulseProgress, Shortcut, ShortcutElement, Shortcuts, Status, StepsProgress, Switch, TextTemperature, Time, TwoDigits, WatchJson, Weather, WeekdayIcon } from "./json.bips.model";
+import { Activity, ActivityAlt, AirQuality, AmPmIcon, AnalogDialFace, Background, Battery, BatteryFormatedNumber, CaloriesProgress, CircleScale, ClockHand, Coordinates, Date, DateExtended, StepsFormatedNumber, FourDigits, Humidity, IconSet, Image, ImageSet, LinearIconSet, NumberExtendedJson, NumberJson, OneLineMinMax, Pai, PointerScale, PulseProgress, Shortcut, ShortcutElement, Shortcuts, Status, StepsProgress, Switch, TextTemperature, Time, TwoDigits, WatchJson, Weather, WeekdayIcon, PulseFormatedNumber, DistanceFormatedNumber, CaloriesFormatedNumber } from "./json.bips.model";
 
 interface IDigitConstructor {
   count: number;
@@ -284,6 +284,17 @@ export class WatchIconSet {
   }
 }
 
+export class WatchLinearIconSet {
+  enabled: boolean = false
+  json: LinearIconSet = new LinearIconSet()
+  constructor(j?: LinearIconSet) {
+    if (j) {
+      this.enabled = true
+      this.json = j
+    }
+  }
+}
+
 export class WatchCircleScale {
   enabled: boolean = false
   json: CircleScale = new CircleScale()
@@ -335,14 +346,14 @@ export class WatchStepsProgress {
   
   goalImage: WatchImage = new WatchImage()
 
-  gauge: WatchImageSet = new WatchImageSet(digitTypes.steps.imageProgressTotal)
-  linear: WatchIconSet = new WatchIconSet()
+  gauge: WatchLinearIconSet = new WatchLinearIconSet()
+  iconSet: WatchIconSet = new WatchIconSet()
   circle: WatchCircleScale = new WatchCircleScale()
 
   constructor(j?: StepsProgress) {
     if(j) {
-      this.gauge = new WatchImageSet(digitTypes.battery.imageProgressTotal, j.Gauge)
-      this.linear = new WatchIconSet(j.Linear)
+      this.gauge = new WatchLinearIconSet(j.Gauge)
+      this.iconSet = new WatchIconSet(j.IconSet)
       this.circle = new WatchCircleScale(j.Circle)
       this.goalImage = new WatchImage(j.GoalImage)
     }
@@ -544,8 +555,59 @@ export class WatchAmPmIcon {
   }
 }
 
+export class WatchCaloriesFormatedNumber {
+  enabled: boolean
 
-export class WatchFormatedNumber {
+  number: WatchNumber = new WatchNumber()
+  prefix: number
+
+  constructor(con?: IDigitConstructor, j?: CaloriesFormatedNumber) {
+    if (j) {
+      this.enabled = true
+      this.number = new WatchNumber(j.Number, con)
+      this.prefix = j.PrefixImageIndex
+    } else if (con) {
+      this.number = new WatchNumber(null, con)
+    }
+  }
+}
+
+export class WatchStepsFormatedNumber {
+  enabled: boolean
+
+  number: WatchNumber = new WatchNumber()
+
+  constructor(con?: IDigitConstructor, j?: StepsFormatedNumber) {
+    if (j) {
+      this.enabled = true
+      this.number = new WatchNumber(j.Number, con)
+    } else if (con) {
+      this.number = new WatchNumber(null, con)
+    }
+  }
+}
+
+export class WatchPulseFormatedNumber {
+  enabled: boolean
+
+  number: WatchNumber = new WatchNumber()
+  noData: number
+  decimalPointer: number
+  suffixMiles: number
+
+
+  constructor(con?: IDigitConstructor, j?: PulseFormatedNumber) {
+    if (j) {
+      this.enabled = true
+      this.number = new WatchNumber(j.Number, con)
+      this.noData = j.NoDataImageIndex
+    } else if (con) {
+      this.number = new WatchNumber(null, con)
+    }
+  }
+}
+
+export class WatchDistanceFormatedNumber {
   enabled: boolean
 
   number: WatchNumber = new WatchNumber()
@@ -554,12 +616,12 @@ export class WatchFormatedNumber {
   suffixMiles: number
 
 
-  constructor(con?: IDigitConstructor, j?: FormatedNumber) {
+  constructor(con?: IDigitConstructor, j?: DistanceFormatedNumber) {
     if (j) {
       this.enabled = true
       this.number = new WatchNumber(j.Number, con)
       this.suffix = j.SuffixImageIndex
-      this.decimalPointer = j.DecimalPointImageIndex  
+      this.decimalPointer = j.DecimalPointImageIndex
       this.suffixMiles = j.SuffixMilesImageIndex
     } else if (con) {
       this.number = new WatchNumber(null, con)
@@ -591,7 +653,7 @@ export class WatchBattery {
   collapsed: boolean = true
 
   text: WatchBatteryFormatedNumber = new WatchBatteryFormatedNumber(digitTypes.battery)
-  scale: WatchIconSet = new WatchIconSet()
+  scale: WatchLinearIconSet = new WatchLinearIconSet()
   icon: WatchImageSet = new WatchImageSet(digitTypes.battery.imageProgressTotal)
   circle: WatchCircleScale = new WatchCircleScale()
 
@@ -599,7 +661,7 @@ export class WatchBattery {
     if (j) {
       if(j.Text) { this.text = new WatchBatteryFormatedNumber(digitTypes.battery, j.Text) }
       if(j.Icon) { this.icon = new WatchImageSet(digitTypes.battery.imageProgressTotal, j.Icon) ;}
-      if(j.Scale) { this.scale = new WatchIconSet(j.Scale) ;}
+      if(j.Scale) { this.scale = new WatchLinearIconSet(j.Scale) ;}
       if(j.Circle) { this.circle = new WatchCircleScale(j.Circle)}
     }
   }
@@ -638,19 +700,19 @@ export class WatchStatus {
 export class WatchActivityList {
   collapsed = true
 
-  steps: WatchFormatedNumber = new WatchFormatedNumber(digitTypes.steps)
-  stepsGoals: WatchFormatedNumber = new WatchFormatedNumber(digitTypes.steps)
-  calories: WatchFormatedNumber = new WatchFormatedNumber(digitTypes.calories)
-  pulse: WatchFormatedNumber = new WatchFormatedNumber(digitTypes.heartRate)
-  distance: WatchFormatedNumber = new WatchFormatedNumber(digitTypes.distance)
+  steps: WatchStepsFormatedNumber = new WatchStepsFormatedNumber(digitTypes.steps)
+  stepsGoals: WatchStepsFormatedNumber = new WatchStepsFormatedNumber(digitTypes.steps)
+  calories: WatchCaloriesFormatedNumber = new WatchCaloriesFormatedNumber(digitTypes.calories)
+  pulse: WatchPulseFormatedNumber = new WatchPulseFormatedNumber(digitTypes.heartRate)
+  distance: WatchDistanceFormatedNumber = new WatchDistanceFormatedNumber(digitTypes.distance)
   
     constructor(j?: Activity) {
     if (j) {
-      if (j.Steps) this.steps = new WatchFormatedNumber(digitTypes.steps, j.Steps)
-      if (j.StepsGoal) this.stepsGoals = new WatchFormatedNumber(digitTypes.steps, j.StepsGoal)
-      if (j.Calories) this.calories = new WatchFormatedNumber(digitTypes.calories, j.Calories)
-      if (j.Pulse) this.pulse = new WatchFormatedNumber(digitTypes.heartRate, j.Pulse)
-      if (j.Distance) this.distance = new WatchFormatedNumber(digitTypes.distance, j.Distance)
+      if (j.Steps) this.steps = new WatchStepsFormatedNumber(digitTypes.steps, j.Steps)
+      if (j.StepsGoal) this.stepsGoals = new WatchStepsFormatedNumber(digitTypes.steps, j.StepsGoal)
+      if (j.Calories) this.calories = new WatchCaloriesFormatedNumber(digitTypes.calories, j.Calories)
+      if (j.Pulse) this.pulse = new WatchPulseFormatedNumber(digitTypes.heartRate, j.Pulse)
+      if (j.Distance) this.distance = new WatchDistanceFormatedNumber(digitTypes.distance, j.Distance)
     }
   }
 }

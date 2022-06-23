@@ -90,8 +90,6 @@ const WatchWeatherOneLineTemperatureComponent: FC<IProps> = ({
             title='Number'
             digit={{...digit.number}}
             onUpdate={onUpdateNumber} 
-            showDelimiter={false}
-            paddingDisabled={true}
           />
           <BlocksArrayComponent ar={ar} />
         </Card.Body>

@@ -2,18 +2,16 @@ import { FC, useMemo } from "react";
 import { Card } from "react-bootstrap";
 import BlocksArrayComponent from "../../blocks/blocksArray.component";
 import { BlockType, IRow } from "../../model/blocks.model";
-import { WatchNumber, WatchTextTemperature } from "../../model/watchFace.bips.model";
+import { WatchPulseFormatedNumber, WatchNumber } from "../../model/watchFace.bips.model";
 import WatchNumberComponent from "./number.component";
 
 interface IProps {
   title: string;
-  digit: WatchTextTemperature;
-  onUpdate(digit: WatchTextTemperature): void;
-  onCopyFromNormal?(): void,
-
+  digit: WatchPulseFormatedNumber;
+  onUpdate(digit: WatchPulseFormatedNumber): void;
 }
 
-const WatchWeatherFormatedNumberComponent: FC<IProps> = ({
+const WatchPulseFormatedNumberComponent: FC<IProps> = ({
   title,
   digit,
   onUpdate,
@@ -22,23 +20,17 @@ const WatchWeatherFormatedNumberComponent: FC<IProps> = ({
   const ar = useMemo<IRow[]>(() => [
     {
       blocks: [
-        { title: 'minus', type: BlockType.SelectFile, imageIndex: digit.minus, onChange: onUpdateMinus , imagesCount: 1},
-        { title: 'degrees', type: BlockType.SelectFile, imageIndex: digit.degrees, onChange: onChangeDegrees , imagesCount: 1},
+        { title: 'no data', type: BlockType.SelectFile, imageIndex: digit.noData, onChange: onChangeNoData, imagesCount: 1  }
       ]
-    },
+    }
   ], [digit]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  function onUpdateMinus(index: number) {
+  function onChangeNoData(index: number) {
     const d = {...digit};
-    d.minus = index;
+    d.noData = index;
     onUpdate(d);
   }
 
-  function onChangeDegrees(index: number) {
-    const d = {...digit};
-    d.degrees = index;
-    onUpdate(d);
-  }
   function onUpdateNumber(number: WatchNumber) {
     const d = {...digit};
     d.number = number;
@@ -69,7 +61,7 @@ const WatchWeatherFormatedNumberComponent: FC<IProps> = ({
         <Card.Body>
           <WatchNumberComponent
             title='Number'
-            digit={{...digit.number}}
+            digit={digit.number}
             onUpdate={onUpdateNumber} 
           />
           <BlocksArrayComponent ar={ar} />
@@ -81,4 +73,4 @@ const WatchWeatherFormatedNumberComponent: FC<IProps> = ({
   );
 };
 
-export default WatchWeatherFormatedNumberComponent;
+export default WatchPulseFormatedNumberComponent;

@@ -61,8 +61,6 @@ const WatchWeatherHumidityComponent: FC<IProps> = ({
             title='Number'
             digit={{...humidity.number}}
             onUpdate={onUpdateNumber} 
-            showDelimiter={false}
-            paddingDisabled={true}
           />
           <ImageComponent
             title="Icon"

@@ -2,51 +2,32 @@ import { FC, useMemo } from "react";
 import { Card } from "react-bootstrap";
 import BlocksArrayComponent from "../../blocks/blocksArray.component";
 import { BlockType, IRow } from "../../model/blocks.model";
-import { WatchFormatedNumber, WatchNumber } from "../../model/watchFace.bips.model";
+import { WatchCaloriesFormatedNumber, WatchNumber } from "../../model/watchFace.bips.model";
 import WatchNumberComponent from "./number.component";
 
 interface IProps {
   title: string;
-  digit: WatchFormatedNumber;
-  onUpdate(digit: WatchFormatedNumber): void;
-  onCopyFromNormal?(): void,
-  showSuffix?: boolean,
-  showDecimal?: boolean,
+  digit: WatchCaloriesFormatedNumber;
+  onUpdate(digit: WatchCaloriesFormatedNumber): void;
 }
 
-const WatchFormatedNumberComponent: FC<IProps> = ({
+const WatchCaloriesFormatedNumberComponent: FC<IProps> = ({
   title,
   digit,
   onUpdate,
-  onCopyFromNormal,
-  showSuffix,
-  showDecimal,
 }) => {
 
   const ar = useMemo<IRow[]>(() => [
     {
-      disabled: !showSuffix,
       blocks: [
-        { title: 'suffix', type: BlockType.SelectFile, imageIndex: digit.suffix, onChange: onChangeSuffix, imagesCount: 1  }
-      ]
-    },
-    {
-      disabled: !showDecimal,
-      blocks: [
-        { title: 'desimal pointer', type: BlockType.SelectFile, imageIndex: digit.decimalPointer, onChange: onChangeDecimalPointer, error: digit.number?.enabled && showDecimal && !digit.decimalPointer ? 'Decimal pointer is not set' : null, imagesCount: 1 },
+        { title: 'icon', type: BlockType.SelectFile, imageIndex: digit.prefix, onChange: onChangePrefix, imagesCount: 1  }
       ]
     },
   ], [digit]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  function onChangeSuffix(index: number) {
+  function onChangePrefix(index: number) {
     const d = {...digit};
-    d.suffix = index;
-    onUpdate(d);
-  }
-
-  function onChangeDecimalPointer(index: number) {
-    const d = {...digit};
-    d.decimalPointer = index;
+    d.prefix = index;
     onUpdate(d);
   }
   function onUpdateNumber(number: WatchNumber) {
@@ -81,8 +62,6 @@ const WatchFormatedNumberComponent: FC<IProps> = ({
             title='Number'
             digit={digit.number}
             onUpdate={onUpdateNumber} 
-            showDelimiter={false}
-            paddingDisabled={true}
           />
           <BlocksArrayComponent ar={ar} />
         </Card.Body>
@@ -93,4 +72,4 @@ const WatchFormatedNumberComponent: FC<IProps> = ({
   );
 };
 
-export default WatchFormatedNumberComponent;
+export default WatchCaloriesFormatedNumberComponent;

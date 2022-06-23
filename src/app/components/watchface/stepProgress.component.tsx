@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
-import { WatchCircleScale, WatchIconSet, WatchImage, WatchImageSet, WatchStepsProgress } from '../../model/watchFace.bips.model';
+import { WatchCircleScale, WatchIconSet, WatchImage, WatchLinearIconSet, WatchStepsProgress } from '../../model/watchFace.bips.model';
 import CircleProgressComponent from './circleProgress.component';
 import IconSetComponent from './iconSet.component';
 import ImageComponent from './image.component';
-import ImageSetComponent from './imageSet.component';
+import LinearIconSetComponent from './lineariconset.component';
 
 interface IProps {
     title: string;
@@ -17,14 +17,14 @@ const StepProgressComponent: FC<IProps> = ({
     onUpdate,
   }) => {
 
-    function updateImageProgress(ip: WatchImageSet) {
-      const p = {...progress};
-      p.gauge = ip;
-      onUpdate(p);
-    }
     function updateIconSet(ip: WatchIconSet) {
       const p = {...progress};
-      p.linear = ip;
+      p.iconSet = ip;
+      onUpdate(p);
+    }
+    function updateGauge(ip: WatchLinearIconSet) {
+      const p = {...progress};
+      p.gauge = ip;
       onUpdate(p);
     }
     function updateGoalImage(ip: WatchImage) {
@@ -46,15 +46,15 @@ const StepProgressComponent: FC<IProps> = ({
               onUpdate={updateGoalImage}
               image={{...progress.goalImage}}
             />
-            <ImageSetComponent
-              title='Image progress'
-              onUpdate={updateImageProgress}
-              imageSet={{...progress.gauge}}
-            /> 
             <IconSetComponent
-              title='Icon set progress'
+              title='Image progress'
               onUpdate={updateIconSet}
-              iconSet={{...progress.linear}}
+              iconSet={{...progress.iconSet}}
+            /> 
+            <LinearIconSetComponent
+              title='Icon set progress'
+              onUpdate={updateGauge}
+              linearIconSet={{...progress.gauge}}
             /> 
             <CircleProgressComponent
               title='Circle progress'

@@ -8,20 +8,20 @@ export default function drawIconSet(
     iconSet: IconSet,
     value: number,
     total: number) {
-        if (iconSet?.ImageIndex && iconSet?.Coordinates) {
-            
+        if (iconSet?.StartImageIndex) {
+            let x = iconSet.X ? iconSet.X : 0
+            let y = iconSet.Y ? iconSet.Y : 0
+
             if (value > total) value = total
             
-            let count = iconSet.Coordinates?.length
+            let count = iconSet.ImagesCount ? iconSet.ImagesCount : 1
 
-            if (count) {
-                let index = Math.floor(value / (total / count))
+            let index = Math.floor(value / (total / count))
 
-                index = Math.max(index, 0)
-                index = Math.min(index, count-1)
+            index = Math.max(index, 0)
+            index = Math.min(index, iconSet.ImagesCount-1)
 
-                const img = findImageById(iconSet.ImageIndex + index, images)
-                if (img) ctx.drawImage(img, iconSet.Coordinates[index].X, iconSet.Coordinates[index].Y);
-            }
+            const img = findImageById(iconSet.StartImageIndex + index, images)
+            if (img) ctx.drawImage(img, x, y);
         }
 }

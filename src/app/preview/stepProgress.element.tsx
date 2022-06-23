@@ -4,7 +4,7 @@ import { WatchState } from "../model/watchState";
 import drawCircleProgress from "./circleProgress.element";
 import drawIconSet from "./iconSet.element";
 import drawImage from "./image.element";
-import drawImageSet from "./imageSet.element";
+import drawLinearIconSet from "./linearIconSet.element";
 
 export function drawStepProgress(ctx: CanvasRenderingContext2D,
     images: IImage[],
@@ -18,12 +18,12 @@ export function drawStepProgress(ctx: CanvasRenderingContext2D,
         drawImage(ctx, images, stepProgress.goalImage.json)
     }
     if (stepProgress.gauge.enabled) {
-        drawImageSet(ctx, images, stepProgress.gauge.json, watchState.steps, watchState.stepsGoal)
+        drawLinearIconSet(ctx, images, stepProgress.gauge.json, watchState.steps, watchState.stepsGoal)
     }
     if (stepProgress.circle.enabled) {
         drawCircleProgress(ctx, images, stepProgress.circle.json, watchState.steps, watchState.stepsGoal)
     }
-    if (stepProgress.linear.enabled) {
-        drawIconSet(ctx, images, stepProgress.linear.json, watchState.steps, watchState.stepsGoal)
+    if (stepProgress.iconSet.enabled) {
+        drawIconSet(ctx, images, stepProgress.iconSet.json, watchState.steps, watchState.stepsGoal)
     }
 }

@@ -8,22 +8,12 @@ interface IProps {
   title: string;
   digit: WatchNumber;
   onUpdate(digit: WatchNumber): void;
-  onCopyFromNormal?(): void,
-  showDelimiter?: boolean,
-  showDataType?: boolean,
-  showPrefix?: boolean,
-  paddingDisabled?: boolean,
 }
 
 const WatchNumberComponent: FC<IProps> = ({
   title,
   digit,
   onUpdate,
-  onCopyFromNormal,
-  showDelimiter,
-  showDataType,
-  showPrefix,
-  paddingDisabled,
 }) => {
 
   const ar = useMemo<IRow[]>(() => [

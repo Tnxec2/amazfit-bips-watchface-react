@@ -95,19 +95,32 @@ export class Coordinates {
   Unknown4: number = 0;
 }
 
-export class FormatedNumber {
+export class StepsFormatedNumber {
+  Number: NumberJson
+}
+export class DistanceFormatedNumber {
   Number: NumberJson
   SuffixImageIndex: number
   DecimalPointImageIndex: number
   SuffixMilesImageIndex: number
 }
 
+export class PulseFormatedNumber {
+  Number: NumberJson
+  NoDataImageIndex: number
+}
+
+export class CaloriesFormatedNumber {
+  Number: NumberJson
+  PrefixImageIndex: number
+}
+
 export class Activity {
-  Steps: FormatedNumber
-  StepsGoal: FormatedNumber
-  Calories: FormatedNumber
-  Pulse: FormatedNumber
-  Distance: FormatedNumber
+  Steps: StepsFormatedNumber
+  StepsGoal: StepsFormatedNumber
+  Calories: CaloriesFormatedNumber
+  Pulse: PulseFormatedNumber
+  Distance: DistanceFormatedNumber
 }
 
 export class Pai {
@@ -179,8 +192,15 @@ export class AmPmIcon{
 }
 
 export class IconSet{
-  ImageIndex: number
-  Coordinates: Coordinates[] = []
+  StartImageIndex: number
+  X: number = 0
+  Y: number = 0
+  ImagesCount: number = 1
+}
+
+export class LinearIconSet{
+  StartImageIndex: number
+  Segments: Coordinates[] = []
 }
 
 export class CircleScale{
@@ -209,8 +229,8 @@ export class Scale{
 
 export class StepsProgress{
   GoalImage: Image
-  Linear: IconSet
-  Gauge: ImageSet
+  Gauge: LinearIconSet
+  IconSet: IconSet
   Circle: CircleScale
 }
 
@@ -310,7 +330,7 @@ export class BatteryFormatedNumber {
 export class Battery{
   Text: BatteryFormatedNumber
   Icon: ImageSet
-  Scale: IconSet
+  Scale: LinearIconSet
   Circle: CircleScale
 }
 

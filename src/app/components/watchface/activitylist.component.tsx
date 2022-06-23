@@ -2,10 +2,13 @@ import { FC, useContext } from "react";
 import { Card } from "react-bootstrap";
 import { IWatchContext, WatchfaceContext } from "../../context/watchface.context";
 import CircleProgressComponent from "./circleProgress.component";
-import WatchFormatedNumberComponent from "./formatedNumber.component";
 import ImageSetComponent from "./imageSet.component";
 import PulseProgressComponent from "./pulseProgress.component";
 import StepProgressComponent from "./stepProgress.component";
+import WatchStepsFormatedNumberComponent from "./stepsFormatedNumber.component";
+import WatchCaloriesFormatedNumberComponent from "./caloriesFormatedNumber.component";
+import WatchDistanceFormatedNumberComponent from "./distanceFormatedNumber.component";
+import WatchPulseFormatedNumberComponent from "./pulseFormatedNumber.component";
 
 const ActivityListComponent: FC = () => {
   const { watchface, toggleActivity, toggleActivityNumber,
@@ -38,36 +41,30 @@ toggleCaloriesProgress, updateCaloriesCircle, updateCaloriesIcon
           </Card.Header>
             { !watchface.activity.collapsed  ? (
           <Card.Body>
-            <WatchFormatedNumberComponent
+            <WatchStepsFormatedNumberComponent
               title='Steps'
               digit={{...watchface.activity.steps}}
               onUpdate={updateSteps}
-              showSuffix={true}
             />
-            <WatchFormatedNumberComponent
+            <WatchStepsFormatedNumberComponent
               title='Steps goal'
               digit={{...watchface.activity.stepsGoals}}
               onUpdate={updateStepsGoal}
-              showSuffix={true}
             />
-            <WatchFormatedNumberComponent
+            <WatchCaloriesFormatedNumberComponent
               title='Calories'
               digit={{...watchface.activity.calories}}
               onUpdate={updateCalories}
-              showSuffix={true}
             />
-            <WatchFormatedNumberComponent
+            <WatchPulseFormatedNumberComponent
               title='Hearthrate'
               digit={{...watchface.activity.pulse}}
               onUpdate={updateHearthrate}
-              showSuffix={true}
             />
-            <WatchFormatedNumberComponent
+            <WatchDistanceFormatedNumberComponent
               title='Distance'
               digit={{...watchface.activity.distance}}
               onUpdate={updateDistance}
-              showSuffix={true}
-              showDecimal={true}
             />
           </Card.Body>
             ) : '' }

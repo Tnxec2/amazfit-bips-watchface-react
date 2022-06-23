@@ -2,18 +2,16 @@ import { FC, useMemo } from "react";
 import { Card } from "react-bootstrap";
 import BlocksArrayComponent from "../../blocks/blocksArray.component";
 import { BlockType, IRow } from "../../model/blocks.model";
-import { WatchNumber, WatchTextTemperature } from "../../model/watchFace.bips.model";
+import { WatchDistanceFormatedNumber, WatchNumber } from "../../model/watchFace.bips.model";
 import WatchNumberComponent from "./number.component";
 
 interface IProps {
   title: string;
-  digit: WatchTextTemperature;
-  onUpdate(digit: WatchTextTemperature): void;
-  onCopyFromNormal?(): void,
-
+  digit: WatchDistanceFormatedNumber;
+  onUpdate(digit: WatchDistanceFormatedNumber): void;
 }
 
-const WatchWeatherFormatedNumberComponent: FC<IProps> = ({
+const WatchDistanceFormatedNumberComponent: FC<IProps> = ({
   title,
   digit,
   onUpdate,
@@ -22,21 +20,21 @@ const WatchWeatherFormatedNumberComponent: FC<IProps> = ({
   const ar = useMemo<IRow[]>(() => [
     {
       blocks: [
-        { title: 'minus', type: BlockType.SelectFile, imageIndex: digit.minus, onChange: onUpdateMinus , imagesCount: 1},
-        { title: 'degrees', type: BlockType.SelectFile, imageIndex: digit.degrees, onChange: onChangeDegrees , imagesCount: 1},
+        { title: 'suffix', type: BlockType.SelectFile, imageIndex: digit.suffix, onChange: onChangeSuffix, imagesCount: 1  },
+        { title: 'desimal pointer', type: BlockType.SelectFile, imageIndex: digit.decimalPointer, onChange: onChangeDecimalPointer, error: digit.number?.enabled && !digit.decimalPointer ? 'Decimal pointer is not set' : null, imagesCount: 1 },
       ]
     },
   ], [digit]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  function onUpdateMinus(index: number) {
+  function onChangeSuffix(index: number) {
     const d = {...digit};
-    d.minus = index;
+    d.suffix = index;
     onUpdate(d);
   }
 
-  function onChangeDegrees(index: number) {
+  function onChangeDecimalPointer(index: number) {
     const d = {...digit};
-    d.degrees = index;
+    d.decimalPointer = index;
     onUpdate(d);
   }
   function onUpdateNumber(number: WatchNumber) {
@@ -69,7 +67,7 @@ const WatchWeatherFormatedNumberComponent: FC<IProps> = ({
         <Card.Body>
           <WatchNumberComponent
             title='Number'
-            digit={{...digit.number}}
+            digit={digit.number}
             onUpdate={onUpdateNumber} 
           />
           <BlocksArrayComponent ar={ar} />
@@ -81,4 +79,4 @@ const WatchWeatherFormatedNumberComponent: FC<IProps> = ({
   );
 };
 
-export default WatchWeatherFormatedNumberComponent;
+export default WatchDistanceFormatedNumberComponent;

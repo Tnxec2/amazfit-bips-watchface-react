@@ -4,8 +4,8 @@ import { WatchState } from "../model/watchState";
 import { findImageById } from "../shared/helper";
 import drawCircleProgress from "./circleProgress.element";
 import drawDigitImage from "./digitImage.element";
-import drawIconSet from "./iconSet.element";
 import drawImageSet from "./imageSet.element";
+import drawLinearIconSet from "./linearIconSet.element";
 
 export function drawBattery(ctx: CanvasRenderingContext2D,
     images: IImage[],
@@ -28,7 +28,7 @@ export function drawBattery(ctx: CanvasRenderingContext2D,
         drawImageSet(ctx, images, battery.icon.json, watchState.battery, watchState.batteryGoal);
     }
     if (battery.scale.enabled) {
-        drawIconSet(ctx, images, battery.scale.json, watchState.battery, watchState.batteryGoal);
+        drawLinearIconSet(ctx, images, battery.scale.json, watchState.battery, watchState.batteryGoal);
     }
     if (battery.circle.enabled) {
         drawCircleProgress(ctx, images, battery.circle.json, watchState.battery, watchState.batteryGoal);

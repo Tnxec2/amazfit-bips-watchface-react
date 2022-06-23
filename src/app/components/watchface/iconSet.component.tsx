@@ -8,58 +8,46 @@ interface IProps {
   title: string;
   iconSet: WatchIconSet;
   onUpdate(iconSet: WatchIconSet): void;
+  disableCount?: boolean;
 }
 
-const IconSetComponent: FC<IProps> = ({ title, iconSet, onUpdate }) => {
+const IconSetComponent: FC<IProps> = ({ title, iconSet, onUpdate, disableCount }) => {
 
   const ar = useMemo<IRow[]>(() => [
     {
       blocks: [
-        { title: 'Image', type: BlockType.SelectFile, imageIndex: iconSet.json?.ImageIndex, 
-          onChange: onChangeImageIndex, imagesCount: iconSet.json?.Coordinates ? iconSet.json.Coordinates.length : 0},
-        { title: 'Add coordinates', type: BlockType.Button, onClick: addCoordinates, className: 'btn-outline-success' },
+        { title: 'Image', type: BlockType.SelectFile, imageIndex: iconSet.json?.StartImageIndex, onChange: onChangeImageIndex, imagesCount: iconSet.json?.ImagesCount },
+        { title: 'Count', type: BlockType.Number, numberValue: iconSet.json?.ImagesCount, min: 0, onChange: onChangeCount, disabled: disableCount },
       ]
     },
+    {
+      blocks: [
+        { title: 'X', type: BlockType.Number, numberValue: iconSet.json?.X, onChange: onChangeX },
+        { title: 'Y', type: BlockType.Number, numberValue: iconSet.json?.Y, onChange: onChangeY },
+      ]
+    }
   ], [iconSet]) // eslint-disable-line react-hooks/exhaustive-deps
 
   function onChangeImageIndex(index: number) {
     const ip = { ...iconSet };
-    ip.json.ImageIndex = index;
+    ip.json.StartImageIndex = index;
     onUpdate(ip);
   }
 
-  function addCoordinates() {
+  function onChangeX(val: number) {
     const ip = { ...iconSet };
-    if (!ip.json.Coordinates) ip.json.Coordinates = []
-    let lastCoords = ip.json.Coordinates[ip.json.Coordinates.length-1]
-    ip.json.Coordinates.push( {
-      X: lastCoords ? lastCoords.X : 0,
-      Y: lastCoords ? lastCoords.Y : 0,
-      Unknown3: lastCoords ? lastCoords.Unknown3 : 0,
-      Unknown4: lastCoords ? lastCoords.Unknown4 : 0,
-    })
+    ip.json.X = val;
+    onUpdate(ip);
+  }
+  function onChangeCount(val: number) {
+    const ip = { ...iconSet };
+    ip.json.ImagesCount = val;
     onUpdate(ip);
   }
 
-  function deleteCoordinates(index: number) {
-    if ( window.confirm('Are you sure to delete this?')) {
-      const ip = { ...iconSet };
-      ip.json.Coordinates.splice(index, 1);
-      onUpdate(ip);
-    }
-  }
-
-  function onChangeX(index: number, val: number) {
+  function onChangeY(val: number) {
     const ip = { ...iconSet };
-    if (!ip.json.Coordinates) ip.json.Coordinates = []
-    ip.json.Coordinates[index].X = val
-    onUpdate(ip);
-  }
-
-  function onChangeY(index: number, val: number) {
-    const ip = { ...iconSet };
-    if (!ip.json.Coordinates) ip.json.Coordinates = []
-    ip.json.Coordinates[index].Y = val
+    ip.json.Y = val;
     onUpdate(ip);
   }
 
@@ -76,7 +64,6 @@ const IconSetComponent: FC<IProps> = ({ title, iconSet, onUpdate }) => {
               checked={iconSet.enabled}
               onChange={() => {
                 const ic = { ...iconSet };
-                if (!ic.json.Coordinates) ic.json.Coordinates = [ { X: 0, Y: 0, Unknown3: 0, Unknown4: 0}]
                 ic.enabled = !ic.enabled;
                 onUpdate(ic);
               }}
@@ -87,18 +74,6 @@ const IconSetComponent: FC<IProps> = ({ title, iconSet, onUpdate }) => {
       {iconSet.enabled ? (
         <Card.Body>
           <BlocksArrayComponent ar={ar} />
-          { iconSet.json.Coordinates.map((item, index) => 
-            <BlocksArrayComponent ar={[
-              {
-                blocks: [
-                  { title: (index + 1).toString(), type: BlockType.Empty },
-                  { title: 'X', type: BlockType.Number, numberValue: item.X, onChange: (val) => onChangeX(index, val) },
-                  { title: 'Y', type: BlockType.Number, numberValue: item.Y, onChange: (val) => onChangeY(index, val) },
-                  { title: 'Del', type: BlockType.Button, disabled: iconSet.json.Coordinates.length <= 1, className: 'btn-outline-danger', onClick: (e) => deleteCoordinates(index) },
-                ]
-              }
-            ]} />
-          ) }
         </Card.Body>
       ) : (
         ""

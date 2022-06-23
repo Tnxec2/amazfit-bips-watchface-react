@@ -43,8 +43,6 @@ const WatchWeatherAqiComponent: FC<IProps> = ({
             title='Number'
             digit={{...aqi.number}}
             onUpdate={onUpdateNumber} 
-            showDelimiter={false}
-            paddingDisabled={true}
           />
           <ImageComponent
             title="Icon"

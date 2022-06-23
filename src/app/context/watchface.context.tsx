@@ -1,6 +1,6 @@
 import {createContext, useReducer} from 'react'
 import { WatchJson } from '../model/json.bips.model';
-import { WatchAmPmIcon, WatchAQI, WatchBackground, WatchBatteryFormatedNumber, WatchCircleScale, WatchClockHand, WatchCoordinates, WatchFace, WatchFormatedNumber, WatchFourDigitsSeparated, WatchHumidity, WatchIconSet, WatchImage, WatchImageSet, WatchNumber, WatchNumberExt, WatchOneLineTemperature, WatchPulseProgress, WatchStepsProgress, WatchSwitch, WatchTextTemperature, WatchTwoDigitsSeparated, WatchWeekdayStatus } from '../model/watchFace.bips.model';
+import { WatchAmPmIcon, WatchAQI, WatchBackground, WatchBatteryFormatedNumber, WatchCircleScale, WatchClockHand, WatchCoordinates, WatchFace, WatchStepsFormatedNumber, WatchFourDigitsSeparated, WatchHumidity, WatchImage, WatchImageSet, WatchLinearIconSet, WatchNumber, WatchNumberExt, WatchOneLineTemperature, WatchPulseProgress, WatchStepsProgress, WatchSwitch, WatchTextTemperature, WatchTwoDigitsSeparated, WatchWeekdayStatus, WatchPulseFormatedNumber, WatchCaloriesFormatedNumber, WatchDistanceFormatedNumber } from '../model/watchFace.bips.model';
 import { watchfaceActionsEnum, watchfaceInitialState, watchfaceReducer } from './reducer/watchface.reducer';
 
 export const WatchfaceContext = createContext(null);
@@ -50,13 +50,13 @@ export interface IWatchContext {
     toggleActivityNumber(): void,
     toggleStepProgress(): void,
     togglePulseProgress(): void,
-    updateSteps(a: WatchFormatedNumber): void,
+    updateSteps(a: WatchStepsFormatedNumber): void,
     updateStepProgress(a: WatchStepsProgress): void,
     updatePulseProgress(a: WatchPulseProgress): void,
-    updateCalories(a: WatchFormatedNumber): void,
-    updateHearthrate(a: WatchFormatedNumber): void,
-    updateDistance(a: WatchFormatedNumber): void, 
-    updateStepsGoal(a: WatchFormatedNumber): void,
+    updateCalories(a: WatchCaloriesFormatedNumber): void,
+    updateHearthrate(a: WatchPulseFormatedNumber): void,
+    updateDistance(a: WatchDistanceFormatedNumber): void, 
+    updateStepsGoal(a: WatchStepsFormatedNumber): void,
     toggleActivityAlt(): void,
     updateActivityAltSteps(a: WatchNumberExt): void,
     updateActivityAltCalories(a: WatchNumberExt): void,
@@ -80,7 +80,7 @@ export interface IWatchContext {
     toggleBattery(): void,
     udpateBatteryDigit(fn: WatchBatteryFormatedNumber): void,
     updateBatteryImageSet(iconset: WatchImageSet): void,
-    updateBatteryIconSet(is: WatchIconSet): void,
+    updateBatteryIconSet(is: WatchLinearIconSet): void,
     updateBatteryCircle(c: WatchCircleScale): void,
     toggleWeather(): void,
     toggleWeatherTemp(): void,
@@ -206,13 +206,13 @@ export const WatchfaceProvider = ({ children }) => {
     toggleActivityNumber:()=>  {dispatch({ type: watchfaceActionsEnum.TOGGLE_ACTIVITY_NUMBER });},
     toggleStepProgress:()=>  {dispatch({ type: watchfaceActionsEnum.TOGGLE_STEP_PROGRESS });},
     togglePulseProgress:()=>  {dispatch({ type: watchfaceActionsEnum.TOGGLE_PULSE_PROGRESS });},
-    updateSteps:(a: WatchFormatedNumber)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_STEPS, value: a });},
+    updateSteps:(a: WatchStepsFormatedNumber)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_STEPS, value: a });},
     updateStepProgress:(a: WatchStepsProgress)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_STEPPROGRESS, value: a });},
     updatePulseProgress:(a: WatchPulseProgress)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_PULSE_PROGRESS, value: a });},
-    updateCalories:(a: WatchFormatedNumber)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_CALORIES, value: a });},
-    updateHearthrate:(a: WatchFormatedNumber)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_PULSE, value: a });},
-    updateDistance:(a: WatchFormatedNumber)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_DISTANCE, value: a });}, 
-    updateStepsGoal:(a: WatchFormatedNumber)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_STEP_GOAL, value: a });},
+    updateCalories:(a: WatchStepsFormatedNumber)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_CALORIES, value: a });},
+    updateHearthrate:(a: WatchStepsFormatedNumber)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_PULSE, value: a });},
+    updateDistance:(a: WatchStepsFormatedNumber)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_DISTANCE, value: a });}, 
+    updateStepsGoal:(a: WatchStepsFormatedNumber)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_STEP_GOAL, value: a });},
 
     toggleActivityAlt:()=>  {dispatch({ type: watchfaceActionsEnum.TOGGLE_ACTIVITY_ALT });},
     updateActivityAltSteps:(a: WatchNumberExt)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_ALT_STEPS, value: a });},
@@ -239,7 +239,7 @@ export const WatchfaceProvider = ({ children }) => {
     toggleBattery: ()=>  {dispatch({ type: watchfaceActionsEnum.TOGGLE_BATTERY});},
     udpateBatteryDigit: (fn: WatchBatteryFormatedNumber)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_BATTERY_DIGIT, value: fn });},
     updateBatteryImageSet: (iconset: WatchImageSet)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_BATTERY_ICON, value: iconset });},
-    updateBatteryIconSet: (is: WatchIconSet)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_BATTERY_ICON_PROGRESS, value: is });},
+    updateBatteryIconSet: (is: WatchLinearIconSet)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_BATTERY_ICON_PROGRESS, value: is });},
     updateBatteryCircle: (c: WatchCircleScale)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_BATTERY_CIRCLE, value: c });},
 
     toggleWeather:()=>  {dispatch({ type: watchfaceActionsEnum.TOGGLE_WEATHER });},

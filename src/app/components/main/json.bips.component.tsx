@@ -111,34 +111,24 @@ function getActivity(a: WatchActivityList): Activity {
                     (a.distance.enabled  && a.distance.number.enabled)
     return enabled ? {
         Steps: a.steps.enabled && a.steps.number.enabled ? {
-            Number: a.steps.number.json,
-            SuffixImageIndex: a.steps.suffix,
-            DecimalPointImageIndex: null,
-            SuffixMilesImageIndex: null
+            Number: a.steps.number.json
         } : null,
         StepsGoal: a.stepsGoals.enabled && a.stepsGoals.number.enabled ? {
-            Number: a.stepsGoals.number.json,
-            SuffixImageIndex: a.stepsGoals.suffix,
-            DecimalPointImageIndex: null,
-            SuffixMilesImageIndex: null
+            Number: a.stepsGoals.number.json
         } : null,
         Calories: a.calories.enabled  && a.calories.number.enabled? {
             Number: a.calories.number.json,
-            SuffixImageIndex: a.calories.suffix,
-            DecimalPointImageIndex: null,
-            SuffixMilesImageIndex: null
+            PrefixImageIndex: a.calories.prefix,
         } : null,
         Pulse: a.pulse.enabled && a.pulse.number.enabled ? {
             Number: a.pulse.number.json,
-            SuffixImageIndex: a.pulse.suffix,
-            DecimalPointImageIndex: null,
-            SuffixMilesImageIndex: null
+            NoDataImageIndex: a.pulse.noData,
         } : null,
         Distance: a.distance.enabled && a.distance.number.enabled ? {
             Number: a.distance.number.json,
             SuffixImageIndex: a.distance.suffix,
             DecimalPointImageIndex: a.distance.decimalPointer,
-            SuffixMilesImageIndex: null
+            SuffixMilesImageIndex: a.distance.suffix,
         } : null,
     } : null
 }
@@ -216,11 +206,11 @@ function getWeather(w: WatchWeather): Weather {
 
 
 function getStepsProgress(p: WatchStepsProgress): StepsProgress {
-    const enabled = p.goalImage.enabled || p.linear.enabled || p.gauge.enabled || p.circle.enabled
+    const enabled = p.goalImage.enabled || p.iconSet.enabled || p.gauge.enabled || p.circle.enabled
     if (!enabled) return null
     return {
         GoalImage: p.goalImage.enabled ? p.goalImage.json : null,
-        Linear: p.linear.enabled ? p.linear.json : null,
+        IconSet: p.iconSet.enabled ? p.iconSet.json : null,
         Gauge: p.gauge.enabled ? p.gauge.json : null,
         Circle: p.circle.enabled ? p.circle.json : null,
     }

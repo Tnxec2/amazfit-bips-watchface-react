@@ -49,15 +49,12 @@ const DateComponent: FC = () => {
             title="Month"
             digit={{ ...watchface.date.month }}
             onUpdate={updateMonth}
-            showDelimiter={!watchface.date.oneLine}
           />
           {!watchface.date.oneLine ?
             <WatchNumberComponent
               title="Day"
               digit={{ ...watchface.date.day }}
               onUpdate={updateDay}
-              showDelimiter={true}
-              showDataType={true}
             /> : ''}
 
           <ImageSetComponent
