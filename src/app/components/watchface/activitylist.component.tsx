@@ -1,22 +1,19 @@
 import { FC, useContext } from "react";
 import { Card } from "react-bootstrap";
 import { IWatchContext, WatchfaceContext } from "../../context/watchface.context";
-import CircleProgressComponent from "./circleProgress.component";
-import ImageSetComponent from "./imageSet.component";
 import PulseProgressComponent from "./pulseProgress.component";
 import StepProgressComponent from "./stepProgress.component";
 import WatchStepsFormatedNumberComponent from "./stepsFormatedNumber.component";
 import WatchCaloriesFormatedNumberComponent from "./caloriesFormatedNumber.component";
 import WatchDistanceFormatedNumberComponent from "./distanceFormatedNumber.component";
 import WatchPulseFormatedNumberComponent from "./pulseFormatedNumber.component";
+import CaloriesProgressComponent from "./caloriesProgressComponent";
 
 const ActivityListComponent: FC = () => {
   const { watchface, toggleActivity, toggleActivityNumber,
-    toggleStepProgress, togglePulseProgress,
-    updateSteps, updateStepProgress, updateStepsGoal,
-updatePulseProgress, updateHearthrate,
-updateCalories,  updateDistance,
-toggleCaloriesProgress, updateCaloriesCircle, updateCaloriesIcon
+    updateSteps, updateStepsGoal,
+    updateHearthrate,
+    updateCalories,  updateDistance,
 } =
   useContext<IWatchContext>(WatchfaceContext);
 
@@ -69,63 +66,9 @@ toggleCaloriesProgress, updateCaloriesCircle, updateCaloriesIcon
           </Card.Body>
             ) : '' }
         </Card>
-        <Card>
-          <Card.Header
-            title='Click to open / close'
-            onClick={() => toggleStepProgress()}
-            >
-              Step Progress
-            </Card.Header>
-            { !watchface.stepsProgress.collapsed  ? (
-              <Card.Body>
-                <StepProgressComponent
-                  progress={{...watchface.stepsProgress}}
-                  title='Step progress'
-                  onUpdate={updateStepProgress}
-                />
-            </Card.Body>
-            ) : "" }
-          </Card>
-          <Card>
-            <Card.Header
-            title='Click to open / close'
-            onClick={() => togglePulseProgress()}
-            >
-              Pulse Progress
-            </Card.Header>
-            { !watchface.pulseProgress.collapsed  ? (
-              <Card.Body>
-                <PulseProgressComponent
-                  progress={{...watchface.pulseProgress}}
-                  title='Pulse Progress'
-                  onUpdate={updatePulseProgress}
-                  
-                />
-            </Card.Body>
-            ) : "" }
-          </Card>
-          <Card>
-            <Card.Header
-            title='Click to open / close'
-            onClick={() => toggleCaloriesProgress()}
-            >
-              Calories Progress
-            </Card.Header>
-            { !watchface.caloriesProgress.collapsed  ? (
-              <Card.Body>
-                <ImageSetComponent
-                  title='Image progress'
-                  onUpdate={updateCaloriesIcon}
-                  imageSet={{...watchface.caloriesProgress.icon}}
-                /> 
-                <CircleProgressComponent
-                  title='Circle progress'
-                  onUpdate={updateCaloriesCircle}
-                  scale={{...watchface.caloriesProgress.circle}}
-                /> 
-            </Card.Body>
-            ) : "" }
-          </Card>
+          <StepProgressComponent />
+          <PulseProgressComponent />
+          <CaloriesProgressComponent />
         </Card.Body>
       ) : ""
       }

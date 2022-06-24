@@ -103,6 +103,7 @@ export interface IWatchContext {
     updatePaiNumberHigh(i: WatchNumber): void,
     updatePaiNumberGeneral(i: WatchNumber): void,
     toggleCaloriesProgress(): void,
+    updateCaloriesGoalImage(i: WatchImage): void,
     updateCaloriesIcon(i: WatchImageSet): void,
     updateCaloriesCircle(i: WatchCircleScale): void,
 }
@@ -265,6 +266,7 @@ export const WatchfaceProvider = ({ children }) => {
     updatePaiNumberGeneral:(n: WatchNumber)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_PAI_NUMBER_GENERAL, value: n });},
 
     toggleCaloriesProgress:()=>  {dispatch({ type: watchfaceActionsEnum.TOGGLE_CALORIES_PROGRESS});},
+    updateCaloriesGoalImage:(i: WatchImage)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_CALORIES_GOALIMAGE, value: i });},
     updateCaloriesIcon:(i: WatchImageSet)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_CALORIES_ICON, value: i });},
     updateCaloriesCircle:(i: WatchCircleScale)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_CALORIES_CIRCLE, value: i });},
 

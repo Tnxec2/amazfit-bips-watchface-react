@@ -219,6 +219,7 @@ function getCaloriesProgress(p: WatchCaloriesProgress): CaloriesProgress {
     const enabled = p.icon.enabled || p.circle.enabled
     if (!enabled) return null
     return {
+        GoalImage: p.goalImage.enabled ? p.goalImage.json : null,
         Icon: p.icon.enabled ? p.icon.json : null,
         Circle: p.circle.enabled ? p.circle.json : null,
     }

@@ -376,6 +376,7 @@ export class WeekdayIcon {
 }
 
 export class CaloriesProgress {
+  GoalImage: Image
   Icon: ImageSet
   Circle: CircleScale
 }

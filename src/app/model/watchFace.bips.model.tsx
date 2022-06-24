@@ -362,11 +362,13 @@ export class WatchStepsProgress {
 export class WatchCaloriesProgress {
   collapsed = true
 
+  goalImage: WatchImage = new WatchImage()
   icon: WatchImageSet = new WatchImageSet(digitTypes.calories.imageProgressTotal)
   circle: WatchCircleScale = new WatchCircleScale()
 
   constructor(j?: CaloriesProgress) {
     if(j) {
+      this.goalImage = new WatchImage(j.GoalImage)
       this.icon = new WatchImageSet(digitTypes.calories.imageProgressTotal, j.Icon)
       this.circle = new WatchCircleScale(j.Circle)
     }

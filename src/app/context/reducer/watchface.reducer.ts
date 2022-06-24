@@ -105,6 +105,7 @@ export enum watchfaceActionsEnum {
   UPDATE_PAI_NUMBER_GENERAL,
   UPDATE_PAI_IMAGE_NODATA,
   TOGGLE_CALORIES_PROGRESS,
+  UPDATE_CALORIES_GOALIMAGE,
   UPDATE_CALORIES_ICON,
   UPDATE_CALORIES_CIRCLE,
 };
@@ -518,6 +519,10 @@ export const watchfaceReducer = (state: IWatchfaceState, action: IAction): IWatc
         case watchfaceActionsEnum.TOGGLE_CALORIES_PROGRESS:
           return {
             ...state, watchface: {...state.watchface, caloriesProgress: {...state.watchface.caloriesProgress, collapsed: ! state.watchface.caloriesProgress.collapsed}}
+          };
+        case watchfaceActionsEnum.UPDATE_CALORIES_GOALIMAGE:
+          return {
+            ...state, watchface: {...state.watchface, caloriesProgress: {...state.watchface.caloriesProgress, goalImage: action.value}}
           };
         case watchfaceActionsEnum.UPDATE_CALORIES_ICON:
           return {

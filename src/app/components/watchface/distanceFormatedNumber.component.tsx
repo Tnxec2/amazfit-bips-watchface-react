@@ -67,7 +67,7 @@ const WatchDistanceFormatedNumberComponent: FC<IProps> = ({
         <Card.Body>
           <WatchNumberComponent
             title='Number'
-            digit={digit.number}
+            digit={{...digit.number}}
             onUpdate={onUpdateNumber} 
           />
           <BlocksArrayComponent ar={ar} />

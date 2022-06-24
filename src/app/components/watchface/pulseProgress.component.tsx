@@ -1,21 +1,15 @@
-import { FC } from 'react';
-import { WatchImage, WatchPulseProgress } from '../../model/watchFace.bips.model';
+import { FC, useContext } from 'react';
+import { Card } from 'react-bootstrap';
+import { IWatchContext, WatchfaceContext } from '../../context/watchface.context';
+import { WatchImage } from '../../model/watchFace.bips.model';
 import ImageComponent from './image.component';
 
-interface IProps {
-    title: string;
-    progress: WatchPulseProgress;
-    onUpdate(digit: WatchPulseProgress): void;
-  }
+const PulseProgressComponent: FC = () => {
 
-const PulseProgressComponent: FC<IProps> = ({
-    progress,
-    onUpdate,
-  }) => {
-
+    const { watchface, togglePulseProgress, updatePulseProgress} =useContext<IWatchContext>(WatchfaceContext);
 
     function updateImage(n: number, ip: WatchImage) {
-      const p = {...progress};
+      const p = {...watchface.pulseProgress};
       switch(n){
         case 1:
           p.image1 = ip
@@ -37,45 +31,55 @@ const PulseProgressComponent: FC<IProps> = ({
           break
       }
 
-      onUpdate(p);
+      updatePulseProgress(p);
     }
 
 
     return (
-        <div>
+          <Card>
+            <Card.Header
+            title='Click to open / close'
+            onClick={() => togglePulseProgress()}
+            >
+              Pulse Progress
+            </Card.Header>
+            { !watchface.pulseProgress.collapsed  ? (
+              <Card.Body>
+          
 
-          <ImageComponent
-              title='Image 1 (Relaxed)'
-              onUpdate={(e) => updateImage(1, e)}
-              image={{...progress.image1}}
-          /> 
-          <ImageComponent
-              title='Image 2 (Warm Up)'
-              onUpdate={(e) => updateImage(2, e)}
-              image={{...progress.image2}}
-          /> 
-          <ImageComponent
-              title='Image 3 (Fat Burning)'
-              onUpdate={(e) => updateImage(3, e)}
-              image={{...progress.image3}}
-          /> 
-          <ImageComponent
-              title='Image 4 (Aerobic)'
-              onUpdate={(e) => updateImage(4, e)}
-              image={{...progress.image4}}
-          /> 
-          <ImageComponent
-              title='Image 5 (Anaerobic)'
-              onUpdate={(e) => updateImage(5, e)}
-              image={{...progress.image5}}
-          /> 
-          <ImageComponent
-              title='Image 6 (Maximum)'
-              onUpdate={(e) => updateImage(6, e)}
-              image={{...progress.image6}}
-          /> 
-
-        </div>
+            <ImageComponent
+                title='Image 1 (Relaxed)'
+                onUpdate={(e) => updateImage(1, e)}
+                image={{...watchface.pulseProgress.image1}}
+            /> 
+            <ImageComponent
+                title='Image 2 (Warm Up)'
+                onUpdate={(e) => updateImage(2, e)}
+                image={{...watchface.pulseProgress.image2}}
+            /> 
+            <ImageComponent
+                title='Image 3 (Fat Burning)'
+                onUpdate={(e) => updateImage(3, e)}
+                image={{...watchface.pulseProgress.image3}}
+            /> 
+            <ImageComponent
+                title='Image 4 (Aerobic)'
+                onUpdate={(e) => updateImage(4, e)}
+                image={{...watchface.pulseProgress.image4}}
+            /> 
+            <ImageComponent
+                title='Image 5 (Anaerobic)'
+                onUpdate={(e) => updateImage(5, e)}
+                image={{...watchface.pulseProgress.image5}}
+            /> 
+            <ImageComponent
+                title='Image 6 (Maximum)'
+                onUpdate={(e) => updateImage(6, e)}
+                image={{...watchface.pulseProgress.image6}}
+            /> 
+          </Card.Body>
+          ) : "" }
+        </Card>
     );
 };
 
