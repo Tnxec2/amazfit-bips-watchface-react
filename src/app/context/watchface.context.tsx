@@ -1,6 +1,6 @@
 import {createContext, useReducer} from 'react'
 import { WatchJson } from '../model/json.bips.model';
-import { WatchAmPmIcon, WatchAQI, WatchBackground, WatchBatteryFormatedNumber, WatchCircleScale, WatchClockHand, WatchCoordinates, WatchFace, WatchStepsFormatedNumber, WatchFourDigitsSeparated, WatchHumidity, WatchImage, WatchImageSet, WatchLinearIconSet, WatchNumber, WatchNumberExt, WatchOneLineTemperature, WatchPulseProgress, WatchStepsProgress, WatchSwitch, WatchTextTemperature, WatchTwoDigitsSeparated, WatchWeekdayStatus, WatchPulseFormatedNumber, WatchCaloriesFormatedNumber, WatchDistanceFormatedNumber } from '../model/watchFace.bips.model';
+import { WatchAmPmIcon, WatchAQI, WatchBackground, WatchBatteryFormatedNumber, WatchCircleScale, WatchClockHand, WatchCoordinates, WatchFace, WatchStepsFormatedNumber, WatchFourDigitsSeparated, WatchHumidity, WatchImage, WatchImageSet, WatchLinearIconSet, WatchNumber, WatchNumberExt, WatchOneLineTemperature, WatchPulseProgress, WatchStepsProgress, WatchSwitch, WatchTextTemperature, WatchTwoDigitsSeparated, WatchWeekdayStatus, WatchPulseFormatedNumber, WatchCaloriesFormatedNumber, WatchDistanceFormatedNumber, WatchStepPercentageFormatedNumber } from '../model/watchFace.bips.model';
 import { watchfaceActionsEnum, watchfaceInitialState, watchfaceReducer } from './reducer/watchface.reducer';
 
 export const WatchfaceContext = createContext(null);
@@ -54,6 +54,7 @@ export interface IWatchContext {
     updateStepProgress(a: WatchStepsProgress): void,
     updatePulseProgress(a: WatchPulseProgress): void,
     updateCalories(a: WatchCaloriesFormatedNumber): void,
+    updateStepPercentage(a: WatchStepPercentageFormatedNumber): void,
     updateHearthrate(a: WatchPulseFormatedNumber): void,
     updateDistance(a: WatchDistanceFormatedNumber): void, 
     updateStepsGoal(a: WatchStepsFormatedNumber): void,
@@ -211,6 +212,7 @@ export const WatchfaceProvider = ({ children }) => {
     updateStepProgress:(a: WatchStepsProgress)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_STEPPROGRESS, value: a });},
     updatePulseProgress:(a: WatchPulseProgress)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_PULSE_PROGRESS, value: a });},
     updateCalories:(a: WatchStepsFormatedNumber)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_CALORIES, value: a });},
+    updateStepPercentage:(a: WatchStepPercentageFormatedNumber)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_STEPSPERCENTAGE, value: a });},
     updateHearthrate:(a: WatchStepsFormatedNumber)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_PULSE, value: a });},
     updateDistance:(a: WatchStepsFormatedNumber)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_DISTANCE, value: a });}, 
     updateStepsGoal:(a: WatchStepsFormatedNumber)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_STEP_GOAL, value: a });},

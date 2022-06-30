@@ -16,7 +16,7 @@ const IconSetComponent: FC<IProps> = ({ title, iconSet, onUpdate, disableCount }
   const ar = useMemo<IRow[]>(() => [
     {
       blocks: [
-        { title: 'Image', type: BlockType.SelectFile, imageIndex: iconSet.json?.StartImageIndex, onChange: onChangeImageIndex, imagesCount: iconSet.json?.ImagesCount },
+        { title: 'Image', type: BlockType.SelectFile, imageIndex: iconSet.json?.ImageIndex, onChange: onChangeImageIndex, imagesCount: iconSet.json?.ImagesCount },
         { title: 'Count', type: BlockType.Number, numberValue: iconSet.json?.ImagesCount, min: 0, onChange: onChangeCount, disabled: disableCount },
       ]
     },
@@ -30,7 +30,7 @@ const IconSetComponent: FC<IProps> = ({ title, iconSet, onUpdate, disableCount }
 
   function onChangeImageIndex(index: number) {
     const ip = { ...iconSet };
-    ip.json.StartImageIndex = index;
+    ip.json.ImageIndex = index;
     onUpdate(ip);
   }
 

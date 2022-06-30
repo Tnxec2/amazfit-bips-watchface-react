@@ -57,6 +57,7 @@ export enum watchfaceActionsEnum {
   UPDATE_PULSE,
   UPDATE_PULSE_PROGRESS,
   UPDATE_CALORIES,
+  UPDATE_STEPSPERCENTAGE,
   UPDATE_DISTANCE,
   UPDATE_STEP_GOAL,
   TOGGLE_ACTIVITY_ALT,
@@ -300,6 +301,10 @@ export const watchfaceReducer = (state: IWatchfaceState, action: IAction): IWatc
       case watchfaceActionsEnum.UPDATE_CALORIES:
         return {
           ...state, watchface: {...state.watchface, activity: {...state.watchface.activity, calories: action.value}}
+        };
+      case watchfaceActionsEnum.UPDATE_STEPSPERCENTAGE:
+        return {
+          ...state, watchface: {...state.watchface, activity: {...state.watchface.activity, stepsPercentage: action.value}}
         };
       case watchfaceActionsEnum.UPDATE_PULSE:
         return {

@@ -8,12 +8,18 @@ import WatchCaloriesFormatedNumberComponent from "./caloriesFormatedNumber.compo
 import WatchDistanceFormatedNumberComponent from "./distanceFormatedNumber.component";
 import WatchPulseFormatedNumberComponent from "./pulseFormatedNumber.component";
 import CaloriesProgressComponent from "./caloriesProgressComponent";
+import WatchStepsPercentageFormatedNumberComponent from "./stepsPercentageFormatedNumber.component";
 
 const ActivityListComponent: FC = () => {
-  const { watchface, toggleActivity, toggleActivityNumber,
-    updateSteps, updateStepsGoal,
+  const { watchface, 
+    toggleActivity, 
+    toggleActivityNumber,
+    updateSteps, 
+    updateStepsGoal,
     updateHearthrate,
-    updateCalories,  updateDistance,
+    updateCalories,  
+    updateDistance,
+    updateStepPercentage,
 } =
   useContext<IWatchContext>(WatchfaceContext);
 
@@ -62,6 +68,11 @@ const ActivityListComponent: FC = () => {
               title='Distance'
               digit={{...watchface.activity.distance}}
               onUpdate={updateDistance}
+            />
+            <WatchStepsPercentageFormatedNumberComponent
+              title='Steps Percentage'
+              digit={{...watchface.activity.stepsPercentage}}
+              onUpdate={updateStepPercentage}
             />
           </Card.Body>
             ) : '' }

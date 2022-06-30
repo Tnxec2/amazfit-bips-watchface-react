@@ -130,6 +130,10 @@ function getActivity(a: WatchActivityList): Activity {
             DecimalPointImageIndex: a.distance.decimalPointer,
             SuffixMilesImageIndex: a.distance.suffix,
         } : null,
+        StepPercentageProgress: a.stepsPercentage.enabled && a.stepsPercentage.number.enabled ? {
+            Number: a.stepsPercentage.number.json,
+            SuffixImageIndex: a.stepsPercentage.suffix,
+        } : null,
     } : null
 }
 

@@ -8,7 +8,7 @@ export default function drawIconSet(
     iconSet: IconSet,
     value: number,
     total: number) {
-        if (iconSet?.StartImageIndex) {
+        if (iconSet?.ImageIndex) {
             let x = iconSet.X ? iconSet.X : 0
             let y = iconSet.Y ? iconSet.Y : 0
 
@@ -21,7 +21,7 @@ export default function drawIconSet(
             index = Math.max(index, 0)
             index = Math.min(index, iconSet.ImagesCount-1)
 
-            const img = findImageById(iconSet.StartImageIndex + index, images)
+            const img = findImageById(iconSet.ImageIndex + index, images)
             if (img) ctx.drawImage(img, x, y);
         }
 }

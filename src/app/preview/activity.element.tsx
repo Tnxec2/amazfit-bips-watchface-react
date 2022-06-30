@@ -1,5 +1,5 @@
 import { IImage } from "../model/image.model";
-import { WatchCaloriesFormatedNumber, WatchDistanceFormatedNumber, WatchPulseFormatedNumber, WatchStepsFormatedNumber } from "../model/watchFace.bips.model";
+import { WatchCaloriesFormatedNumber, WatchDistanceFormatedNumber, WatchPulseFormatedNumber, WatchStepPercentageFormatedNumber, WatchStepsFormatedNumber } from "../model/watchFace.bips.model";
 import drawDigitImage from "./digitImage.element";
 
 export function drawStepsGoal(ctx: CanvasRenderingContext2D,
@@ -51,5 +51,15 @@ export function drawDistance(ctx: CanvasRenderingContext2D,
     ) {
     if (activity.number.enabled) {
         drawDigitImage(ctx, images, activity.number, value, drawBorder, 1, null, null, activity.decimalPointer, null, activity.suffix)
+    }
+}
+export function drawStepPercentage(ctx: CanvasRenderingContext2D,
+    images: IImage[],
+    activity: WatchStepPercentageFormatedNumber ,
+    value: number,
+    drawBorder: boolean,
+    ) {
+    if (activity.number.enabled) {
+        drawDigitImage(ctx, images, activity.number, value, drawBorder, 1, null, null, null, activity.suffix)
     }
 }

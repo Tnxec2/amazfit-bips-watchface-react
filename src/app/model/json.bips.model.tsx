@@ -114,6 +114,10 @@ export class CaloriesFormatedNumber {
   Number: NumberJson
   PrefixImageIndex: number
 }
+export class StepPercentageFormatedNumber {
+  Number: NumberJson
+  SuffixImageIndex: number
+}
 
 export class Activity {
   Steps: StepsFormatedNumber
@@ -121,6 +125,7 @@ export class Activity {
   Calories: CaloriesFormatedNumber
   Pulse: PulseFormatedNumber
   Distance: DistanceFormatedNumber
+  StepPercentageProgress: StepPercentageFormatedNumber
 }
 
 export class Pai {
@@ -192,7 +197,7 @@ export class AmPmIcon{
 }
 
 export class IconSet{
-  StartImageIndex: number
+  ImageIndex: number
   X: number = 0
   Y: number = 0
   ImagesCount: number = 1

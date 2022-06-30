@@ -1,5 +1,5 @@
 import Color from "../shared/color";
-import { Activity, ActivityAlt, AirQuality, AmPmIcon, AnalogDialFace, Background, Battery, BatteryFormatedNumber, CaloriesProgress, CircleScale, ClockHand, Coordinates, Date, DateExtended, StepsFormatedNumber, FourDigits, Humidity, IconSet, Image, ImageSet, LinearIconSet, NumberExtendedJson, NumberJson, OneLineMinMax, Pai, PointerScale, PulseProgress, Shortcut, ShortcutElement, Shortcuts, Status, StepsProgress, Switch, TextTemperature, Time, TwoDigits, WatchJson, Weather, WeekdayIcon, PulseFormatedNumber, DistanceFormatedNumber, CaloriesFormatedNumber } from "./json.bips.model";
+import { Activity, ActivityAlt, AirQuality, AmPmIcon, AnalogDialFace, Background, Battery, BatteryFormatedNumber, CaloriesProgress, CircleScale, ClockHand, Coordinates, Date, DateExtended, StepsFormatedNumber, FourDigits, Humidity, IconSet, Image, ImageSet, LinearIconSet, NumberExtendedJson, NumberJson, OneLineMinMax, Pai, PointerScale, PulseProgress, Shortcut, ShortcutElement, Shortcuts, Status, StepsProgress, Switch, TextTemperature, Time, TwoDigits, WatchJson, Weather, WeekdayIcon, PulseFormatedNumber, DistanceFormatedNumber, CaloriesFormatedNumber, StepPercentageFormatedNumber } from "./json.bips.model";
 
 interface IDigitConstructor {
   count: number;
@@ -84,6 +84,13 @@ export const digitTypes = {
     displayAnalog: false,
     imageProgressTotal: null,
     title: 'Steps',
+  },
+  stepsPercentage: {
+    count: 10,
+    numberLenght: 3,
+    displayAnalog: false,
+    imageProgressTotal: null,
+    title: 'Steps Percentage',
   },
   calories: {
     count: 10,
@@ -573,6 +580,22 @@ export class WatchCaloriesFormatedNumber {
     }
   }
 }
+export class WatchStepPercentageFormatedNumber {
+  enabled: boolean
+
+  number: WatchNumber = new WatchNumber()
+  suffix: number
+
+  constructor(con?: IDigitConstructor, j?: StepPercentageFormatedNumber) {
+    if (j) {
+      this.enabled = true
+      this.number = new WatchNumber(j.Number, con)
+      this.suffix = j.SuffixImageIndex
+    } else if (con) {
+      this.number = new WatchNumber(null, con)
+    }
+  }
+}
 
 export class WatchStepsFormatedNumber {
   enabled: boolean
@@ -707,6 +730,7 @@ export class WatchActivityList {
   calories: WatchCaloriesFormatedNumber = new WatchCaloriesFormatedNumber(digitTypes.calories)
   pulse: WatchPulseFormatedNumber = new WatchPulseFormatedNumber(digitTypes.heartRate)
   distance: WatchDistanceFormatedNumber = new WatchDistanceFormatedNumber(digitTypes.distance)
+  stepsPercentage: WatchStepPercentageFormatedNumber = new WatchStepPercentageFormatedNumber(digitTypes.stepsPercentage)
   
     constructor(j?: Activity) {
     if (j) {
@@ -715,6 +739,7 @@ export class WatchActivityList {
       if (j.Calories) this.calories = new WatchCaloriesFormatedNumber(digitTypes.calories, j.Calories)
       if (j.Pulse) this.pulse = new WatchPulseFormatedNumber(digitTypes.heartRate, j.Pulse)
       if (j.Distance) this.distance = new WatchDistanceFormatedNumber(digitTypes.distance, j.Distance)
+      if (j.StepPercentageProgress) this.stepsPercentage = new WatchStepPercentageFormatedNumber(digitTypes.stepsPercentage, j.StepPercentageProgress)
     }
   }
 }

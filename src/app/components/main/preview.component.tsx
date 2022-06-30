@@ -5,7 +5,7 @@ import { IWatchStateContext, WatchStateContext } from "../../context/watchstate.
 import { IImage } from "../../model/image.model";
 import { WatchActivityList } from "../../model/watchFace.bips.model";
 import { WatchState } from "../../model/watchState";
-import { drawCalories, drawDistance, drawPulse, drawSteps, drawStepsGoal } from "../../preview/activity.element";
+import { drawCalories, drawDistance, drawPulse, drawStepPercentage, drawSteps, drawStepsGoal } from "../../preview/activity.element";
 import drawActivitysAlt from "../../preview/activityAlt.element";
 import drawBackground from "../../preview/background.element";
 import { drawBattery } from "../../preview/battery.element";
@@ -371,5 +371,11 @@ function drawActivitys(
     watchState.hearthrate,
     digitBorder
   );
-  
+  drawStepPercentage(
+    ctx,
+    images,
+    activitylist.stepsPercentage,
+    Math.ceil(watchState.steps / (watchState.stepsGoal / 100)),
+    digitBorder
+  )
 }
