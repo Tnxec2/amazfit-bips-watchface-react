@@ -29,6 +29,9 @@ export interface IWatchStateContext {
   toggleAlarm(): void,
   toggleLock(): void,
   toggleDND(): void,
+  toggleHeartrateNodata(): void,
+  togglePaiNodata(): void,
+  toggleSunsetNodata(): void,
 }
 
 export const WatchstateContextProvider = ({ children }) => {
@@ -104,6 +107,15 @@ export const WatchstateContextProvider = ({ children }) => {
     },
     toggleLock: () => {
       dispatch({ type: watchstateActions.TOGGLE_LOCK});
+    },
+    toggleHeartrateNodata: () => {
+      dispatch({ type: watchstateActions.TOGGLE_HEARTRATE_NODATA});
+    },
+    togglePaiNodata: () => {
+      dispatch({ type: watchstateActions.TOGGLE_PAI_NODATA});
+    },
+    toggleSunsetNodata: () => {
+      dispatch({ type: watchstateActions.TOGGLE_SUNSET_NODATA});
     },
 
   };

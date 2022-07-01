@@ -10,8 +10,12 @@ const PreviewStatesComponent: FC = () => {
     changeBattery, changeSteps, changeCalories, changeStepsGoal,
     changeHeartrate, changeDistance, changePai,
     changeWeatherIcon, changeTemp, changeTempMax, changeTempMin,
-    changeAQI, changeHumidity, toggleAlarm, toggleBluetooth,
-    toggleDND, toggleLock
+    changeAQI, changeHumidity, 
+    toggleAlarm, toggleBluetooth,
+    toggleDND, toggleLock,
+    toggleHeartrateNodata,
+    togglePaiNodata,
+    toggleSunsetNodata,
   } = useContext<IWatchStateContext>(WatchStateContext)
    
   const date = useMemo(
@@ -86,6 +90,17 @@ const PreviewStatesComponent: FC = () => {
             value={watchState.sunsetMinutes}
             onChange={(e) => changeSunsetMinutes(e.target.value)}
           />
+          <span className="input-group-text" id="addon-wrapping">
+            No data
+          </span>
+          <div className="input-group-text">
+            <input
+              className="form-check-input mt-0"
+              type="checkbox"
+              checked={watchState.sunsetNoData}
+              onChange={toggleSunsetNodata}
+            />
+          </div>
         </div>
 
         <div className="input-group input-group-sm mb-1">
@@ -140,6 +155,20 @@ const PreviewStatesComponent: FC = () => {
             value={watchState.hearthrate}
             onChange={(e) => changeHeartrate(e.target.value)}
           />
+          <span className="input-group-text" id="addon-wrapping">
+            No data
+          </span>
+          <div className="input-group-text">
+            <input
+              className="form-check-input mt-0"
+              type="checkbox"
+              checked={watchState.hearthrateNoData}
+              onChange={toggleHeartrateNodata}
+            />
+          </div>
+        </div>
+
+        <div className="input-group input-group-sm mb-1">
           <span className="input-group-text">Distance</span>
           <input
             type="number"
@@ -161,6 +190,17 @@ const PreviewStatesComponent: FC = () => {
             value={watchState.pai}
             onChange={(e) => changePai(e.target.value)}
           />
+          <span className="input-group-text" id="addon-wrapping">
+            No data
+          </span>
+          <div className="input-group-text">
+            <input
+              className="form-check-input mt-0"
+              type="checkbox"
+              checked={watchState.paiNoData}
+              onChange={togglePaiNodata}
+            />
+          </div>
         </div>
 
         <div className="input-group input-group-sm mb-1">

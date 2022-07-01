@@ -38,9 +38,10 @@ export function drawPulse(ctx: CanvasRenderingContext2D,
     activity: WatchPulseFormatedNumber ,
     value: number,
     drawBorder: boolean,
+    noData: boolean,
     ) {
     if (activity.number.enabled) {
-        drawDigitImage(ctx, images, activity.number, value, drawBorder, 1)
+        drawDigitImage(ctx, images, activity.number, value, drawBorder, 1, null, null, null, null, null, noData ? activity.noData : null)
     }
 }
 export function drawDistance(ctx: CanvasRenderingContext2D,

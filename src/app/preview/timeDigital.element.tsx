@@ -3,6 +3,7 @@ import { WatchTime } from "../model/watchFace.bips.model";
 import { WatchState } from "../model/watchState";
 import { findImageById } from "../shared/helper";
 import drawDigitImage from "./digitImage.element";
+import drawImage from "./image.element";
 import { drawTwoDigits } from "./separateDigits.element";
 
 export default function drawTimeDigital(
@@ -10,7 +11,8 @@ export default function drawTimeDigital(
     images: IImage[],
     time: WatchTime,
     watchState: WatchState,
-    digitBorder: boolean
+    digitBorder: boolean,
+    sunsetNoData: boolean,
     ) {
 
    
@@ -44,6 +46,21 @@ export default function drawTimeDigital(
     }
 
     if (time.sunriseHours.enabled){
+        if (sunsetNoData) {
+            if (time.sunriseHoursNoData.enabled) {
+                drawImage(ctx, images, time.sunriseHoursNoData.json)
+            } 
+            if (time.sunriseMinutesNoData.enabled) {
+                drawImage(ctx, images, time.sunriseMinutesNoData.json)
+            }
+            if (time.sunsetHoursNoData.enabled) {
+                drawImage(ctx, images, time.sunsetHoursNoData.json)
+            } 
+            if (time.sunsetMinutesNoData.enabled) {
+                drawImage(ctx, images, time.sunsetMinutesNoData.json)
+            }
+            return
+        }
         drawDigitImage(ctx, images, time.sunriseHours, watchState.sunriseHours, digitBorder, 2, null, null, null, null)
     }
     if (time.sunriseMinutes.enabled){

@@ -70,6 +70,7 @@ export default function drawDigitImage(
     decimalPointer?: number,
     suffix?: number,
     suffixKM?: number,
+    noDataImageIndex?: number,
     )  {
 
         
@@ -79,35 +80,40 @@ export default function drawDigitImage(
     const bottomy = digit.json?.BottomRightY ? digit.json?.BottomRightY : 0 
 
     if (digit.json.ImageIndex>= 0) {
-        let strNumber = number.toString()
-        if ( paddingLength > strNumber.length ) {
-            strNumber = strNumber.padStart(paddingLength, '0')
-        }
-        if (number < 0) strNumber = (-number).toString()
 
         let ar: HTMLImageElement[] = []
+        if (noDataImageIndex) {
+            const img = findImageById(noDataImageIndex, images)
+            if (img) { ar.push(img) }
+        } else {
+            let strNumber = number.toString()
+            if ( paddingLength > strNumber.length ) {
+                strNumber = strNumber.padStart(paddingLength, '0')
+            }
+            if (number < 0) strNumber = (-number).toString()
 
-        if (prefix) {
-            const img = findImageById(prefix, images)
-            if (img) { ar.push(img) }
+
+            if (prefix) {
+                const img = findImageById(prefix, images)
+                if (img) { ar.push(img) }
+            }
+            if (number < 0 && minus) {
+                const img = findImageById(minus, images)
+                if (img) { ar.push(img) }
+            }
+            ar = ar.concat(getImages(images, strNumber, 
+                    digit.json.ImageIndex, 
+                    digit.json.ImagesCount,
+                    decimalPointer
+                    ))
+            if (decimalPointer && suffixKM) {
+                const img = findImageById(suffixKM, images)
+                if (img) { ar.push(img) }
+            } else if (suffix) {
+                const img = findImageById(suffix, images)
+                if (img) { ar.push(img) }
+            }
         }
-        if (number < 0 && minus) {
-            const img = findImageById(minus, images)
-            if (img) { ar.push(img) }
-        }
-        ar = ar.concat(getImages(images, strNumber, 
-                digit.json.ImageIndex, 
-                digit.json.ImagesCount,
-                decimalPointer
-                ))
-        if (decimalPointer && suffixKM) {
-            const img = findImageById(suffixKM, images)
-            if (img) { ar.push(img) }
-        } else if (suffix) {
-            const img = findImageById(suffix, images)
-            if (img) { ar.push(img) }
-        }
-   
         drawImages(ctx, ar, x, y, bottomx, bottomy, digit.json.Spacing, 0,
             digit.json.Alignment, drawBorder)
     }

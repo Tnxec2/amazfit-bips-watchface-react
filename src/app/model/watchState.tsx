@@ -9,8 +9,11 @@ export class WatchState {
   
   sunsetHours = 17;
   sunsetMinutes = 42;
+  sunsetNoData = false;
+
   sunriseHours = 5;
   sunriseMinutes = 38;
+
 
   seconds = this._date.getSeconds();
   weekday = this._date.getDay() > 0 ? this._date.getDay() - 1 : 6;
@@ -20,11 +23,16 @@ export class WatchState {
   steps = Math.round(Math.random() * this.stepsGoal);
   caloriesGoal = 200;
   calories = Math.round(Math.random() * this.caloriesGoal);
+  
   hearthrateGoal = 220
   hearthrate = Math.round(Math.random() * 200);
+  hearthrateNoData = false;
+
   distance = Math.round(Math.random() * 1000) + 1000;
+  
   paiGoal = 999;
   pai = Math.round(Math.random() * this.paiGoal);
+  paiNoData = false;
 
   bluetooth = true;
   dnd = true;
@@ -32,6 +40,7 @@ export class WatchState {
   alarm = true;
   
   temperature = Math.round(Math.random() * 10);
+
   temperatureMin = this.temperature - Math.round(Math.random() * 10)
   temperatureMax = this.temperature + Math.round(Math.random() * 10)
   weatherIcon = Math.round(Math.random() * 29);

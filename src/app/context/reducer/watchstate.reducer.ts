@@ -15,14 +15,17 @@ export enum watchstateActions {
   CHANGE_BATTERY,
   CHANGE_CALORIES,
   CHANGE_HEARTRATE,
+  TOGGLE_HEARTRATE_NODATA,
   CHANGE_DISTANCE,
   CHANGE_PAI,
+  TOGGLE_PAI_NODATA,
   CHANGE_DATE,
   CHANGE_TIME,
   CHANGE_SUNRISE_HOURS,
   CHANGE_SUNRISE_MIN,
   CHANGE_SUNSET_HOURS,
   CHANGE_SUNSET_MIN,
+  TOGGLE_SUNSET_NODATA,
   CHANGE_WEATHER_ICON,
   CHANGE_TEMP,
   CHANGE_TEMP_MIN,
@@ -133,6 +136,18 @@ export const watchstateReducer = (state: IWatchStateState, action: IAction): IWa
       case watchstateActions.TOGGLE_DND:
         return {
           ...state, watchstate: {...state.watchstate, dnd: !state.watchstate.dnd}
+        };
+      case watchstateActions.TOGGLE_HEARTRATE_NODATA:
+        return {
+          ...state, watchstate: {...state.watchstate, hearthrateNoData: !state.watchstate.hearthrateNoData}
+        };
+      case watchstateActions.TOGGLE_PAI_NODATA:
+        return {
+          ...state, watchstate: {...state.watchstate, paiNoData: !state.watchstate.paiNoData}
+        };
+      case watchstateActions.TOGGLE_SUNSET_NODATA:
+        return {
+          ...state, watchstate: {...state.watchstate, sunsetNoData: !state.watchstate.sunsetNoData}
         };
       default:
         return state;

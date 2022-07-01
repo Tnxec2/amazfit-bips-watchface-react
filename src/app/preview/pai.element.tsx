@@ -3,12 +3,20 @@ import {  WatchPai } from "../model/watchFace.bips.model";
 import drawDigitImage from "./digitImage.element";
 import drawImage from "./image.element";
 
-export function drawPai(ctx: CanvasRenderingContext2D,
+export function drawPai(
+    ctx: CanvasRenderingContext2D,
     images: IImage[],
     pai: WatchPai,
     paiValue: number,
     drawBorder: boolean,
+    noData: boolean
     ) {
+    if (noData) {
+        if (pai.imageNoData.enabled) {
+            drawImage(ctx, images, pai.imageNoData.json)
+        }
+        return
+    }
     if (pai.numberGeneral.enabled) {
         drawDigitImage(ctx, images, pai.numberGeneral, paiValue, drawBorder, 1)
     }

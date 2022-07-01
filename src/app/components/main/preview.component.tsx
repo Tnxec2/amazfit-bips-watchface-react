@@ -126,6 +126,7 @@ const PreviewComponent: FC<IProps> = ({ width, height }) => {
         watchface.pai,
         watchState.pai,
         digitBorder,
+        watchState.paiNoData
       );
     }
     if (watchface.caloriesProgress) {
@@ -157,7 +158,7 @@ const PreviewComponent: FC<IProps> = ({ width, height }) => {
       )
     }
     if (watchface.time) {
-      drawTimeDigital(ctx, images, watchface.time, watchState, digitBorder);
+      drawTimeDigital(ctx, images, watchface.time, watchState, digitBorder, watchState.sunsetNoData);
       drawTimeAnalog(ctx, images, watchface.analogTime, watchState);
     }
   }
@@ -369,7 +370,8 @@ function drawActivitys(
     images,
     activitylist.pulse,
     watchState.hearthrate,
-    digitBorder
+    digitBorder,
+    watchState.hearthrateNoData
   );
   drawStepPercentage(
     ctx,
