@@ -20,7 +20,8 @@ const WatchPulseFormatedNumberComponent: FC<IProps> = ({
   const ar = useMemo<IRow[]>(() => [
     {
       blocks: [
-        { title: 'no data', type: BlockType.SelectFile, imageIndex: digit.noData, onChange: onChangeNoData, imagesCount: 1  }
+        { title: 'no data', type: BlockType.SelectFile, imageIndex: digit.noData, onChange: onChangeNoData, imagesCount: 1  },
+        { title: 'suffix', type: BlockType.SelectFile, imageIndex: digit.suffix, onChange: onChangeSuffix, imagesCount: 1  }
       ]
     }
   ], [digit]) // eslint-disable-line react-hooks/exhaustive-deps
@@ -28,6 +29,11 @@ const WatchPulseFormatedNumberComponent: FC<IProps> = ({
   function onChangeNoData(index: number) {
     const d = {...digit};
     d.noData = index;
+    onUpdate(d);
+  }
+  function onChangeSuffix(index: number) {
+    const d = {...digit};
+    d.suffix = index;
     onUpdate(d);
   }
 

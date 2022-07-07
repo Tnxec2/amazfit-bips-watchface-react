@@ -211,10 +211,10 @@ export const WatchfaceProvider = ({ children }) => {
     updateSteps:(a: WatchStepsFormatedNumber)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_STEPS, value: a });},
     updateStepProgress:(a: WatchStepsProgress)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_STEPPROGRESS, value: a });},
     updatePulseProgress:(a: WatchPulseProgress)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_PULSE_PROGRESS, value: a });},
-    updateCalories:(a: WatchStepsFormatedNumber)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_CALORIES, value: a });},
+    updateCalories:(a: WatchCaloriesFormatedNumber)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_CALORIES, value: a });},
     updateStepPercentage:(a: WatchStepPercentageFormatedNumber)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_STEPSPERCENTAGE, value: a });},
-    updateHearthrate:(a: WatchStepsFormatedNumber)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_PULSE, value: a });},
-    updateDistance:(a: WatchStepsFormatedNumber)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_DISTANCE, value: a });}, 
+    updateHearthrate:(a: WatchPulseFormatedNumber)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_PULSE, value: a });},
+    updateDistance:(a: WatchDistanceFormatedNumber)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_DISTANCE, value: a });}, 
     updateStepsGoal:(a: WatchStepsFormatedNumber)=>  {dispatch({ type: watchfaceActionsEnum.UPDATE_STEP_GOAL, value: a });},
 
     toggleActivityAlt:()=>  {dispatch({ type: watchfaceActionsEnum.TOGGLE_ACTIVITY_ALT });},

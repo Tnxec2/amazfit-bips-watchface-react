@@ -31,11 +31,11 @@ const JsonComponent: FC = () => {
             Status: getStatus(w.status),
             Battery: getBattery(w.battery),
             AnalogDialFace: getAnalogTime(w.analogTime),
+            PulseProgress: getPulseProgress(w.pulseProgress,),
+            WeekdayIcon: getWeekdayProgress(w.weekdayicon),
             Shortcuts: null,
             DateExtended: getDateExt(w.dateExtended),
-            PulseProgress: getPulseProgress(w.pulseProgress,),
             PAI: getPAI(w.pai),
-            WeekdayIcon: getWeekdayProgress(w.weekdayicon),
             ActivityAlt: getActivityAlt(w.activityAlt),
             CaloriesProgress: getCaloriesProgress(w.caloriesProgress),
         }
@@ -111,10 +111,12 @@ function getActivity(a: WatchActivityList): Activity {
                     (a.distance.enabled  && a.distance.number.enabled)
     return enabled ? {
         Steps: a.steps.enabled && a.steps.number.enabled ? {
-            Number: a.steps.number.json
+            Number: a.steps.number.json,
+            PrefixImageIndex: a.steps.prefix,
         } : null,
         StepsGoal: a.stepsGoals.enabled && a.stepsGoals.number.enabled ? {
-            Number: a.stepsGoals.number.json
+            Number: a.stepsGoals.number.json,
+            PrefixImageIndex: null,
         } : null,
         Calories: a.calories.enabled  && a.calories.number.enabled? {
             Number: a.calories.number.json,
@@ -122,6 +124,7 @@ function getActivity(a: WatchActivityList): Activity {
         } : null,
         Pulse: a.pulse.enabled && a.pulse.number.enabled ? {
             Number: a.pulse.number.json,
+            SuffixImageIndex: a.pulse.suffix,
             NoDataImageIndex: a.pulse.noData,
         } : null,
         Distance: a.distance.enabled && a.distance.number.enabled ? {

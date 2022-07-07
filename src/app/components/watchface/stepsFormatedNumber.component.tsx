@@ -1,5 +1,7 @@
-import { FC} from "react";
+import { FC, useMemo} from "react";
 import { Card } from "react-bootstrap";
+import BlocksArrayComponent from "../../blocks/blocksArray.component";
+import { BlockType, IRow } from "../../model/blocks.model";
 import { WatchStepsFormatedNumber, WatchNumber } from "../../model/watchFace.bips.model";
 import WatchNumberComponent from "./number.component";
 
@@ -15,6 +17,19 @@ const WatchStepsFormatedNumberComponent: FC<IProps> = ({
   onUpdate,
 }) => {
 
+  const ar = useMemo<IRow[]>(() => [
+    {
+      blocks: [
+        { title: 'icon', type: BlockType.SelectFile, imageIndex: digit.prefix, onChange: onChangePrefix, imagesCount: 1  }
+      ]
+    },
+  ], [digit]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  function onChangePrefix(index: number) {
+    const d = {...digit};
+    d.prefix = index;
+    onUpdate(d);
+  }
   function onUpdateNumber(number: WatchNumber) {
     const d = {...digit};
     d.number = number;
@@ -48,6 +63,7 @@ const WatchStepsFormatedNumberComponent: FC<IProps> = ({
             digit={{...digit.number}}
             onUpdate={onUpdateNumber} 
           />
+          <BlocksArrayComponent ar={ar} />
         </Card.Body>
       ) : (
         ""

@@ -97,6 +97,7 @@ export class Coordinates {
 
 export class StepsFormatedNumber {
   Number: NumberJson
+  PrefixImageIndex: number
 }
 export class DistanceFormatedNumber {
   Number: NumberJson
@@ -108,6 +109,7 @@ export class DistanceFormatedNumber {
 export class PulseFormatedNumber {
   Number: NumberJson
   NoDataImageIndex: number
+  SuffixImageIndex: number
 }
 
 export class CaloriesFormatedNumber {

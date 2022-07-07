@@ -601,11 +601,12 @@ export class WatchStepsFormatedNumber {
   enabled: boolean
 
   number: WatchNumber = new WatchNumber()
-
+  prefix: number
   constructor(con?: IDigitConstructor, j?: StepsFormatedNumber) {
     if (j) {
       this.enabled = true
       this.number = new WatchNumber(j.Number, con)
+      this.prefix = j.PrefixImageIndex
     } else if (con) {
       this.number = new WatchNumber(null, con)
     }
@@ -617,8 +618,7 @@ export class WatchPulseFormatedNumber {
 
   number: WatchNumber = new WatchNumber()
   noData: number
-  decimalPointer: number
-  suffixMiles: number
+  suffix: number
 
 
   constructor(con?: IDigitConstructor, j?: PulseFormatedNumber) {
@@ -626,6 +626,7 @@ export class WatchPulseFormatedNumber {
       this.enabled = true
       this.number = new WatchNumber(j.Number, con)
       this.noData = j.NoDataImageIndex
+      this.suffix = j.SuffixImageIndex
     } else if (con) {
       this.number = new WatchNumber(null, con)
     }
