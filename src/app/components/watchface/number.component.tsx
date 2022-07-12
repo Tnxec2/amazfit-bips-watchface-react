@@ -31,8 +31,8 @@ const WatchNumberComponent: FC<IProps> = ({
     },
     {
       blocks: [
-        { title: 'Bottom Right X', type: BlockType.Number, numberValue: digit.json?.BottomRightX ? digit.json.BottomRightX : 0, onChange: onChangeBottomRightX },
-        { title: 'Bottom Right Y', type: BlockType.Number, numberValue: digit.json?.BottomRightX ? digit.json.BottomRightY : 0, onChange: onChangeBottomRightY },
+        { title: 'Bottom Right X', type: BlockType.Number, numberValue: digit.json?.BottomRightX ? digit.json.BottomRightX : 0, onChange: onChangeBottomRightX, error: digit.json.BottomRightX <= digit.json.TopLeftX ? 'set box border correct' : null},
+        { title: 'Bottom Right Y', type: BlockType.Number, numberValue: digit.json?.BottomRightX ? digit.json.BottomRightY : 0, onChange: onChangeBottomRightY, error: digit.json.BottomRightY <= digit.json.TopLeftY ? 'set box border correct' : null },
       ]
     },
     {
