@@ -21,7 +21,7 @@ const WatchDistanceFormatedNumberComponent: FC<IProps> = ({
     {
       blocks: [
         { title: 'suffix', type: BlockType.SelectFile, imageIndex: digit.suffix, onChange: onChangeSuffix, imagesCount: 1  },
-        { title: 'desimal pointer', type: BlockType.SelectFile, imageIndex: digit.decimalPointer, onChange: onChangeDecimalPointer, error: digit.number?.enabled && !digit.decimalPointer ? 'Decimal pointer is not set' : null, imagesCount: 1 },
+        { title: 'decimal pointer', type: BlockType.SelectFile, imageIndex: digit.decimalPointer, onChange: onChangeDecimalPointer, error: digit.number?.enabled && !digit.decimalPointer ? 'Decimal pointer is not set' : null, imagesCount: 1 },
       ]
     },
   ], [digit]) // eslint-disable-line react-hooks/exhaustive-deps
