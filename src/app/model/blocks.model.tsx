@@ -47,6 +47,7 @@ export interface IBlockButton {
     onClick(e): any
     className?: string
     error?: string
+    info?: string
 }
 export interface IBlockColor {
     title: string;
@@ -54,6 +55,7 @@ export interface IBlockColor {
     colorString: string;
     onChange(colorString: string): any;
     error?: string
+    info?: string
 }
 export interface IBlockSelect{
     title: string;
@@ -63,6 +65,7 @@ export interface IBlockSelect{
     onChange(selectedValue: string): any;
     disabled?: boolean;
     error?: string
+    info?: string
 }
 export interface IBlockCheckbox {
     title: string;
@@ -71,11 +74,13 @@ export interface IBlockCheckbox {
     onChange(checked: boolean): any;
     disabled?: boolean;
     error?: string
+    info?: string
 }
 export interface IBlockEmpty {
     title: string;
     type: BlockType.Empty;
     error?: string
+    info?: string
 }
 
 export interface IBlockNumber {
@@ -87,6 +92,7 @@ export interface IBlockNumber {
     min?: number
     max?: number
     error?: string
+    info?: string
 }
 
 export interface IBlockSelectFile {
@@ -97,4 +103,5 @@ export interface IBlockSelectFile {
     disabled?: boolean;
     error?: string;
     imagesCount: number;
+    info?: string
 }

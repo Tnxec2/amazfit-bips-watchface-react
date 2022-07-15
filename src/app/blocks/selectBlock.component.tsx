@@ -8,18 +8,19 @@ interface IProps {
     options: IOption[],
     disabled?: boolean
     error?: string
+    info?: string
 }
 
-const SelectBlockComponent: FC<IProps> = ({ title, value, onChange, disabled, options, error }) => {
+const SelectBlockComponent: FC<IProps> = ({ title, value, onChange, disabled, options, error, info }) => {
     return (
         <>
             <span className="input-group-text" >
-                {title}
+                {title.split('\n').map(str => <>{str}<br/></>)}
             </span>
             <select
                 disabled={disabled}
                 value={value}
-                className={`form-select form-select-sm ${error ? 'bg-danger' : ''}`} title={error} 
+                className={`form-select form-select-sm ${error ? 'bg-danger' : info ? 'bg-info' :''}`} title={error || info} 
                 onChange={(e) => onChange(e.target.value)}
             >
                 { options.map(

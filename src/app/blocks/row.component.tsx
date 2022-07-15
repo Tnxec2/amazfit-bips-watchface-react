@@ -4,6 +4,7 @@ import SelectFileListComponent from '../shared/selectFileList.component';
 import ButtonBlockComponent from './buttonBlock.component';
 import CheckBoxBlockComponent from './checkboxBlock.component';
 import ColorBlockComponent from './colorBlock.component';
+import EmptyBlockComponent from './emptyBlock.component';
 import NumberBlockComponent from './numberBlock.component';
 import SelectBlockComponent from './selectBlock.component';
 
@@ -16,7 +17,12 @@ const RowComponent: FC<IProps> = ({ row }) => {
         let result: any = '';
         switch (block.type) {
             case BlockType.Empty:
-                result = <span key={index} className={`input-group-text ${block.error ? 'bg-danger' : ''}`} title={block.error}>{block.title}</span>
+                result = <EmptyBlockComponent
+                    key={index}
+                    title={block.title}
+                    error={block.error}
+                    info={block.info}
+                />
                 break;
             case BlockType.SelectFile:
                 result =
@@ -27,6 +33,7 @@ const RowComponent: FC<IProps> = ({ row }) => {
                         value={block.imageIndex}
                         disabled={block.disabled}
                         error={block.error}
+                        info={block.info}
                         imagesCount={block.imagesCount}
                     />
                 break;
@@ -39,6 +46,7 @@ const RowComponent: FC<IProps> = ({ row }) => {
                         value={block.numberValue}
                         disabled={block.disabled}
                         error={block.error}
+                        info={block.info}
                     />
                 break;
             case BlockType.Checkbox:
@@ -50,6 +58,7 @@ const RowComponent: FC<IProps> = ({ row }) => {
                         checked={block.checked}
                         disabled={block.disabled}
                         error={block.error}
+                        info={block.info}
                     />
                 break;
             case BlockType.Select:
@@ -62,6 +71,7 @@ const RowComponent: FC<IProps> = ({ row }) => {
                         disabled={block.disabled}
                         options={block.selectOptions}
                         error={block.error}
+                        info={block.info}
                     />
                 break;
             case BlockType.Color:
@@ -72,6 +82,7 @@ const RowComponent: FC<IProps> = ({ row }) => {
                         onChange={block.onChange}
                         value={block.colorString}
                         error={block.error}
+                        info={block.info}
                     />
                 break;
             case BlockType.Button:
@@ -83,6 +94,7 @@ const RowComponent: FC<IProps> = ({ row }) => {
                         className={block.className}
                         disabled={block.disabled}
                         error={block.error}
+                        info={block.info}
                     />
                 break;
             default:

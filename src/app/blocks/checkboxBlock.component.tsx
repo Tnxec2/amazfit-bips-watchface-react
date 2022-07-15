@@ -6,17 +6,18 @@ interface IProps {
     onChange(checked: boolean): void,
     disabled?: boolean
     error?: string
+    info?: string
 }
 
-const CheckBoxBlockComponent: FC<IProps> = ({ title, checked, onChange, disabled, error }) => {
+const CheckBoxBlockComponent: FC<IProps> = ({ title, checked, onChange, disabled, error, info }) => {
     return (
         <>
             <span className="input-group-text" id="addon-wrapping">
-                {title}
+                {title.split('\n').map(str => <>{str}<br/></>)}
             </span>
             <div className="input-group-text">
                 <input
-                    className={`form-check-input form-check-input-sm ${error ? 'bg-danger' : ''}`} title={error} 
+                    className={`form-check-input form-check-input-sm ${error ? 'bg-danger' : info ? 'bg-info' : ''}`} title={error || info} 
                     type="checkbox"
                     disabled={disabled}
                     checked={checked ? true : false}

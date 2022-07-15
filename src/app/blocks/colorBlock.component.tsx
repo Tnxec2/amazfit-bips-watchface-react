@@ -5,8 +5,9 @@ interface IProps {
     value: string,
     onChange(value: string): void,
     error?: string,
+    info?: string,
 }
-const ColorBlockComponent: FC<IProps> = ({ title, value, onChange, error }) => {
+const ColorBlockComponent: FC<IProps> = ({ title, value, onChange, error, info }) => {
 
     function onRemove() {
         onChange(null);
@@ -14,10 +15,10 @@ const ColorBlockComponent: FC<IProps> = ({ title, value, onChange, error }) => {
 
     return (
         <>
-            <span className="input-group-text">{title}</span>
+            <span className="input-group-text">{title.split('\n').map(str => <>{str}<br/></>)}</span>
             <input
               type="color"
-              className={`form-control form-control-sm ${error ? 'bg-danger' : ''}`} title={error ? error: 'Choose color'} 
+              className={`form-control form-control-sm ${error ? 'bg-danger' : info ? 'bg-info': ''}`} title={error ? error: info ? info : 'Choose color'} 
               onChange={(e) => {
                 onChange(e.target.value)
               }}

@@ -9,6 +9,7 @@ interface IProps {
   onChange(id: number): void;
   disabled?: boolean
   error?: string
+  info?: string
   imagesCount: number
 }
 
@@ -18,6 +19,7 @@ const SelectFileListComponent: FC<IProps> = ({
   onChange,
   disabled,
   error,
+  info,
   imagesCount,
 }) => {
   const { images } = useContext<IImagesContext>(ImagesContext);
@@ -30,11 +32,12 @@ const SelectFileListComponent: FC<IProps> = ({
   },[images, value, imagesCount])
 
   const selectFileTitle = useMemo<string>(() => {
-    if (!error && !imagesCountError) return 'Select image'
+    if (!error && !imagesCountError && !info) return 'Select image'
     const imagesCountErrorString = `Not all images exist for count ${imagesCount}.`
     if (error && imagesCountError) return error + '\n' + imagesCountErrorString
-    else return imagesCountErrorString
-  }, [error, imagesCountError, imagesCount])
+    else if (imagesCountError) return imagesCountErrorString 
+    else return info
+  }, [error, imagesCountError, imagesCount, info])
 
   function onFileSelected(id: number) {
     onChange(id);
@@ -73,8 +76,8 @@ const SelectFileListComponent: FC<IProps> = ({
   
   return (
     <>
-      <span className="input-group-text">{title}</span>
-      <div className={`input-group-text dropdown ${error || imagesCountError ? 'bg-danger' : ''}`} title={selectFileTitle}>
+      <span className="input-group-text">{title.split('\n').map(str => <>{str}<br/></>)}</span>
+      <div className={`input-group-text dropdown ${error || imagesCountError ? 'bg-danger' : info ? 'bg-info' : ''}`} title={selectFileTitle}>
         <div>
           {value !== null &&
           value !== undefined &&
