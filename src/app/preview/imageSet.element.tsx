@@ -18,16 +18,12 @@ export default function drawImageSet(
             let count = imageSet.ImagesCount ? imageSet.ImagesCount : 1
 
             let index = Math.floor(value / (total / count))
-
-            console.log(value, total, value / (total / count), index, imageSet.ImagesCount);
             
             //index = Math.max(index, 0)
             if (fixCounterStepProgress) index -= 1;
             if (index < 0) return;
 
             index = Math.min(index, imageSet.ImagesCount-1-(fixCounterStepProgress? 1 : 0))
-
-            
 
             const img = findImageById(imageSet.ImageIndex + index, images)
             if (img) ctx.drawImage(img, x, y);
