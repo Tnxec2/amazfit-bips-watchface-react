@@ -1,17 +1,17 @@
 import React, { FC, useContext } from 'react';
 import { Card } from 'react-bootstrap';
 import { IWatchContext, WatchfaceContext } from '../../context/watchface.context';
-import { WatchCircleScale, WatchIconSet, WatchImage, WatchLinearIconSet } from '../../model/watchFace.bips.model';
+import { WatchCircleScale, WatchImageSet, WatchImage, WatchLinearIconSet } from '../../model/watchFace.bips.model';
 import CircleProgressComponent from './circleProgress.component';
-import IconSetComponent from './iconSet.component';
 import ImageComponent from './image.component';
+import ImageSetComponent from './imageSet.component';
 import LinearIconSetComponent from './lineariconset.component';
 
 const StepProgressComponent: FC = () => {
 
   const { watchface, updateStepProgress, toggleStepProgress } = useContext<IWatchContext>(WatchfaceContext);
 
-    function updateIconSet(ip: WatchIconSet) {
+    function updateIconSet(ip: WatchImageSet) {
       const p = {...watchface.stepsProgress};
       p.iconSet = ip;
       updateStepProgress(p);
@@ -47,10 +47,11 @@ const StepProgressComponent: FC = () => {
                   onUpdate={updateGoalImage}
                   image={{...watchface.stepsProgress.goalImage}}
                 />
-                <IconSetComponent
+                <ImageSetComponent
                   title='Image progress'
                   onUpdate={updateIconSet}
-                  iconSet={{...watchface.stepsProgress.iconSet}}
+                  imageSet={{...watchface.stepsProgress.iconSet}}
+                  fixCountStepProgress={true}
                 /> 
                 <LinearIconSetComponent
                   title='Icon set progress'

@@ -9,16 +9,27 @@ interface IProps {
   imageSet: WatchImageSet;
   onUpdate(imageSet: WatchImageSet): void;
   disableCount?: boolean;
-  disableCollapse?: boolean
+  disableCollapse?: boolean;
+  fixCountStepProgress?: boolean;
 }
 
-const ImageSetComponent: FC<IProps> = ({ title, imageSet, onUpdate, disableCount, disableCollapse }) => {
+const stepProgressInfoMessage = 'Set the counter to one higher than number of images so that progress is displayed correctly on the watch. Last image of StepProgress are don\'t show on watch'
+
+const ImageSetComponent: FC<IProps> = ({ title, imageSet, onUpdate, disableCount, disableCollapse, fixCountStepProgress }) => {
 
   const ar = useMemo<IRow[]>(() => [
     {
       blocks: [
-        { title: 'Image', type: BlockType.SelectFile, imageIndex: imageSet.json?.ImageIndex, onChange: onChangeImageIndex, imagesCount: imageSet.json?.ImagesCount },
-        { title: 'Count', type: BlockType.Number, numberValue: imageSet.json?.ImagesCount, min: 0, onChange: onChangeCount, disabled: disableCount },
+        { title: 'Image', type: BlockType.SelectFile, imageIndex: imageSet.json?.ImageIndex, onChange: onChangeImageIndex, imagesCount: imageSet.json?.ImagesCount - (fixCountStepProgress?1:0) },
+        { title: 'Count', type: BlockType.Number, numberValue: imageSet.json?.ImagesCount, min: 0, onChange: onChangeCount, disabled: disableCount},
+      ]
+    },
+    {
+      disabled: !fixCountStepProgress,
+      blocks: [
+        { title: 'Set the counter one higher than number of images\nso that progress is displayed correctly on the watch.\nLast image of StepProgress are don\'t show on watch', 
+          type: BlockType.Empty, 
+          info: stepProgressInfoMessage},
       ]
     },
     {

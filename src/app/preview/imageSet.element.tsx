@@ -7,7 +7,8 @@ export default function drawImageSet(
     images: IImage[], 
     imageSet: ImageSet,
     value: number,
-    total: number) {
+    total: number,
+    fixCounterStepProgress?: boolean) {
         if (imageSet?.ImageIndex) {
             let x = imageSet.X ? imageSet.X : 0
             let y = imageSet.Y ? imageSet.Y : 0
@@ -18,8 +19,15 @@ export default function drawImageSet(
 
             let index = Math.floor(value / (total / count))
 
-            index = Math.max(index, 0)
-            index = Math.min(index, imageSet.ImagesCount-1)
+            console.log(value, total, value / (total / count), index, imageSet.ImagesCount);
+            
+            //index = Math.max(index, 0)
+            if (fixCounterStepProgress) index -= 1;
+            if (index < 0) return;
+
+            index = Math.min(index, imageSet.ImagesCount-1-(fixCounterStepProgress? 1 : 0))
+
+            
 
             const img = findImageById(imageSet.ImageIndex + index, images)
             if (img) ctx.drawImage(img, x, y);

@@ -2,8 +2,8 @@ import { IImage } from "../model/image.model";
 import {  WatchStepsProgress } from "../model/watchFace.bips.model";
 import { WatchState } from "../model/watchState";
 import drawCircleProgress from "./circleProgress.element";
-import drawIconSet from "./iconSet.element";
 import drawImage from "./image.element";
+import drawImageSet from "./imageSet.element";
 import drawLinearIconSet from "./linearIconSet.element";
 
 export function drawStepProgress(ctx: CanvasRenderingContext2D,
@@ -24,6 +24,6 @@ export function drawStepProgress(ctx: CanvasRenderingContext2D,
         drawCircleProgress(ctx, images, stepProgress.circle.json, watchState.steps, watchState.stepsGoal)
     }
     if (stepProgress.iconSet.enabled) {
-        drawIconSet(ctx, images, stepProgress.iconSet.json, watchState.steps, watchState.stepsGoal)
+        drawImageSet(ctx, images, stepProgress.iconSet.json, watchState.steps, watchState.stepsGoal, true)
     }
 }

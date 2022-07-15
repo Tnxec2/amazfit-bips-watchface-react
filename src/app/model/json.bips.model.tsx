@@ -198,13 +198,6 @@ export class AmPmIcon{
   ImageIndexPMEN: number
 }
 
-export class IconSet{
-  ImageIndex: number
-  X: number = 0
-  Y: number = 0
-  ImagesCount: number = 1
-}
-
 export class LinearIconSet{
   StartImageIndex: number
   Segments: Coordinates[] = []
@@ -237,7 +230,7 @@ export class Scale{
 export class StepsProgress{
   GoalImage: Image
   Gauge: LinearIconSet
-  IconSet: IconSet
+  IconSet: ImageSet
   Circle: CircleScale
 }
 

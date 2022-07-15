@@ -1,5 +1,5 @@
 import Color from "../shared/color";
-import { Activity, ActivityAlt, AirQuality, AmPmIcon, AnalogDialFace, Background, Battery, BatteryFormatedNumber, CaloriesProgress, CircleScale, ClockHand, Coordinates, Date, DateExtended, StepsFormatedNumber, FourDigits, Humidity, IconSet, Image, ImageSet, LinearIconSet, NumberExtendedJson, NumberJson, OneLineMinMax, Pai, PointerScale, PulseProgress, Shortcut, ShortcutElement, Shortcuts, Status, StepsProgress, Switch, TextTemperature, Time, TwoDigits, WatchJson, Weather, WeekdayIcon, PulseFormatedNumber, DistanceFormatedNumber, CaloriesFormatedNumber, StepPercentageFormatedNumber } from "./json.bips.model";
+import { Activity, ActivityAlt, AirQuality, AmPmIcon, AnalogDialFace, Background, Battery, BatteryFormatedNumber, CaloriesProgress, CircleScale, ClockHand, Coordinates, Date, DateExtended, StepsFormatedNumber, FourDigits, Humidity, Image, ImageSet, LinearIconSet, NumberExtendedJson, NumberJson, OneLineMinMax, Pai, PointerScale, PulseProgress, Shortcut, ShortcutElement, Shortcuts, Status, StepsProgress, Switch, TextTemperature, Time, TwoDigits, WatchJson, Weather, WeekdayIcon, PulseFormatedNumber, DistanceFormatedNumber, CaloriesFormatedNumber, StepPercentageFormatedNumber } from "./json.bips.model";
 
 interface IDigitConstructor {
   count: number;
@@ -240,7 +240,7 @@ export class WatchImageSet {
 
   json: ImageSet = new ImageSet()
 
-  constructor(count: number, j?: ImageSet) {
+  constructor(count?: number, j?: ImageSet) {
     if (j) {
       this.enabled = true
       this.json = j
@@ -273,17 +273,6 @@ export class WatchImage {
   enabled: boolean = false
   json: Image = new Image()
   constructor(j?: Image) {
-    if (j) {
-      this.enabled = true
-      this.json = j
-    }
-  }
-}
-
-export class WatchIconSet {
-  enabled: boolean = false
-  json: IconSet = new IconSet()
-  constructor(j?: IconSet) {
     if (j) {
       this.enabled = true
       this.json = j
@@ -354,13 +343,13 @@ export class WatchStepsProgress {
   goalImage: WatchImage = new WatchImage()
 
   gauge: WatchLinearIconSet = new WatchLinearIconSet()
-  iconSet: WatchIconSet = new WatchIconSet()
+  iconSet: WatchImageSet = new WatchImageSet()
   circle: WatchCircleScale = new WatchCircleScale()
 
   constructor(j?: StepsProgress) {
     if(j) {
       this.gauge = new WatchLinearIconSet(j.Gauge)
-      this.iconSet = new WatchIconSet(j.IconSet)
+      this.iconSet = new WatchImageSet(j.IconSet?.ImagesCount, j.IconSet)
       this.circle = new WatchCircleScale(j.Circle)
       this.goalImage = new WatchImage(j.GoalImage)
     }
