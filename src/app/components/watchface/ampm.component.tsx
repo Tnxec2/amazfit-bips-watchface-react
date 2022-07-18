@@ -15,8 +15,8 @@ const AmPmComponent: FC<IProps> = ({ title, ampm, onUpdate }) => {
   const ar = useMemo<IRow[]>(() => [
     {
       blocks: [
-        { title: 'AM', type: BlockType.SelectFile, imageIndex: ampm.json?.ImageIndexAMEN, onChange: onChangeAmImageIndex, imagesCount: 1 },
-        { title: 'PM', type: BlockType.SelectFile, imageIndex: ampm.json?.ImageIndexPMEN, onChange: onChangePmImageIndex, imagesCount: 1 },
+        { title: 'AM', type: BlockType.SelectFile, imageIndex: ampm.json?.ImageIndexAMEN || ampm.json?.ImageIndexAMCN, onChange: onChangeAmImageIndex, imagesCount: 1 },
+        { title: 'PM', type: BlockType.SelectFile, imageIndex: ampm.json?.ImageIndexPMEN || ampm.json?.ImageIndexPMCN, onChange: onChangePmImageIndex, imagesCount: 1 },
       ]
     },
     {
@@ -30,12 +30,14 @@ const AmPmComponent: FC<IProps> = ({ title, ampm, onUpdate }) => {
 
   function onChangeAmImageIndex(index: number) {
     const ip = { ...ampm };
+    ip.json.ImageIndexAMCN = index;
     ip.json.ImageIndexAMEN = index;
     onUpdate(ip);
   }
 
   function onChangePmImageIndex(index: number) {
     const ip = { ...ampm };
+    ip.json.ImageIndexPMCN = index;
     ip.json.ImageIndexPMEN = index;
     onUpdate(ip);
   }

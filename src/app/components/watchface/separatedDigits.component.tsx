@@ -70,6 +70,9 @@ const SeparatedDigitsComponent: FC<IProps> = ({
       </Card.Header>
       {digit.enabled ? (
         <Card.Body>
+          <div className="alert alert-info">
+            You should set all {amountOfDigits} sets of digits. Not needed digits could be moved out of screen.
+          </div>
           { amountOfDigits > 4 ?
           <ImageSetComponent 
             title='Ten Thousands'
