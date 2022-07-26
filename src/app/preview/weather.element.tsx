@@ -56,6 +56,8 @@ export function drawWeather(ctx: CanvasRenderingContext2D,
         drawDigitImage(ctx, images, weather.aqi.number, watchState.airQuality, drawBorder, 
             1, null, null, null, null)
     }
-    
+    if (weather.aqi?.iconprogress?.enabled) {
+        drawImageSet(ctx, images, weather.aqi.iconprogress.json, watchState.airQuality, watchState.airQualityGoal);
+    }
 
 }

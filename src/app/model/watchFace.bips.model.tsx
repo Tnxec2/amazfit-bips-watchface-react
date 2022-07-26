@@ -426,6 +426,7 @@ export class WatchAQI {
   collapsed: boolean
 
   number: WatchNumber = new WatchNumber(null,  digitTypes.airQuality)
+  iconprogress: WatchImageSet = new WatchImageSet(null, null)
   icon: WatchImage = new WatchImage()
 
 
@@ -433,6 +434,7 @@ export class WatchAQI {
     if (j) {
       this.icon = new WatchImage(j.Icon)
       this.number = new WatchNumber(j.Number, digitTypes.airQuality)
+      this.iconprogress = new WatchImageSet(j.IconProgress.ImagesCount, j.IconProgress)
     }
   }
 }

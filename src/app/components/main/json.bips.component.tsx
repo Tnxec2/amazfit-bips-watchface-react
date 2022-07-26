@@ -168,7 +168,7 @@ function getDate(d: WatchDate): Date {
 
 function getWeather(w: WatchWeather): Weather {
     const enabledTemp = w.current.enabled || w.day.enabled || w.night.enabled || w.todayOneLine.enabled
-    const enabledAqi = w.aqi.icon.enabled || w.aqi.number.enabled
+    const enabledAqi = w.aqi.icon.enabled || w.aqi.number.enabled || w.aqi.iconprogress.enabled
     const enabledHumidity = w.humidity.icon.enabled || w.humidity.number.enabled
     const enabled = w.customIcon.enabled || enabledTemp || enabledAqi || enabledHumidity
 
@@ -201,7 +201,10 @@ function getWeather(w: WatchWeather): Weather {
         } : null,
         AQI: enabledAqi ? {
             Number: w.aqi.number.enabled ? w.aqi.number.json : null,
+            IconProgress: w.aqi.iconprogress.enabled ? w.aqi.iconprogress.json : null,
             Icon: w.aqi.icon.enabled ? w.aqi.icon.json : null,
+            IconCH: w.aqi.icon.enabled ? w.aqi.icon.json : null,
+            IconCN: w.aqi.icon.enabled ? w.aqi.icon.json : null,
         } : null,
         Humidity: enabledHumidity ? {
             Number: w.humidity.number.enabled ? w.humidity.number.json : null,

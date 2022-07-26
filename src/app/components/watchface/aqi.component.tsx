@@ -1,7 +1,8 @@
 import { FC } from "react";
 import { Card } from "react-bootstrap";
-import { WatchAQI, WatchImage, WatchNumber } from "../../model/watchFace.bips.model";
+import { WatchAQI, WatchImage, WatchImageSet, WatchNumber } from "../../model/watchFace.bips.model";
 import ImageComponent from "./image.component";
+import ImageSetComponent from "./imageSet.component";
 import WatchNumberComponent from "./number.component";
 
 interface IProps {
@@ -23,6 +24,12 @@ const WatchWeatherAqiComponent: FC<IProps> = ({
   function onUpdateIcon(icon: WatchImage) {
     const d = {...aqi};
     d.icon = icon;
+    onUpdate(d);
+  }
+
+  function onUpdateIconProgress(iconProgress: WatchImageSet) {
+    const d = {...aqi};
+    d.iconprogress = iconProgress;
     onUpdate(d);
   }
 
@@ -48,6 +55,11 @@ const WatchWeatherAqiComponent: FC<IProps> = ({
             title="Icon"
             image={{...aqi.icon}}
             onUpdate={onUpdateIcon}
+          />
+          <ImageSetComponent
+            title="Icon Progress"
+            imageSet={{...aqi.iconprogress}}
+            onUpdate={onUpdateIconProgress}
           />
         </Card.Body>
       ) : (

@@ -283,7 +283,10 @@ export class Temperature{
 
 export class AirQuality{
   Number: NumberJson
+  IconProgress: ImageSet
   Icon: Image
+  IconCH: Image
+  IconCN: Image
 }
 
 export class Humidity{
