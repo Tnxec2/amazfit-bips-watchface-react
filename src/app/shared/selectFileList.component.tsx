@@ -46,7 +46,7 @@ const SelectFileListComponent: FC<IProps> = ({
       var ix = images.find(it => {
         return it.id === imageIndex
       })
-      return ix.name
+      return ix ? ix.name : "None"
     } else {
       return "None"
     }
