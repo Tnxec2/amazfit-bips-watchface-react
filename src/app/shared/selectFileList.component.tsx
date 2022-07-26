@@ -15,7 +15,7 @@ interface IProps {
 
 const SelectFileListComponent: FC<IProps> = ({
   title,
-  value,
+  value: imageIndex,
   onChange,
   disabled,
   error,
@@ -27,9 +27,11 @@ const SelectFileListComponent: FC<IProps> = ({
   const [collapsed, setCollapsed] = useState<boolean>(true);
 
   const imagesCountError = useMemo<boolean>(() => {
-    if (value-Constant.startImageIndex+imagesCount > images.length) return true
+    if (imageIndex-Constant.startImageIndex+imagesCount > images.length) return true
     else return false
-  },[images, value, imagesCount])
+  },[images, imageIndex, imagesCount])
+
+  const imageIndexReal = useMemo<string>(() => getImageIndex(),[images, imageIndex])
 
   const selectFileTitle = useMemo<string>(() => {
     if (!error && !imagesCountError && !info) return 'Select image'
@@ -38,6 +40,17 @@ const SelectFileListComponent: FC<IProps> = ({
     else if (imagesCountError) return imagesCountErrorString 
     else return info
   }, [error, imagesCountError, imagesCount, info])
+
+  function getImageIndex() {
+    if (imageIndex !== null && imageIndex !== undefined && images[imageIndex - Constant.startImageIndex]) {
+      var ix = images.find(it => {
+        return it.id === imageIndex
+      })
+      return ix.name
+    } else {
+      return "None"
+    }
+  }
 
   function onFileSelected(id: number) {
     onChange(id);
@@ -79,11 +92,7 @@ const SelectFileListComponent: FC<IProps> = ({
       <span className="input-group-text">{title.split('\n').map(str => <>{str}<br/></>)}</span>
       <div className={`input-group-text dropdown ${error || imagesCountError ? 'bg-danger' : info ? 'bg-info' : ''}`} title={selectFileTitle}>
         <div>
-          {value !== null &&
-          value !== undefined &&
-          images[value - Constant.startImageIndex]
-            ? images[value - Constant.startImageIndex].name
-            : "None"}
+          {imageIndexReal}
         </div>
         {collapsed ? (
           ""
@@ -105,7 +114,7 @@ const SelectFileListComponent: FC<IProps> = ({
         className="btn btn-outline-secondary"
         type="button"
         onClick={onRemove}
-        disabled={disabled || !(value >= 0)}
+        disabled={disabled || !(imageIndex >= 0)}
       >
         x
       </button>
