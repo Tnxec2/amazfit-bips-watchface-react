@@ -80,19 +80,20 @@ const PreviewComponent: FC<IProps> = ({ width, height }) => {
   function drawNormal(canvas, ctx: CanvasRenderingContext2D, images: IImage[]) {
     if (watchface.background)
       drawBackground(canvas, ctx, images, watchface.background);
-    if (watchface.date) {
+
+    if (watchface.date) 
       drawDate(ctx, images, watchface.date, watchState, digitBorder);
-    }
-    if (watchface.dateExtended) {
+    
+    if (watchface.dateExtended) 
       drawDateExt(ctx, images, watchface.dateExtended, watchState, digitBorder);
-    }
-    if (watchface.weekdayicon) {
+    
+    if (watchface.weekdayicon) 
       drawWeekdayIconProgress(ctx, images, watchface.weekdayicon, watchState);
-    }
-    if (watchface.status) {
+    
+    if (watchface.status) 
       drawStatus(ctx, images, watchface.status, watchState);
-    }
-    if (watchface.battery) {
+    
+    if (watchface.battery) 
       drawBattery(
         ctx,
         images,
@@ -100,8 +101,8 @@ const PreviewComponent: FC<IProps> = ({ width, height }) => {
         watchState,
         digitBorder,
       );
-    }
-    if (watchface.weather) {
+    
+    if (watchface.weather) 
       drawWeather(
         ctx,
         images,
@@ -109,8 +110,33 @@ const PreviewComponent: FC<IProps> = ({ width, height }) => {
         watchState,
         digitBorder
       );
-    }
-    if (watchface.activity) {
+    
+
+    if (watchface.stepsProgress) 
+      drawStepProgress(
+        ctx, 
+        images, 
+        watchface.stepsProgress,
+        watchState,
+        digitBorder,
+      )
+  
+    if (watchface.pulseProgress) 
+      drawPulseProgress(
+        ctx, 
+        images, 
+        watchface.pulseProgress,
+        watchState,
+      )
+    if (watchface.caloriesProgress) 
+      drawCalorieProgress(
+        ctx,
+        images,
+        watchface.caloriesProgress,
+        watchState.calories,
+        watchState.caloriesGoal
+      );
+    if (watchface.activity) 
       drawActivitys(
         ctx,
         images,
@@ -118,8 +144,8 @@ const PreviewComponent: FC<IProps> = ({ width, height }) => {
         watchState,
         digitBorder,
       );
-    }
-    if (watchface.pai) {
+    
+    if (watchface.pai) 
       drawPai(
         ctx,
         images,
@@ -128,39 +154,15 @@ const PreviewComponent: FC<IProps> = ({ width, height }) => {
         digitBorder,
         watchState.paiNoData
       );
-    }
-    if (watchface.caloriesProgress) {
-      drawCalorieProgress(
-        ctx,
-        images,
-        watchface.caloriesProgress,
-        watchState.calories,
-        watchState.caloriesGoal
-      );
-    }
+    
     if (watchface.activityAlt)
       drawActivitysAlt(ctx, images, watchface.activityAlt, watchState, digitBorder)
-    if (watchface.stepsProgress) {
-      drawStepProgress(
-        ctx, 
-        images, 
-        watchface.stepsProgress,
-        watchState,
-        digitBorder,
-      )
-    }
-    if (watchface.pulseProgress) {
-      drawPulseProgress(
-        ctx, 
-        images, 
-        watchface.pulseProgress,
-        watchState,
-      )
-    }
-    if (watchface.time) {
+    
+
+    if (watchface.time) 
       drawTimeDigital(ctx, images, watchface.time, watchState, digitBorder, watchState.sunsetNoData);
       drawTimeAnalog(ctx, images, watchface.analogTime, watchState);
-    }
+    
   }
 
   function getCursorPosition(event) {
