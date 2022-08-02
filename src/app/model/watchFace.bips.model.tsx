@@ -184,7 +184,7 @@ export class WatchNumber {
   height: number
   con: IDigitConstructor
 
-  constructor(j?: NumberJson, con?: IDigitConstructor) {
+  constructor(j: NumberJson, con: IDigitConstructor) {
     if (j) {
       this.json = j
       this.enabled = true
@@ -558,7 +558,7 @@ export class WatchAmPmIcon {
 export class WatchCaloriesFormatedNumber {
   enabled: boolean
 
-  number: WatchNumber = new WatchNumber()
+  number: WatchNumber = new WatchNumber(null, digitTypes.calories)
   prefix: number
 
   constructor(con?: IDigitConstructor, j?: CaloriesFormatedNumber) {
@@ -574,7 +574,7 @@ export class WatchCaloriesFormatedNumber {
 export class WatchStepPercentageFormatedNumber {
   enabled: boolean
 
-  number: WatchNumber = new WatchNumber()
+  number: WatchNumber = new WatchNumber(null, digitTypes.stepsPercentage)
   suffix: number
 
   constructor(con?: IDigitConstructor, j?: StepPercentageFormatedNumber) {
@@ -591,7 +591,7 @@ export class WatchStepPercentageFormatedNumber {
 export class WatchStepsFormatedNumber {
   enabled: boolean
 
-  number: WatchNumber = new WatchNumber()
+  number: WatchNumber = new WatchNumber(null, digitTypes.steps)
   prefix: number
   constructor(con?: IDigitConstructor, j?: StepsFormatedNumber) {
     if (j) {
@@ -607,7 +607,7 @@ export class WatchStepsFormatedNumber {
 export class WatchPulseFormatedNumber {
   enabled: boolean
 
-  number: WatchNumber = new WatchNumber()
+  number: WatchNumber = new WatchNumber(null, digitTypes.heartRate)
   noData: number
   suffix: number
 
@@ -627,7 +627,7 @@ export class WatchPulseFormatedNumber {
 export class WatchDistanceFormatedNumber {
   enabled: boolean
 
-  number: WatchNumber = new WatchNumber()
+  number: WatchNumber = new WatchNumber(null, digitTypes.distance)
   suffix: number
   decimalPointer: number
   suffixMiles: number
@@ -740,13 +740,13 @@ export class WatchPai {
   collapsed = true
 
   imageLow: WatchImage = new WatchImage()
-  numberLow: WatchNumber = new WatchNumber()
+  numberLow: WatchNumber = new WatchNumber(null, digitTypes.pai)
   imageNormal: WatchImage = new WatchImage()
-  numberNormal: WatchNumber = new WatchNumber()
+  numberNormal: WatchNumber = new WatchNumber(null, digitTypes.pai)
   imageHigh: WatchImage = new WatchImage()
-  numberHigh: WatchNumber = new WatchNumber()
+  numberHigh: WatchNumber = new WatchNumber(null, digitTypes.pai)
   imageNoData: WatchImage = new WatchImage()
-  numberGeneral: WatchNumber = new WatchNumber()
+  numberGeneral: WatchNumber = new WatchNumber(null, digitTypes.pai)
 
   
     constructor(j?: Pai) {
@@ -754,10 +754,10 @@ export class WatchPai {
       if (j.IconLow) this.imageLow = new WatchImage(j.IconLow)
       if (j.IconNormal) this.imageNormal = new WatchImage(j.IconNormal)
       if (j.IconHigh) this.imageHigh = new WatchImage(j.IconHigh)
-      if (j.NumberLow) this.numberLow = new WatchNumber(j.NumberLow)
-      if (j.NumberNormal) this.numberNormal = new WatchNumber(j.NumberNormal)
-      if (j.NumberHigh) this.numberHigh = new WatchNumber(j.NumberHigh)
-      if (j.NumberGeneral) this.numberGeneral = new WatchNumber(j.NumberGeneral)
+      if (j.NumberLow) this.numberLow = new WatchNumber(j.NumberLow, digitTypes.pai)
+      if (j.NumberNormal) this.numberNormal = new WatchNumber(j.NumberNormal, digitTypes.pai)
+      if (j.NumberHigh) this.numberHigh = new WatchNumber(j.NumberHigh, digitTypes.pai)
+      if (j.NumberGeneral) this.numberGeneral = new WatchNumber(j.NumberGeneral, digitTypes.pai)
 
       if (j.NoDataImage) this.imageNoData = new WatchImage(j.NoDataImage)
     }
