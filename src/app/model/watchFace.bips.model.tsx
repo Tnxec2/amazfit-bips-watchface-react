@@ -402,7 +402,7 @@ export class WatchOneLineTemperature {
   minus: number
   degrees: number
   delimiter: number
-  appendDegreesToBoth: boolean
+  appendDegreesToBoth: boolean = false
 
   con: IDigitConstructor
 

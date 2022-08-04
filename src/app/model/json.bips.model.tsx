@@ -348,7 +348,7 @@ export class Shortcuts{
  }
 
 export class ClockHand{
-  OnlyBorder: boolean
+  OnlyBorder: boolean = false
   Color: string
   Center: Coordinates = new Coordinates()
   Shape: Coordinates[] = []
