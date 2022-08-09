@@ -8,7 +8,7 @@ export default function draw(
     ctx: CanvasRenderingContext2D, 
     images: IImage[], 
     background: WatchBackground) {
-
+    if (!background) return
     if (background.color && Color.GFG_Fun(background.color)) {
         ctx.fillStyle = background.color
         ctx.fillRect(0, 0, canvas.width, canvas.height)

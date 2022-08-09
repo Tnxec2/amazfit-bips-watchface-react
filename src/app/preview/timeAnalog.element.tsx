@@ -8,6 +8,7 @@ import drawClockHand from "./clockHand.element";
         time: WatchTimeAnalog,
         watchState: WatchState
         ) {
+        if ( !time) return
         if ( time.hours?.enabled) {
             if ( watchState.hours < 12)
                 drawClockHand(ctx, images, time.hours, watchState.hours, 12 )

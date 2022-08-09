@@ -13,7 +13,7 @@ export default function drawDate(ctx: CanvasRenderingContext2D,
     watchState: WatchState,
     drawborder: boolean
     ) {
-        
+    if (!date) return
     if (date.oneLine) {
         if (date.month.enabled) {
             let ar = [
@@ -52,8 +52,7 @@ export function drawDateExt(ctx: CanvasRenderingContext2D,
     watchState: WatchState,
     drawborder: boolean
     ) {
-      
-    
+    if (!date) return    
     if (date.years.enabled) 
         drawFourDigits(ctx, images, date.years.json, watchState.year, true)
 

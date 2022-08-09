@@ -19,7 +19,7 @@ export function drawSteps(ctx: CanvasRenderingContext2D,
     value: number,
     drawBorder: boolean,
     ) {
-    if (activity.number.enabled) {
+    if (activity?.number?.enabled) {
         drawDigitImage(ctx, images, activity.number, value, drawBorder, 1, null, activity.prefix)
     }
 }
@@ -29,7 +29,7 @@ export function drawCalories(ctx: CanvasRenderingContext2D,
     value: number,
     drawBorder: boolean,
     ) {
-    if (activity.number.enabled) {
+    if (activity?.number?.enabled) {
         drawDigitImage(ctx, images, activity.number, value, drawBorder, 1, null, activity.prefix)
     }
 }
@@ -40,7 +40,7 @@ export function drawPulse(ctx: CanvasRenderingContext2D,
     drawBorder: boolean,
     noData: boolean,
     ) {
-    if (activity.number.enabled) {
+    if (activity?.number?.enabled) {
         drawDigitImage(ctx, images, activity.number, value, drawBorder, 1, null, null, null, activity.suffix, null, noData ? activity.noData : null)
     }
 }
@@ -50,7 +50,7 @@ export function drawDistance(ctx: CanvasRenderingContext2D,
     value: number,
     drawBorder: boolean,
     ) {
-    if (activity.number.enabled) {
+    if (activity?.number?.enabled) {
         drawDigitImage(ctx, images, activity.number, value, drawBorder, 1, null, null, activity.decimalPointer, null, activity.suffix)
     }
 }
@@ -60,7 +60,7 @@ export function drawStepPercentage(ctx: CanvasRenderingContext2D,
     value: number,
     drawBorder: boolean,
     ) {
-    if (activity.number.enabled) {
+    if (activity?.number?.enabled) {
         drawDigitImage(ctx, images, activity.number, value, drawBorder, 1, null, null, null, activity.suffix)
     }
 }

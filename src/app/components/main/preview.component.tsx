@@ -78,91 +78,26 @@ const PreviewComponent: FC<IProps> = ({ width, height }) => {
   }
 
   function drawNormal(canvas, ctx: CanvasRenderingContext2D, images: IImage[]) {
-    if (watchface.background)
-      drawBackground(canvas, ctx, images, watchface.background);
+    drawBackground(canvas, ctx, images, watchface.background);
 
-    if (watchface.date) 
-      drawDate(ctx, images, watchface.date, watchState, digitBorder);
-    
-    if (watchface.dateExtended) 
-      drawDateExt(ctx, images, watchface.dateExtended, watchState, digitBorder);
-    
-    if (watchface.weekdayicon) 
-      drawWeekdayIconProgress(ctx, images, watchface.weekdayicon, watchState);
-    
-    if (watchface.status) 
-      drawStatus(ctx, images, watchface.status, watchState);
-    
-    if (watchface.battery) 
-      drawBattery(
-        ctx,
-        images,
-        watchface.battery,
-        watchState,
-        digitBorder,
-      );
-    
-    if (watchface.weather) 
-      drawWeather(
-        ctx,
-        images,
-        watchface.weather,
-        watchState,
-        digitBorder
-      );
-    
+    drawTimeDigital(ctx, images, watchface.time, watchState, digitBorder, watchState.sunsetNoData);
 
-    if (watchface.stepsProgress) 
-      drawStepProgress(
-        ctx, 
-        images, 
-        watchface.stepsProgress,
-        watchState,
-        digitBorder,
-      )
-  
-    if (watchface.pulseProgress) 
-      drawPulseProgress(
-        ctx, 
-        images, 
-        watchface.pulseProgress,
-        watchState,
-      )
-    if (watchface.caloriesProgress) 
-      drawCalorieProgress(
-        ctx,
-        images,
-        watchface.caloriesProgress,
-        watchState.calories,
-        watchState.caloriesGoal
-      );
-    if (watchface.activity) 
-      drawActivitys(
-        ctx,
-        images,
-        watchface.activity,
-        watchState,
-        digitBorder,
-      );
+    drawDate(ctx, images, watchface.date, watchState, digitBorder);
+    drawDateExt(ctx, images, watchface.dateExtended, watchState, digitBorder);
+    drawWeekdayIconProgress(ctx, images, watchface.weekdayicon, watchState);
+        
+    drawStepProgress(ctx, images, watchface.stepsProgress, watchState, digitBorder);
+    drawPulseProgress(ctx, images, watchface.pulseProgress,watchState,);
+    drawCalorieProgress(ctx, images, watchface.caloriesProgress, watchState.calories, watchState.caloriesGoal);
+    drawActivitys(ctx, images, watchface.activity, watchState, digitBorder);
+    drawPai(ctx, images, watchface.pai, watchState.pai, digitBorder, watchState.paiNoData);
+    drawActivitysAlt(ctx, images, watchface.activityAlt, watchState, digitBorder);
     
-    if (watchface.pai) 
-      drawPai(
-        ctx,
-        images,
-        watchface.pai,
-        watchState.pai,
-        digitBorder,
-        watchState.paiNoData
-      );
-    
-    if (watchface.activityAlt)
-      drawActivitysAlt(ctx, images, watchface.activityAlt, watchState, digitBorder)
-    
+    drawStatus(ctx, images, watchface.status, watchState);
+    drawBattery(ctx, images, watchface.battery, watchState, digitBorder);
+    drawWeather(ctx, images, watchface.weather, watchState, digitBorder);
 
-    if (watchface.time) 
-      drawTimeDigital(ctx, images, watchface.time, watchState, digitBorder, watchState.sunsetNoData);
-      drawTimeAnalog(ctx, images, watchface.analogTime, watchState);
-    
+    drawTimeAnalog(ctx, images, watchface.analogTime, watchState);
   }
 
   function getCursorPosition(event) {
@@ -339,6 +274,7 @@ function drawActivitys(
   watchState: WatchState,
   digitBorder: boolean
 ) {
+  if (!activitylist) return
   drawSteps(
     ctx,
     images,

@@ -9,16 +9,16 @@ export default function draw(ctx: CanvasRenderingContext2D,
     status: WatchStatus,
     watchState: WatchState
     ) {
-        if (status.bluetooth.enabled) {
+        if (status?.bluetooth?.enabled) {
             drawSwitch(ctx, images, status.bluetooth.json, watchState.bluetooth)
         }
-        if (status.doNotDisturb.enabled) {
+        if (status?.doNotDisturb?.enabled) {
             drawSwitch(ctx, images, status.doNotDisturb.json, watchState.dnd)
         }
-        if (status.alarm.enabled) {
+        if (status?.alarm?.enabled) {
             drawSwitch(ctx, images, status.alarm.json, watchState.alarm)
         }
-        if (status.lock.enabled) {
+        if (status?.lock?.enabled) {
             drawSwitch(ctx, images, status.lock.json, watchState.lock)
         }
 }

@@ -14,7 +14,7 @@ export default function drawTimeDigital(
     digitBorder: boolean,
     sunsetNoData: boolean,
     ) {
-
+    if (!time) return
    
     if (time.hours.enabled) {
         console.log(watchState.hours)
