@@ -17,11 +17,11 @@ export function drawWeather(ctx: CanvasRenderingContext2D,
     if (weather.customIcon?.enabled) {
         drawImageSet(ctx, images, weather.customIcon.json, watchState.weatherIcon, 26);
     }
-    if (weather.current.enabled) {
+    if (weather.current.enabled && !watchState.temperatureAlt) {
         drawDigitImage(ctx, images, weather.current.number, watchState.temperature, drawBorder, 
             1, weather.current.minus, null, null, weather.current.degrees, null)
     }
-    if (weather.todayOneLine.enabled) {
+    if (weather.todayOneLine.enabled && !watchState.temperatureAlt) {
         let min = watchState.temperatureMin
         let max = watchState.temperatureMax
         let ar = [
@@ -33,11 +33,11 @@ export function drawWeather(ctx: CanvasRenderingContext2D,
     } else {
         if ( weather.day.enabled) {
             drawDigitImage(ctx, images, weather.day.number, watchState.temperatureMax, drawBorder, 
-                1, weather.day.minus, null, null, weather.day.degrees)
+                1, weather.day.minus, null, null, weather.day.degrees, null, null, watchState.temperatureAlt ? weather.dayAltCoords : null)
         }
         if ( weather.night.enabled) {
             drawDigitImage(ctx, images, weather.night.number, watchState.temperatureMin, drawBorder, 
-                1, weather.night.minus, null, null, weather.night.degrees)
+                1, weather.night.minus, null, null, weather.night.degrees, null, null, watchState.temperatureAlt ? weather.nightAltCoords : null)
         }
     }
     // 

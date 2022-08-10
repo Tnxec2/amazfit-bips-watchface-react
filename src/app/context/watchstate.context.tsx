@@ -32,6 +32,7 @@ export interface IWatchStateContext {
   toggleHeartrateNodata(): void,
   togglePaiNodata(): void,
   toggleSunsetNodata(): void,
+  toggleTemperatureAlt(): void,
 }
 
 export const WatchstateContextProvider = ({ children }) => {
@@ -116,6 +117,9 @@ export const WatchstateContextProvider = ({ children }) => {
     },
     toggleSunsetNodata: () => {
       dispatch({ type: watchstateActions.TOGGLE_SUNSET_NODATA});
+    },
+    toggleTemperatureAlt: () => {
+      dispatch({ type: watchstateActions.TOGGLE_TEMP_ALT});
     },
 
   };

@@ -30,6 +30,7 @@ export enum watchstateActions {
   CHANGE_TEMP,
   CHANGE_TEMP_MIN,
   CHANGE_TEMP_MAX,
+  TOGGLE_TEMP_ALT,
   CHANGE_AIR_QUALITY,
   CHANGE_HUMIDITY,
   TOGGLE_BLUETOOTH,
@@ -148,6 +149,10 @@ export const watchstateReducer = (state: IWatchStateState, action: IAction): IWa
       case watchstateActions.TOGGLE_SUNSET_NODATA:
         return {
           ...state, watchstate: {...state.watchstate, sunsetNoData: !state.watchstate.sunsetNoData}
+        };
+      case watchstateActions.TOGGLE_TEMP_ALT:
+        return {
+          ...state, watchstate: {...state.watchstate, temperatureAlt: !state.watchstate.temperatureAlt}
         };
       default:
         return state;

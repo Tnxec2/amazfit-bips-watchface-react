@@ -16,6 +16,7 @@ const PreviewStatesComponent: FC = () => {
     toggleHeartrateNodata,
     togglePaiNodata,
     toggleSunsetNodata,
+    toggleTemperatureAlt,
   } = useContext<IWatchStateContext>(WatchStateContext)
    
   const date = useMemo(
@@ -214,6 +215,17 @@ const PreviewStatesComponent: FC = () => {
             onChange={(e) => changeWeatherIcon(e.target.value)}
           />
           <span className="input-group-text">{WeatherStates.ar[watchState.weatherIcon]}</span>
+          <span className="input-group-text" id="addon-wrapping">
+            show alt temperature
+          </span>
+          <div className="input-group-text">
+            <input
+              className="form-check-input mt-0"
+              type="checkbox"
+              checked={watchState.temperatureAlt}
+              onChange={toggleTemperatureAlt}
+            />
+          </div>
         </div>
         <div className="input-group input-group-sm mb-1">
           <span className="input-group-text">Current</span>

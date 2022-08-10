@@ -1,7 +1,7 @@
 import { findImageById } from "../shared/helper"
 import { IImage } from "../model/image.model"
 
-import { WatchNumber, WatchNumberExt } from "../model/watchFace.bips.model"
+import { WatchCoordinates, WatchNumber, WatchNumberExt } from "../model/watchFace.bips.model"
 import { AlignmentType } from "../model/types.bips.model"
 
 export interface DigitValueItem {
@@ -71,13 +71,14 @@ export default function drawDigitImage(
     suffix?: number,
     suffixKM?: number,
     noDataImageIndex?: number,
+    altCoords?: WatchCoordinates
     )  {
 
-        
-    const x = digit.json?.TopLeftX ? digit.json?.TopLeftX : 0 
-    const y = digit.json?.TopLeftY ? digit.json?.TopLeftY : 0 
-    const bottomx = digit.json?.BottomRightX ? digit.json?.BottomRightX : 0 
-    const bottomy = digit.json?.BottomRightY ? digit.json?.BottomRightY : 0 
+    
+    const x = altCoords ? (altCoords.json?.X ? altCoords.json.X : 0) : (digit.json?.TopLeftX ? digit.json?.TopLeftX : 0)
+    const y = altCoords ? (altCoords.json?.Y ? altCoords.json.Y : 0) : (digit.json?.TopLeftY ? digit.json?.TopLeftY : 0)
+    const bottomx = altCoords ? (x+digit.width) : (digit.json?.BottomRightX ? digit.json?.BottomRightX : 0 )
+    const bottomy = altCoords ? (y+digit.height) : (digit.json?.BottomRightY ? digit.json?.BottomRightY : 0)
 
     if (digit.json.ImageIndex>= 0) {
 

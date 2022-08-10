@@ -44,7 +44,7 @@ export class WatchState {
   temperatureMin = this.temperature - Math.round(Math.random() * 10)
   temperatureMax = this.temperature + Math.round(Math.random() * 10)
   weatherIcon = Math.round(Math.random() * 29);
-  
+  temperatureAlt = false;
 
   airQualityGoal = 500
   airQuality = Math.round(Math.random() * this.airQualityGoal)
