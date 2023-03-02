@@ -121,6 +121,7 @@ function getActivity(a: WatchActivityList): Activity {
         Calories: a.calories.enabled  && a.calories.number.enabled? {
             Number: a.calories.number.json,
             PrefixImageIndex: a.calories.prefix,
+            SuffixImageIndex: a.calories.suffix,
         } : null,
         Pulse: a.pulse.enabled && a.pulse.number.enabled ? {
             Number: a.pulse.number.json,

@@ -30,7 +30,7 @@ export function drawCalories(ctx: CanvasRenderingContext2D,
     drawBorder: boolean,
     ) {
     if (activity?.number?.enabled) {
-        drawDigitImage(ctx, images, activity.number, value, drawBorder, 1, null, activity.prefix)
+        drawDigitImage(ctx, images, activity.number, value, drawBorder, 1, null, activity.prefix, null, activity.suffix)
     }
 }
 export function drawPulse(ctx: CanvasRenderingContext2D,

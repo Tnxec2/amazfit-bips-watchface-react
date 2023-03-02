@@ -560,12 +560,14 @@ export class WatchCaloriesFormatedNumber {
 
   number: WatchNumber = new WatchNumber(null, digitTypes.calories)
   prefix: number
+  suffix: number
 
   constructor(con?: IDigitConstructor, j?: CaloriesFormatedNumber) {
     if (j) {
       this.enabled = true
       this.number = new WatchNumber(j.Number, con)
       this.prefix = j.PrefixImageIndex
+      this.suffix = j.SuffixImageIndex
     } else if (con) {
       this.number = new WatchNumber(null, con)
     }

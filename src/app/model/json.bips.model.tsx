@@ -115,6 +115,7 @@ export class PulseFormatedNumber {
 export class CaloriesFormatedNumber {
   Number: NumberJson
   PrefixImageIndex: number
+  SuffixImageIndex: number
 }
 export class StepPercentageFormatedNumber {
   Number: NumberJson

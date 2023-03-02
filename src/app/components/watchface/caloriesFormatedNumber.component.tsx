@@ -20,7 +20,8 @@ const WatchCaloriesFormatedNumberComponent: FC<IProps> = ({
   const ar = useMemo<IRow[]>(() => [
     {
       blocks: [
-        { title: 'icon', type: BlockType.SelectFile, imageIndex: digit.prefix, onChange: onChangePrefix, imagesCount: 1  }
+        { title: 'icon', type: BlockType.SelectFile, imageIndex: digit.prefix, onChange: onChangePrefix, imagesCount: 1  },
+        { title: 'suffix', type: BlockType.SelectFile, imageIndex: digit.suffix, onChange: onChangeSuffix, imagesCount: 1  }
       ]
     },
   ], [digit]) // eslint-disable-line react-hooks/exhaustive-deps
@@ -28,6 +29,11 @@ const WatchCaloriesFormatedNumberComponent: FC<IProps> = ({
   function onChangePrefix(index: number) {
     const d = {...digit};
     d.prefix = index;
+    onUpdate(d);
+  }
+  function onChangeSuffix(index: number) {
+    const d = {...digit};
+    d.suffix = index;
     onUpdate(d);
   }
   function onUpdateNumber(number: WatchNumber) {
