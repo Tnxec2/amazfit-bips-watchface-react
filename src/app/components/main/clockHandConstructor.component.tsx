@@ -21,10 +21,14 @@ const ClockhandConstructorComponent: FC<IProps> = ({ width, height }) => {
 
   const [type, setType] = useState<number>(1);
 
+  const [whiteBackground, setWhiteBackground] = useState<boolean>(true);
+
   function draw(canvas, ctx: CanvasRenderingContext2D) {
     if (watchface) {
       if (canvas) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const color = whiteBackground ?  'white' : 'black';
+        ctx.fillStyle = color;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
         drawGrid(ctx)
         const clockhand = type === 3 ? watchface.analogTime.seconds.json : type === 2 ? watchface.analogTime.minutes.json : type === 1 ? watchface.analogTime.hours.json : null
         drawclockhand(clockhand, width, height, ctx)
@@ -135,6 +139,39 @@ const ClockhandConstructorComponent: FC<IProps> = ({ width, height }) => {
           onClick={getCursorPosition}
           scaleFactor={scaleFactor}
         />
+
+<div className="container d-flex justify-content-center">
+        <div>
+          <div
+            className="input-group input-group-sm"
+            style={{ width: "max-content" }}
+          >
+            <span className="input-group-text" id="addon-wrapping">
+              White background
+            </span>
+            <div className="input-group-text">
+              <input
+                className="form-check-input mt-0"
+                type="checkbox"
+                checked={whiteBackground}
+                onChange={() => setWhiteBackground(true)}
+              />
+            </div>
+            <span className="input-group-text" id="addon-wrapping">
+              Black background
+            </span>
+            <div className="input-group-text">
+              <input
+                className="form-check-input mt-0"
+                type="checkbox"
+                checked={!whiteBackground}
+                onChange={() => setWhiteBackground(false)}
+              />
+            </div>
+            
+          </div>
+        </div>
+      </div>
       </div>
 
     </>
@@ -178,10 +215,14 @@ function drawclockhand(clockHand: ClockHand, width: number, height: number, ctx:
         ctx.lineTo(points[i].x, points[i].y);
     }
 
-    ctx.lineTo(points[0].x, points[0].y);
+    //ctx.lineTo(points[0].x, points[0].y);
+    ctx.closePath();
 
     ctx.stroke();
-    //if ( !clockHand.OnlyBorder ) ctx.fill();
+    if ( !clockHand.OnlyBorder ) {
+      ctx.fillStyle = color;
+      ctx.fill();
+    }
     ctx.restore()
   }
 }

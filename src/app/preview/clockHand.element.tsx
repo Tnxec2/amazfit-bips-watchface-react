@@ -44,8 +44,8 @@ export default function drawclockhand(
             ctx.lineTo(points[i].x, points[i].y);
         }
 
-        ctx.lineTo(points[0].x, points[0].y);
-
+        //ctx.lineTo(points[0].x, points[0].y);
+        ctx.closePath();
         ctx.stroke();
         if ( !clockHand.json.OnlyBorder ) ctx.fill();
         ctx.restore()
