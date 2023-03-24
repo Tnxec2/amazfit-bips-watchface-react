@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, Fragment } from 'react';
 
 interface IProps {
     title: string,
@@ -15,15 +15,16 @@ const ColorBlockComponent: FC<IProps> = ({ title, value, onChange, error, info }
 
     return (
         <>
-            <span className="input-group-text">{title.split('\n').map(str => <>{str}<br/></>)}</span>
+            <span className="input-group-text">{title.split('\n').map((str, index) => <Fragment key={index}>{str}<br/></Fragment>)}</span>
             <input
               type="color"
-              className={`form-control form-control-sm ${error ? 'bg-danger' : info ? 'bg-info': ''}`} title={error ? error: info ? info : 'Choose color'} 
+              className={`form-control form-control-sm ${error ? 'bg-danger' : info ? 'bg-info': ''}`} 
+              title={error ? error: info ? info : 'Choose color'} 
               onChange={(e) => {
                 onChange(e.target.value)
               }}
               id="colorBackground"
-              value={value}
+              value={value || undefined}
               />
             <button
                 className="btn btn-outline-secondary"

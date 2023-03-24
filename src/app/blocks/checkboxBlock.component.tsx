@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, Fragment } from 'react';
 
 interface IProps {
     title: string,
@@ -13,7 +13,7 @@ const CheckBoxBlockComponent: FC<IProps> = ({ title, checked, onChange, disabled
     return (
         <>
             <span className="input-group-text" id="addon-wrapping">
-                {title.split('\n').map(str => <>{str}<br/></>)}
+                {title.split('\n').map((str, index) => <Fragment key={index}>{str}<br/></Fragment>)}
             </span>
             <div className="input-group-text">
                 <input

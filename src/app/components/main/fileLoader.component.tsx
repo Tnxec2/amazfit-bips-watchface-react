@@ -1,5 +1,5 @@
-import { FC, useContext } from "react";
-import { Button } from "react-bootstrap";
+import { FC, useContext, useState } from "react";
+import { Alert, Button } from "react-bootstrap";
 import { AppContext, IAppContext } from "../../context/app.context";
 import { IImagesContext, ImagesContext } from "../../context/images.context";
 import { IWatchContext, WatchfaceContext } from "../../context/watchface.context";
@@ -12,6 +12,7 @@ const FileLoaderComponent: FC = () => {
   const { changeJsonName, clearJsonName } = useContext<IAppContext>(AppContext);
   const { setWatchfaceFromJson, clearWatchface } = useContext<IWatchContext>(WatchfaceContext);
   const { images, addImage, clear } = useContext<IImagesContext>(ImagesContext);
+  const [ error, setError] = useState<string[]>([])
 
   function onLoadJson(e: ProgressEvent<FileReader>) {
     let json = e.target.result;
@@ -73,14 +74,15 @@ const FileLoaderComponent: FC = () => {
     
     let sortedAr = ar.sort((a, b) => a.id - b.id)
 
-    if ( sortedAr[sortedAr.length-1].id !== sortedAr.length - 1 + Constant.startImageIndex) {
+    let errors = [];
 
-      window.alert('Images files go out of order or some of the files are missing. Name the PNG files in ascending order.')
+    if ( sortedAr[sortedAr.length-1].id !== sortedAr.length - 1 + Constant.startImageIndex) {
+      errors.push('Images files go out of order or some of the files are missing. Name the PNG files in ascending order.')
     }
     if ( sortedAr[0].id !== Constant.startImageIndex) {
-      window.alert(`Images file numbering must start at ${Constant.startImageIndex}.`)
+      errors.push(`Images file numbering must start at ${Constant.startImageIndex}.`)
     }
-
+    if (errors.length > 0) setError(errors)
     clear()
     sortedAr.forEach((image) => {addImage(image)})
   }
@@ -92,6 +94,7 @@ const FileLoaderComponent: FC = () => {
   }
 
   return (
+    <>
     <div>
       <span className="input-group input-group-sm mb-3">
         <span className="input-group-text">Load images</span>
@@ -119,6 +122,11 @@ const FileLoaderComponent: FC = () => {
         <Button onClick={clearInput}>clear</Button>
       </span>
     </div>
+    { error.length > 0 && 
+    <Alert variant="warning" dismissible  style={{zIndex: 9999}} onClose={() => setError([])}>
+      <strong>Error</strong> { error.map((item, index) => <p key={index}>{item}</p>) }
+    </Alert> }
+  </>
   );
 };
 

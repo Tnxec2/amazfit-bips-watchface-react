@@ -7,7 +7,7 @@ export function findImageById(id: number, images: IImage[]): HTMLImageElement | 
     if (i) {
         return i.image
     } else {
-        console.error('Image with Index  ' + id + ' not found')
+        console.log('Image with Index  ' + id + ' not found')
         return null
     }
 }

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, Fragment } from 'react';
 
 interface IProps {
     title: string,
@@ -14,7 +14,7 @@ const NumberBlockComponent: FC<IProps> = ({ title, value, onChange, disabled, mi
     return (
         <>
             <span className="input-group-text" id="addon-wrapping">
-                {title.split('\n').map(str => <>{str}<br/></>)}
+                {title.split('\n').map((str, index) => <Fragment key={index}>{str}<br/></Fragment>)}
             </span>
             <input
                 type="number"

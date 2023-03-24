@@ -1,7 +1,7 @@
-import React, { FC, ReactElement, useContext, useMemo, useState } from "react";
-import { Constant } from "./constant";
+import React, { FC, Fragment, ReactElement, useContext, useMemo, useState } from "react";
 import "./selectFileList.css";
 import { IImagesContext, ImagesContext } from "../context/images.context";
+import { findImageById } from "./helper";
 
 interface IProps {
   title: string,
@@ -27,11 +27,27 @@ const SelectFileListComponent: FC<IProps> = ({
   const [collapsed, setCollapsed] = useState<boolean>(true);
 
   const imagesCountError = useMemo<boolean>(() => {
-    if (imageIndex-Constant.startImageIndex+imagesCount > images.length) return true
-    else return false
+    if (!imageIndex) return false
+    if (!imagesCount) return true
+    for(let mIndex = 0; mIndex < imagesCount; mIndex++) {
+      let img = findImageById(imageIndex+mIndex, images);
+      if ( img === null) return true
+    }
+    return false
   },[images, imageIndex, imagesCount])
 
-  const imageIndexReal = useMemo<string>(() => getImageIndex(),[images, imageIndex])
+  const imageIndexReal = useMemo<string>(() => {
+
+      if (imageIndex !== null && imageIndex !== undefined) {
+        var ix = images.find(it => {
+          return it.id === imageIndex
+        })
+        return ix ? ix.name : "None"
+      } else {
+        return "None"
+      }
+    
+  },[images, imageIndex])
 
   const selectFileTitle = useMemo<string>(() => {
     if (!error && !imagesCountError && !info) return 'Select image'
@@ -41,16 +57,7 @@ const SelectFileListComponent: FC<IProps> = ({
     else return info
   }, [error, imagesCountError, imagesCount, info])
 
-  function getImageIndex() {
-    if (imageIndex !== null && imageIndex !== undefined && images[imageIndex - Constant.startImageIndex]) {
-      var ix = images.find(it => {
-        return it.id === imageIndex
-      })
-      return ix ? ix.name : "None"
-    } else {
-      return "None"
-    }
-  }
+
 
   function onFileSelected(id: number) {
     onChange(id);
@@ -89,7 +96,7 @@ const SelectFileListComponent: FC<IProps> = ({
   
   return (
     <>
-      <span className="input-group-text">{title.split('\n').map(str => <>{str}<br/></>)}</span>
+      <span className="input-group-text">{title.split('\n').map((str, index) => <Fragment key={index}>{str}<br/></Fragment>)}</span>
       <div className={`input-group-text dropdown ${error || imagesCountError ? 'bg-danger' : info ? 'bg-info' : ''}`} title={selectFileTitle}>
         <div>
           {imageIndexReal}

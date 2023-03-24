@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, Fragment } from 'react';
 
 interface IProps {
     title: string,
@@ -15,7 +15,7 @@ const ButtonBlockComponent: FC<IProps> = ({ title, onClick, disabled, className,
             type="button" 
             onClick={onClick} 
             disabled={disabled}>
-                {title.split('\n').map(str => <>{str}<br/></>)}
+             {title.split('\n').map((str, index) => <Fragment key={index}>{str}<br/></Fragment>)}
             </button> 
         </>
     );

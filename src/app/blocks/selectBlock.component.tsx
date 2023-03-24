@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, Fragment } from 'react';
 import { IOption } from '../model/blocks.model';
 
 interface IProps {
@@ -15,7 +15,7 @@ const SelectBlockComponent: FC<IProps> = ({ title, value, onChange, disabled, op
     return (
         <>
             <span className="input-group-text" >
-                {title.split('\n').map(str => <>{str}<br/></>)}
+                {title.split('\n').map((str, index) => <Fragment key={index}>{str}<br/></Fragment>)}
             </span>
             <select
                 disabled={disabled}

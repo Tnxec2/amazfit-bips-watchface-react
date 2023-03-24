@@ -17,7 +17,6 @@ export default function drawTimeDigital(
     if (!time) return
    
     if (time.hours.enabled) {
-        console.log(watchState.hours)
         drawTwoDigits(ctx, images, time.hours.json, watchState.hours, true)
     }
     if (time.minutes.enabled) {
