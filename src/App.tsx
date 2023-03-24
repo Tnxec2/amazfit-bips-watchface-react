@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FC } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import "./App.css";
 import FileLoaderComponent from "./app/components/main/fileLoader.component";
 import LeftSideComponent from "./app/components/main/leftside.component";
@@ -18,7 +18,7 @@ const App: FC = () => {
     <WatchfaceProvider>
     <ImagesProvider>
     <WatchstateContextProvider>
-      <Container className="App d-flex flex-column min-vh-100 vh-100">
+      <div className="App d-flex flex-column min-vh-100 vh-100">
         <Row className="header">
             <FileLoaderComponent />
         </Row>
@@ -30,7 +30,7 @@ const App: FC = () => {
             <RightSideComponent />
           </Col>
         </Row>
-      </Container>
+      </div>
     </WatchstateContextProvider>
     </ImagesProvider>
     </WatchfaceProvider>
