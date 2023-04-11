@@ -5,12 +5,13 @@ export enum BlockType {
     Date,
     Empty,
     Number,
+    String,
     Select,
     SelectFile,
     Time,
   }
 
-export type IBlock = IBlockEmpty | IBlockCheckbox | IBlockSelect | IBlockColor | IBlockNumber | IBlockSelectFile | IBlockButton
+export type IBlock = IBlockEmpty | IBlockCheckbox | IBlockSelect | IBlockColor | IBlockNumber | IBlockSelectFile | IBlockButton | IBlockString
   
 export  interface IRow {
     blocks: IBlock[],
@@ -87,10 +88,21 @@ export interface IBlockNumber {
     title: string;
     type: BlockType.Number;
     numberValue?: number;
+    stringValue?: number;
     onChange(numberValue: number): any;
     disabled?: boolean;
     min?: number
     max?: number
+    error?: string
+    info?: string
+}
+
+export interface IBlockString {
+    title: string;
+    type: BlockType.String;
+    stringValue?: string;
+    onChange(stringValue: string): any;
+    disabled?: boolean;
     error?: string
     info?: string
 }

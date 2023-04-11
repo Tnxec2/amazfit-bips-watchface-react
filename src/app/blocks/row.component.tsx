@@ -7,6 +7,7 @@ import ColorBlockComponent from './colorBlock.component';
 import EmptyBlockComponent from './emptyBlock.component';
 import NumberBlockComponent from './numberBlock.component';
 import SelectBlockComponent from './selectBlock.component';
+import StringBlockComponent from './stringBlock.component';
 
 interface IProps {
     row: IRow
@@ -37,6 +38,18 @@ const RowComponent: FC<IProps> = ({ row }) => {
                         imagesCount={block.imagesCount}
                     />
                 break;
+            case BlockType.String:
+                result =
+                    <StringBlockComponent
+                        key={index} 
+                        title={block.title}
+                        onChange={block.onChange}
+                        value={block.stringValue}
+                        disabled={block.disabled}
+                        error={block.error}
+                        info={block.info}
+                    />
+                break;
             case BlockType.Number:
                 result =
                     <NumberBlockComponent
@@ -45,6 +58,8 @@ const RowComponent: FC<IProps> = ({ row }) => {
                         onChange={block.onChange}
                         value={block.numberValue}
                         disabled={block.disabled}
+                        min={block.min}
+                        max={block.max}
                         error={block.error}
                         info={block.info}
                     />

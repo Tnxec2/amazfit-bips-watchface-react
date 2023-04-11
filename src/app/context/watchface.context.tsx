@@ -12,6 +12,7 @@ export interface IWatchContext {
     updateBackground(background: WatchBackground): void,
     toggleBackground(): void
     toggleTimeDigital(): void
+    updateDrawingOrder(drawingOrder: string): void,
     updateHoursDigital(hours: WatchTwoDigitsSeparated): void,
     updateMinutesDigital(minutes: WatchTwoDigitsSeparated): void,
     updateSecondsDigital(seconds: WatchTwoDigitsSeparated): void,
@@ -122,6 +123,9 @@ export const WatchfaceProvider = ({ children }) => {
     },
     toggleTimeDigital: () => {
       dispatch({ type: watchfaceActionsEnum.TOGGLE_TIME_DIGITAL });
+    },
+    updateDrawingOrder: (drawingOrder: string) => {
+      dispatch({ type: watchfaceActionsEnum.UPDATE_DRAWING_ORDER_TIME, value: drawingOrder });
     },
     updateHoursDigital: (hours: WatchTwoDigitsSeparated) => {
       dispatch({ type: watchfaceActionsEnum.UPDATE_HOURS_DIGITAL, value: hours });

@@ -15,6 +15,7 @@ export enum watchfaceActionsEnum {
   TOGGLE_BACKGROUND,
   TOGGLE_TIME_DIGITAL,
   UPDATE_AMPM,
+  UPDATE_DRAWING_ORDER_TIME,
   UPDATE_HOURS_DIGITAL,
   UPDATE_MINUTES_DIGITAL,
   UPDATE_SECONDS_DIGITAL,
@@ -132,6 +133,10 @@ export const watchfaceReducer = (state: IWatchfaceState, action: IAction): IWatc
       case watchfaceActionsEnum.TOGGLE_TIME_DIGITAL:
         return {
           ...state, watchface: {...state.watchface, time: {...state.watchface.time, collapsed: !state.watchface.time.collapsed}}
+        };
+      case watchfaceActionsEnum.UPDATE_DRAWING_ORDER_TIME:
+        return {
+          ...state, watchface: {...state.watchface, time: {...state.watchface.time, drawingOrder: action.value}}
         };
       case watchfaceActionsEnum.UPDATE_HOURS_DIGITAL:
         return {

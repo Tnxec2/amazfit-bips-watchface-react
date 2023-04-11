@@ -1,17 +1,29 @@
-import { FC, useContext } from "react";
+import { FC, useContext, useMemo } from "react";
 import { Card } from "react-bootstrap";
 import { IWatchContext, WatchfaceContext } from "../../context/watchface.context";
 import AmPmComponent from "./ampm.component";
 import ImageComponent from "./image.component";
 import WatchNumberComponent from "./number.component";
 import SeparatedDigitsComponent from "./separatedDigits.component";
+import { BlockType, IRow } from "../../model/blocks.model";
+import BlocksArrayComponent from "../../blocks/blocksArray.component";
 
 const TimeDigitalComponent: FC = () => {
-  const { watchface, toggleTimeDigital, updateHoursDigital, updateMinutesDigital, updateSecondsDigital,
+  const { watchface, toggleTimeDigital, updateDrawingOrder, updateHoursDigital, updateMinutesDigital, updateSecondsDigital,
     updateAmPm, updateSunriseHours, updateSunriseHoursNoData, updateSunriseMinutes, updateSunriseMinutesNoData,
     updateSunsetHours, updateSunsetHoursNoData, updateSunsetMinutes, updateSunsetMinutesNoData, toggleSunrise
    } =
     useContext<IWatchContext>(WatchfaceContext);
+
+
+    const ar = useMemo<IRow[]>(() => [
+      {
+        blocks: [
+          { title: 'Drawing Order', type: BlockType.String, stringValue: watchface.time.drawingOrder ? watchface.time.drawingOrder : '1234', onChange: updateDrawingOrder, 
+          error: watchface.time.drawingOrder && !watchface.time.drawingOrder.match(/^([^1234]*[1234]){4}[\s\S]*/) ? 'bad drawing order' : null},
+        ]
+      },
+    ], [watchface.time]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Card>
@@ -21,6 +33,9 @@ const TimeDigitalComponent: FC = () => {
         Time Digital
       </Card.Header>
       <Card.Body className={`${watchface.time.collapsed ? "collapse" : ""}`}>
+
+        <BlocksArrayComponent ar={ar} />
+
         <SeparatedDigitsComponent
           title="Hours"
           digit={{...watchface.time.hours}}

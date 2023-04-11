@@ -4,6 +4,7 @@ import { WatchState } from "../model/watchState";
 import { findImageById } from "../shared/helper";
 import drawDigitImage from "./digitImage.element";
 import drawImage from "./image.element";
+import drawImageSet from "./imageSet.element";
 import { drawTwoDigits } from "./separateDigits.element";
 
 export default function drawTimeDigital(
@@ -16,15 +17,42 @@ export default function drawTimeDigital(
     ) {
     if (!time) return
    
-    if (time.hours.enabled) {
-        drawTwoDigits(ctx, images, time.hours.json, watchState.hours, true)
-    }
-    if (time.minutes.enabled) {
-        drawTwoDigits(ctx, images, time.minutes.json, watchState.minutes, true)
+    if (time.drawingOrder && time.drawingOrder.length === 4) {
+        for (const s of time.drawingOrder) {
+            switch (s) {
+                case '1':
+                    let tens = Math.floor(watchState.hours / 10)
+                    drawImageSet(ctx, images, time.hours.json.Tens, tens, 10)
+                    break;
+                case '2':
+                    let ones = watchState.hours % 10
+                    drawImageSet(ctx, images, time.hours.json.Ones, ones, 10)
+                    break;
+                case '3':
+                    let mtens = Math.floor(watchState.minutes / 10)
+                    drawImageSet(ctx, images, time.minutes.json.Tens, mtens, 10)
+                    break;
+                case '4':
+                    let mones = watchState.minutes % 10
+                    drawImageSet(ctx, images, time.minutes.json.Ones, mones, 10)
+                    break;
+            
+                default:
+                    break;
+            }
+        }
+    } else {
+        if (time.hours.enabled) {
+            drawTwoDigits(ctx, images, time.hours.json, watchState.hours, true)
+        }
+        if (time.minutes.enabled) {
+            drawTwoDigits(ctx, images, time.minutes.json, watchState.minutes, true)
+        }
     }
     if (time.seconds.enabled) {
         drawTwoDigits(ctx, images, time.seconds.json, watchState.seconds, true)
     }
+
 
     if (time.ampm.enabled) {
         if (watchState.hours < 12) {

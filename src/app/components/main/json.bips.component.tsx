@@ -90,7 +90,7 @@ function getTimeDigital(time: WatchTime): Time {
         Minutes: time.minutes.enabled ? time.minutes.json : null,
         Seconds: time.seconds.enabled ? time.seconds.json : null,
         AmPm: time.ampm.enabled ? time.ampm.json : null,
-        DrawingOrder: enabledTime ? time.drawingOrder : null,
+        DrawingOrder: enabledTime && time.drawingOrder !== '1234' ? time.drawingOrder : null,
         SunriseHours: time.sunriseHours.enabled ? time.sunriseHours.json: null,
         SunriseMinutes: time.sunriseMinutes.enabled ? time.sunriseMinutes.json: null,
         SunsetHours: time.sunsetHours.enabled ? time.sunsetHours.json: null,
