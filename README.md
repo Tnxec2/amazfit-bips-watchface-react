@@ -4,6 +4,10 @@ this is my just for fun project.
 
 this is a Web-Based watchfaces json crate tool for Amazfit BipS watch.
 
+Open from github pages:
+
+[https://tnxec2.github.io/amazfit-bips-watchface-react/](https://tnxec2.github.io/amazfit-bips-watchface-react/)
+
 ## Available Scripts
 
 In the project directory, you can run:
