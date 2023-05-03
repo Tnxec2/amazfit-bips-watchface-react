@@ -862,9 +862,11 @@ export class WatchTimeAnalog {
   hours: WatchClockHand = new WatchClockHand()
   minutes: WatchClockHand = new WatchClockHand()
   seconds: WatchClockHand = new WatchClockHand()
+  ampm: WatchAmPmIcon = new WatchAmPmIcon()
 
   constructor(j?: AnalogDialFace) {
     if (j) {
+      this.ampm = new WatchAmPmIcon(j.AmPm)
       this.hours = new WatchClockHand(j.Hours)
       this.minutes = new WatchClockHand(j.Minutes)
       this.seconds = new WatchClockHand(j.Seconds)

@@ -360,6 +360,7 @@ export class AnalogDialFace{
   Hours: ClockHand
   Minutes: ClockHand
   Seconds: ClockHand
+  AmPm: AmPmIcon
 }
 
 export class DateExtended{

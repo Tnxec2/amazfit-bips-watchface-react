@@ -2,9 +2,10 @@ import { FC, useContext } from "react";
 import { Card } from "react-bootstrap";
 import { IWatchContext, WatchfaceContext } from "../../context/watchface.context";
 import ClockHandComponent from "./clockHand.component";
+import AmPmComponent from "./ampm.component";
 
 const TimeAnalogComponent: FC = () => {
-  const { watchface, toggleAnalog, updateAnalogHours, updateAnalogMinutes, updateAnalogSeconds } =
+  const { watchface, toggleAnalog, updateAnalogHours, updateAnalogMinutes, updateAnalogSeconds, updateAnalogAmPm } =
     useContext<IWatchContext>(WatchfaceContext);
 
   return (
@@ -35,6 +36,12 @@ const TimeAnalogComponent: FC = () => {
           onUpdate={updateAnalogSeconds}
           showAngle={false}
         />
+
+        <AmPmComponent
+            title='AmPm' 
+            ampm={{...watchface.analogTime.ampm}}
+            onUpdate={updateAnalogAmPm}
+            />
       </Card.Body>
     </Card>
   );

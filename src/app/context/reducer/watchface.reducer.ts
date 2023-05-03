@@ -31,6 +31,7 @@ export enum watchfaceActionsEnum {
   UPDATE_ANALOG_HOURS,
   UPDATE_ANALOG_MINUTES,
   UPDATE_ANALOG_SECONGS,
+  UPDATE_ANALOG_AMPM,
   TOGGLE_ANALOG,
   TOGGLE_DATE,
   TOGGLE_DATEEXT,
@@ -205,6 +206,10 @@ export const watchfaceReducer = (state: IWatchfaceState, action: IAction): IWatc
       case watchfaceActionsEnum.UPDATE_ANALOG_SECONGS:
         return {
           ...state, watchface: {...state.watchface, analogTime: {...state.watchface.analogTime, seconds: action.value}}
+        };
+      case watchfaceActionsEnum.UPDATE_ANALOG_AMPM:
+        return {
+          ...state, watchface: {...state.watchface, analogTime: {...state.watchface.analogTime, ampm: action.value}}
         };
 
       // Date

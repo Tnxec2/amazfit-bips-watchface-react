@@ -286,6 +286,7 @@ function getAnalogTime(t: WatchTimeAnalog): AnalogDialFace {
         Hours: t.hours.enabled ? t.hours.json : null,
         Minutes: t.minutes.enabled ? t.minutes.json : null,
         Seconds: t.seconds.enabled ? t.seconds.json : null,
+        AmPm: t.ampm ? t.ampm.json : null
     }
 }
 

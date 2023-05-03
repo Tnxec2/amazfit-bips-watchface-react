@@ -30,6 +30,7 @@ export interface IWatchContext {
     updateAnalogHours(n: WatchClockHand): void,
     updateAnalogMinutes(n: WatchClockHand): void,
     updateAnalogSeconds(n: WatchClockHand): void,
+    updateAnalogAmPm(ampm: WatchAmPmIcon): void,
     toggleDate(): void,
     toggleDateAlt(): void,
     toggleDateExt(): void,
@@ -177,6 +178,9 @@ export const WatchfaceProvider = ({ children }) => {
     },
     updateAnalogSeconds: (n: WatchClockHand) => {
       dispatch({ type: watchfaceActionsEnum.UPDATE_ANALOG_SECONGS, value: n });
+    },
+    updateAnalogAmPm: (n: WatchAmPmIcon) => {
+      dispatch({ type: watchfaceActionsEnum.UPDATE_ANALOG_AMPM, value: n });
     },
     toggleDate: () => {
       dispatch( {type: watchfaceActionsEnum.TOGGLE_DATE})
